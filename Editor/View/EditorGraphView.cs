@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
+using UnityEditor;
 
 public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
 {
@@ -57,6 +58,7 @@ public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
         return node;
     }
 
+    // THIS IS THE IMPORTANT ONE
     public void ShowGraph(Graph graph)
     {
         ClearGraph();
@@ -83,6 +85,7 @@ public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
 
     Object obj;
 
+    // INSANE, should not be here!
     private ObjectField BehaviourObjectField()
     {
         ObjectField objectField = new ObjectField(label: "Behaviour")
