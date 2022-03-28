@@ -1,0 +1,18 @@
+{
+  "name": "com.skybirdgames.eazygraph",
+  "version": "0.0.1",
+  "displayName": "Eazy Graph",
+  "description": "An extendable graph node editor that simplifies the Unity preview package: GraphView",
+  "unity": "2020.1",
+  "keywords": [
+    "tool",
+    "graph",
+    "extension"
+  ],
+  "author": {
+    "name": "Skybird Games",
+    "email": "claypetersonart@gmail.com",
+    "url": "https://www.claypeterson.co"
+  },
+  "type": "tool"
+}

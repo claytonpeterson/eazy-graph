@@ -1,0 +1,126 @@
+<root>
+  <nodes>
+    <node>
+      <name>Action Node</name>
+      <guid>5a510bf8-d796-4431-9a58-527093932633</guid>
+      <position>
+        <x>349</x>
+        <y>148</y>
+      </position>
+    </node>
+    <node>
+      <name>Action Node</name>
+      <guid>8c5a5a74-ea1b-4787-8766-eaadc89dcb70</guid>
+      <position>
+        <x>350</x>
+        <y>259</y>
+      </position>
+    </node>
+    <node>
+      <name>Action Node</name>
+      <guid>bfaf336b-8f4c-4b71-b7e1-8d65ff0be7a6</guid>
+      <position>
+        <x>351</x>
+        <y>36</y>
+      </position>
+    </node>
+    <node>
+      <name>Composite Node</name>
+      <guid>73e7bc8c-c30c-4cd7-80f4-2b8674c0530e</guid>
+      <position>
+        <x>143</x>
+        <y>149</y>
+      </position>
+    </node>
+    <node>
+      <name>Action Node</name>
+      <guid>f7fb2707-b4e0-4b3e-a022-966706676ec1</guid>
+      <position>
+        <x>353</x>
+        <y>-73</y>
+      </position>
+    </node>
+    <node>
+      <name>Composite Node</name>
+      <guid>abb8c19b-6c0d-49a1-9507-e06d81448122</guid>
+      <position>
+        <x>660</x>
+        <y>36</y>
+      </position>
+    </node>
+    <node>
+      <name>Composite Node</name>
+      <guid>2f54b774-3312-4b60-9aab-8c46d829b400</guid>
+      <position>
+        <x>663</x>
+        <y>259</y>
+      </position>
+    </node>
+    <node>
+      <name>Action Node</name>
+      <guid>ce80154b-451c-4495-854d-870cac52a440</guid>
+      <position>
+        <x>826</x>
+        <y>93</y>
+      </position>
+    </node>
+    <node>
+      <name>Action Node</name>
+      <guid>a5b75fcd-78d2-41c7-af88-1351bb8ec9d6</guid>
+      <position>
+        <x>828</x>
+        <y>-10</y>
+      </position>
+    </node>
+    <node>
+      <name>Action Node</name>
+      <guid>9cfac70d-523f-4ec8-a21b-7c346312dee3</guid>
+      <position>
+        <x>831</x>
+        <y>236</y>
+      </position>
+    </node>
+  </nodes>
+  <edges>
+    <edge>
+      <end>2f54b774-3312-4b60-9aab-8c46d829b400</end>
+      <start>8c5a5a74-ea1b-4787-8766-eaadc89dcb70</start>
+    </edge>
+    <edge>
+      <end>abb8c19b-6c0d-49a1-9507-e06d81448122</end>
+      <start>bfaf336b-8f4c-4b71-b7e1-8d65ff0be7a6</start>
+    </edge>
+    <edge>
+      <end>8c5a5a74-ea1b-4787-8766-eaadc89dcb70</end>
+      <start>73e7bc8c-c30c-4cd7-80f4-2b8674c0530e</start>
+    </edge>
+    <edge>
+      <end>5a510bf8-d796-4431-9a58-527093932633</end>
+      <start>73e7bc8c-c30c-4cd7-80f4-2b8674c0530e</start>
+    </edge>
+    <edge>
+      <end>bfaf336b-8f4c-4b71-b7e1-8d65ff0be7a6</end>
+      <start>73e7bc8c-c30c-4cd7-80f4-2b8674c0530e</start>
+    </edge>
+    <edge>
+      <end>f7fb2707-b4e0-4b3e-a022-966706676ec1</end>
+      <start>73e7bc8c-c30c-4cd7-80f4-2b8674c0530e</start>
+    </edge>
+    <edge>
+      <end>a5b75fcd-78d2-41c7-af88-1351bb8ec9d6</end>
+      <start>abb8c19b-6c0d-49a1-9507-e06d81448122</start>
+    </edge>
+    <edge>
+      <end>ce80154b-451c-4495-854d-870cac52a440</end>
+      <start>abb8c19b-6c0d-49a1-9507-e06d81448122</start>
+    </edge>
+    <edge>
+      <end>ce80154b-451c-4495-854d-870cac52a440</end>
+      <start>2f54b774-3312-4b60-9aab-8c46d829b400</start>
+    </edge>
+    <edge>
+      <end>9cfac70d-523f-4ec8-a21b-7c346312dee3</end>
+      <start>2f54b774-3312-4b60-9aab-8c46d829b400</start>
+    </edge>
+  </edges>
+</root>
