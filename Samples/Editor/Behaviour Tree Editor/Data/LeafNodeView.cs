@@ -4,9 +4,9 @@ using UnityEngine.UIElements;
 
 public class LeafNodeView
 {
-    public GraphNode LeafNode()
+    public NodeView LeafNode()
     {
-        return new GraphNode(
+        return new NodeView(
             title: "Composite Node",
             position: new Vector2(0, 0),
             visualElements: new VisualElement[] { new Button(), new Button() },

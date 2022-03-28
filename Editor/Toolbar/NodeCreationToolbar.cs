@@ -33,7 +33,7 @@ public class NodeCreationToolbar : Toolbar
     {
         return new Button(clickEvent: () =>
         {
-            var node = new GraphNode("Transition Node", new Vector2(0, 0), null);
+            var node = new NodeView("Transition Node", new Vector2(0, 0), null);
             view.CreateNode(node);
         })
         { text = "Add Transition Node" };

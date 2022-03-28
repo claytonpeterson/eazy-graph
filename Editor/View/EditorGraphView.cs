@@ -34,26 +34,26 @@ public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
                         DropdownMenuAction.AlwaysEnabled));
     }
 
-    private List<GraphNode> Nodes => nodes.ToList().Cast<GraphNode>().ToList();
+    private List<NodeView> Nodes => nodes.ToList().Cast<NodeView>().ToList();
 
     private List<Edge> Edges => edges.ToList();
 
-    public GraphNode CreateNode(string data, Vector2 position)
+    public NodeView CreateNode(string data, Vector2 position)
     {
-        var node = new GraphNode(data, position, null); // nodeBuilder.CreateNode(data, position);
+        var node = new NodeView(data, position, null); // nodeBuilder.CreateNode(data, position);
         AddElement(node);
         return node;
     }
 
-    public GraphNode CreateNode(GraphNode node)
+    public NodeView CreateNode(NodeView node)
     {
         AddElement(node);
         return node;
     }
 
-    public GraphNode CreateRootNode()
+    public NodeView CreateRootNode()
     {
-        var node = new GraphNode("root", Vector2.zero, null);
+        var node = new NodeView("root", Vector2.zero, null);
         AddElement(node);
         return node;
     }
@@ -130,7 +130,7 @@ public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
         }
     }
 
-    private GraphNode GetGraphNodeByGUID(string guid)
+    private NodeView GetGraphNodeByGUID(string guid)
     {
         for(int i = 0; i < Nodes.Count; i++)
         {

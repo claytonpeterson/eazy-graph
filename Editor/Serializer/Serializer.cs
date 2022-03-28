@@ -15,7 +15,7 @@ public class Serializer
     {
         save.Save(
             path: GetFilePath(FixEmptyName(fileName)), 
-            nodes: graphView.nodes.ToList().Cast<GraphNode>().ToList(), 
+            nodes: graphView.nodes.ToList().Cast<NodeView>().ToList(), 
             edges: graphView.edges.ToList());
     }
 

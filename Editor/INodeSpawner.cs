@@ -2,5 +2,5 @@
 
 public interface INodeSpawner
 {
-    GraphNode CreateNode(string name, Vector2 position);
+    NodeView CreateNode(string name, Vector2 position);
 }

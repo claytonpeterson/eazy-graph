@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class XMLGraphSaving : ISaveGraph
 {
-    public void Save(string path, List<GraphNode> graphNodes, List<Edge> graphEdges)
+    public void Save(string path, List<NodeView> graphNodes, List<Edge> graphEdges)
     {
         Debug.Log(path);
 
@@ -30,7 +30,7 @@ public class XMLGraphSaving : ISaveGraph
         AssetDatabase.Refresh();
     }
 
-    private XmlNode SaveNodes(XmlDocument document, List<GraphNode> nodes)
+    private XmlNode SaveNodes(XmlDocument document, List<NodeView> nodes)
     {
         var nodeParent = document.CreateElement("nodes");
 
@@ -81,13 +81,13 @@ public class XMLGraphSaving : ISaveGraph
             edges.AppendChild(edge);
 
             // Create the input node
-            var inputNode = graphEdges[i].input.node as GraphNode;
+            var inputNode = graphEdges[i].input.node as NodeView;
             XmlNode nodeAGUID = document.CreateElement("end");
             nodeAGUID.InnerText = inputNode.guid;
             edge.AppendChild(nodeAGUID);
 
             // Create the output node
-            var outputNode = graphEdges[i].output.node as GraphNode;
+            var outputNode = graphEdges[i].output.node as NodeView;
             XmlNode nodeBGUID = document.CreateElement("start");
             nodeBGUID.InnerText = outputNode.guid;
             edge.AppendChild(nodeBGUID);

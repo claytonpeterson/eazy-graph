@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [System.Serializable]
-public class GraphNode : Node
+public class NodeView : Node
 {
     public string guid;
     
@@ -17,7 +17,8 @@ public class GraphNode : Node
     public Type type;
 
     // TODO break this constructor into 2 objects! one of those objects should be port information
-    public GraphNode(string title, Vector2 position, VisualElement[] visualElements, Port.Capacity inputPortCapacity = Port.Capacity.Single, Port.Capacity outputPortCapacity = Port.Capacity.Multi, Type type = null)
+    public NodeView
+        (string title, Vector2 position, VisualElement[] visualElements, Port.Capacity inputPortCapacity = Port.Capacity.Single, Port.Capacity outputPortCapacity = Port.Capacity.Multi, Type type = null)
     {
         text = title;
 

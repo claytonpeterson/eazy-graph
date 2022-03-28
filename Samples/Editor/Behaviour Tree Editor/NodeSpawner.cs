@@ -19,9 +19,9 @@ public class NodeSpawner : INodeSpawner
         return objectField;
     }
     
-    public GraphNode CreateNode(string name, Vector2 position)
+    public NodeView CreateNode(string name, Vector2 position)
     {
-        GraphNode node;
+        NodeView node;
         if (name == "Composite Node")
         {
             node = CompositeNode(position);
@@ -37,9 +37,9 @@ public class NodeSpawner : INodeSpawner
         return node;
     }
 
-    public GraphNode CompositeNode(Vector2 position)
+    public NodeView CompositeNode(Vector2 position)
     {
-        return new GraphNode(
+        return new NodeView(
             title: "Composite Node",
             position: position,
             visualElements: new VisualElement[] { },
@@ -48,14 +48,14 @@ public class NodeSpawner : INodeSpawner
             typeof(CompositeNode));
     }
 
-    public GraphNode ActionNode(Vector2 position)
+    public NodeView ActionNode(Vector2 position)
     {
         ObjectField objectField = new ObjectField(label: "Behaviour")
         {
             objectType = typeof(IBehaviour)
         };
 
-        return new GraphNode(
+        return new NodeView(
             title: "Action Node",
             position: position,
             visualElements: new VisualElement[] { ObjectFieldContainer(objectField) },
@@ -64,14 +64,14 @@ public class NodeSpawner : INodeSpawner
             typeof(LeafNodeView));
     }
 
-    public GraphNode DecoratorNode(Vector2 position)
+    public NodeView DecoratorNode(Vector2 position)
     {
         ObjectField objectField = new ObjectField(label: "Go to graph: ")
         {
             objectType = typeof(TextAsset)
         };
 
-        return new GraphNode(
+        return new NodeView(
             title: "Decorator Node",
             position: position,
             visualElements: new VisualElement[] { ObjectFieldContainer(objectField), new Button() },

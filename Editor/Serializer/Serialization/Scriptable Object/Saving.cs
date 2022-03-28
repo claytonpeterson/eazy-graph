@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Saving
 {
-    public void Save(string fileName, List<GraphNode> nodes, List<Edge> edges)
+    public void Save(string fileName, List<NodeView> nodes, List<Edge> edges)
     {
         // the path should be passed, not just the file name!
         if (fileName == null)
@@ -57,7 +57,7 @@ public class Saving
         return testContainer;
     }
 
-    private void SaveNodes(GraphData graph, List<GraphNode> nodes)
+    private void SaveNodes(GraphData graph, List<NodeView> nodes)
     {
         graph.Clear();
 
@@ -116,8 +116,8 @@ public class Saving
     {
         for (int i = 0; i < connectedPorts.Length; i++)
         {
-            var outputNode = connectedPorts[i].output.node as GraphNode;
-            var inputNode = connectedPorts[i].input.node as GraphNode;
+            var outputNode = connectedPorts[i].output.node as NodeView;
+            var inputNode = connectedPorts[i].input.node as NodeView;
             var connection = ScriptableObject.CreateInstance<ConnectionData>();
 
             /*var connection = new NodeConnection(
