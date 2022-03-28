@@ -35,4 +35,9 @@ public class BehaviourTreeEditorWindow : GraphWindow
         rootVisualElement.Add(new XMLSerializationToolbar(view));
         rootVisualElement.Add(new BehaviourTreeToolbar(view));
     }
+
+    protected override INodeSpawner GetNodeSpawner()
+    {
+        return new NodeSpawner();
+    }
 }

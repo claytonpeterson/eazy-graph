@@ -7,10 +7,12 @@ using UnityEditor.UIElements;
 
 public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
 {
-    private NodeSpawner nodeSpawner = new NodeSpawner();
+    private readonly INodeSpawner nodeSpawner;
 
-    public EditorGraphView()
+    public EditorGraphView(INodeSpawner nodeSpawner)
     {
+        this.nodeSpawner = nodeSpawner;
+
         SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
 
         this.AddManipulator(new ContentDragger());
@@ -85,7 +87,7 @@ public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
     {
         ObjectField objectField = new ObjectField(label: "Behaviour")
         {
-            objectType = typeof(IBehaviour)
+            //objectType = typeof(IBehaviour)
         };
 
         objectField.SetValueWithoutNotify(obj);
@@ -106,7 +108,7 @@ public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
 
         foreach (var nodeData in graph.Nodes)
         {
-            GraphNode node;
+            /*GraphNode node;
             if(nodeData.Name == "Composite Node")
             {
                 node = nodeSpawner.CompositeNode(nodeData.Position);
@@ -118,10 +120,9 @@ public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
             else
             {
                 node = nodeSpawner.DecoratorNode(nodeData.Position);
-            }
-
+            }*/
+            var node = nodeSpawner.CreateNode(nodeData.Name, nodeData.Position);
             node.guid = nodeData.Guid;
-
             AddElement(node);
         }
     }

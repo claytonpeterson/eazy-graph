@@ -4,7 +4,7 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class NodeSpawner
+public class NodeSpawner : INodeSpawner
 {
     Object obj;
 
@@ -17,6 +17,24 @@ public class NodeSpawner
         });
 
         return objectField;
+    }
+    
+    public GraphNode CreateNode(string name, Vector2 position)
+    {
+        GraphNode node;
+        if (name == "Composite Node")
+        {
+            node = CompositeNode(position);
+        }
+        else if (name == "Action Node")
+        {
+            node = ActionNode(position);
+        }
+        else
+        {
+            node = DecoratorNode(position);
+        }
+        return node;
     }
 
     public GraphNode CompositeNode(Vector2 position)
