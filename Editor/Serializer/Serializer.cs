@@ -2,20 +2,16 @@
 
 public class Serializer
 {
-    private readonly EditorGraphView graphView;
-
     private readonly ISaveGraph save;
     private readonly ILoadGraph load;
 
-    public Serializer(EditorGraphView graphView, ISaveGraph saving, ILoadGraph loading)
+    public Serializer(ISaveGraph saving, ILoadGraph loading)
     {
-        this.graphView = graphView;
-
         save = saving;
         load = loading;
     }
 
-    public void Save(string fileName)
+    public void Save(string fileName, EditorGraphView graphView)
     {
         save.Save(
             path: GetFilePath(FixEmptyName(fileName)), 

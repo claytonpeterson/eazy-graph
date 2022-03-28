@@ -15,7 +15,6 @@ public class XMLSerializationToolbar : Toolbar
 
         // TODO, pass the serializer in! this way we only need 1 serialization toolbar class!
         serializer = new Serializer(
-            graphView: view, 
             saving: new XMLGraphSaving(), 
             loading: new XMLGraphLoading());
 
@@ -56,7 +55,7 @@ public class XMLSerializationToolbar : Toolbar
         return new Button(clickEvent: () =>
         {
             var fileName = (obj == null) ? null : obj.name;
-            serializer.Save(fileName);
+            serializer.Save(fileName, view);
         })
         { text = "Save Graph" };
     }
