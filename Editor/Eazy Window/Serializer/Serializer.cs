@@ -22,7 +22,6 @@ public class Serializer
     public Graph Load(string fileName)
     {
         string path = (fileName == null) ? null : GetFilePath(fileName);
-
         return load.Load(path);
     }
 
