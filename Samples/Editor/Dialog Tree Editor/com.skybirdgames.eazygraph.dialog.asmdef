@@ -1,5 +1,5 @@
 {
-    "name": "com.skybirdgames.behavior",
+    "name": "com.skybirdgames.eazygraph.dialog",
     "references": [
         "GUID:e02d55cfd0a97cd419c0a720a621d742"
     ],

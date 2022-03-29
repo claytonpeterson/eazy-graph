@@ -14,11 +14,10 @@ public class NodeView : Node
 
     public VisualElement[] visualElements;
 
-    public Type type;
+    public string data;
 
     // TODO break this constructor into 2 objects! one of those objects should be port information
-    public NodeView
-        (string title, Vector2 position, VisualElement[] visualElements, Port.Capacity inputPortCapacity = Port.Capacity.Single, Port.Capacity outputPortCapacity = Port.Capacity.Multi, Type type = null)
+    public NodeView(string title, Vector2 position, VisualElement[] visualElements, Port.Capacity inputPortCapacity = Port.Capacity.Single, Port.Capacity outputPortCapacity = Port.Capacity.Multi, string data = "")
     {
         text = title;
 
@@ -26,7 +25,7 @@ public class NodeView : Node
 
         base.title = title;
 
-        this.type = type;
+        this.data = data;
 
         guid = Guid.NewGuid().ToString();
 

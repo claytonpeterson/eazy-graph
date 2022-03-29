@@ -81,8 +81,8 @@ public class Saving
             }*/
 
             var nodeData = Create<NodeData>("node");
-            nodeData.name = graphNode.type.ToString();
-            nodeData.Type = graphNode.type;
+           /* nodeData.name = graphNode.type.ToString();
+            nodeData.Type = graphNode.type;*/
             nodeData.Position = new Vector2(pos.x, pos.y);
 
             graph.AddNode(nodeData);

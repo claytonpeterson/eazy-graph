@@ -65,6 +65,11 @@ public class XMLGraphSaving : ISaveGraph
             XmlNode yPosition = document.CreateElement("y");
             yPosition.InnerText = pos.y.ToString();
             position.AppendChild(yPosition);
+
+            // Save data
+            XmlNode dataNode = document.CreateElement("data");
+            dataNode.InnerText = nodes[i].text;
+            node.AppendChild(dataNode);
         }
 
         return nodeParent;
