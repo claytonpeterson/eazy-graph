@@ -15,7 +15,6 @@ public abstract class SerializationToolbar : Toolbar
         this.serializer = serializer;
 
         Add(InputField());
-        Add(NewGraphButton());
         Add(SaveButton());
         Add(LoadButton());
         Add(ClearButton());
@@ -23,16 +22,7 @@ public abstract class SerializationToolbar : Toolbar
 
     protected abstract ObjectField InputField();
 
-    protected Button NewGraphButton()
-    {
-        return new Button(clickEvent: () =>
-        {
-
-        })
-        { text = "New Graph" };
-    }
-
-    protected Button SaveButton()
+    private Button SaveButton()
     {
         return new Button(clickEvent: () =>
         {
@@ -42,7 +32,7 @@ public abstract class SerializationToolbar : Toolbar
         { text = "Save Graph" };
     }
 
-    protected Button LoadButton()
+    private Button LoadButton()
     {
         return new Button(clickEvent: () =>
         {
@@ -53,7 +43,7 @@ public abstract class SerializationToolbar : Toolbar
         { text = "Load Graph" };
     }
 
-    protected Button ClearButton()
+    private Button ClearButton()
     {
         return new Button(clickEvent: () =>
         {
