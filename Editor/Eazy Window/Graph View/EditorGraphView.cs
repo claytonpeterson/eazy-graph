@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
-using UnityEditor;
 
-public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
+public class EditorGraphView : GraphView
 {
     private readonly INodeSpawner nodeSpawner;
 
@@ -78,59 +77,27 @@ public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
         ConnectNodes(graph);
     }
 
-    private Button NewNodeButton()
-    {
-        return new Button(clickEvent: () =>
-        {
-            Debug.Log("hi");
-        })
-        { text = "Add Node" };
-    }
-
-    Object obj;
-
-    // INSANE, should not be here!
-    private ObjectField BehaviourObjectField()
-    {
-        ObjectField objectField = new ObjectField(label: "Behaviour")
-        {
-            //objectType = typeof(IBehaviour)
-        };
-
-        objectField.SetValueWithoutNotify(obj);
-        objectField.MarkDirtyRepaint();
-        objectField.RegisterValueChangedCallback(evt => {
-            obj = evt.newValue;
-        });
-
-        return objectField;
-    }
-
     public void AddNodes(Graph graph)
     {
         if (graph == null)
             return;
 
-        Debug.Log("graph to load: " + graph);
-
         foreach (var nodeData in graph.Nodes)
         {
-            /*GraphNode node;
-            if(nodeData.Name == "Composite Node")
+            var portInformation = new PortInformation
             {
-                node = nodeSpawner.CompositeNode(nodeData.Position);
-            }
-            else if (nodeData.Name == "Action Node")
-            {
-                node = nodeSpawner.ActionNode(nodeData.Position);
-            }
-            else
-            {
-                node = nodeSpawner.DecoratorNode(nodeData.Position);
-            }*/
-            var node = nodeSpawner.CreateNode(nodeData.Name, nodeData.Position);
-            node.guid = nodeData.Guid;
-            AddElement(node);
+                InputPortCapacity = Port.Capacity.Single,
+                OutputPortCapacity = Port.Capacity.Multi
+            };
+
+            var nodeView = nodeSpawner.CreateNodeView(
+                nodeData.Data,
+                nodeData.Position,
+                portInformation);
+
+            nodeView.guid = nodeData.Guid;
+
+            AddElement(nodeView);
         }
     }
 
@@ -157,9 +124,9 @@ public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
                 if (graph.Nodes[i].Guid == connection.GuidA)
                 {
                     var endNode = GetGraphNodeByGUID(connections[y].GuidB);
-                    Debug.Log(endNode);
-
-                    LinkNodes(Nodes[i].outputContainer[0].Q<Port>(), (Port)endNode.inputContainer[0]);
+                    LinkNodes(
+                        Nodes[i].outputContainer[0].Q<Port>(), 
+                        (Port)endNode.inputContainer[0]);
                 }
             }
         }

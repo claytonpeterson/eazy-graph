@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 using UnityEngine;
 
 public class XMLGraphLoading : ILoadGraph
@@ -26,7 +27,8 @@ public class XMLGraphLoading : ILoadGraph
             {
                 Name = GetName(node),
                 Guid = GetGUID(node),
-                Position = GetPosition(node)
+                Position = GetPosition(node),
+                Data = GetData(node)
             };
 
             graph.Nodes.Add(n);
@@ -47,15 +49,18 @@ public class XMLGraphLoading : ILoadGraph
     {
         var x = node.SelectSingleNode("position/x").InnerText;
         var y = node.SelectSingleNode("position/y").InnerText;
-
         return new Vector2(float.Parse(x), float.Parse(y));
+    }
+
+    private Type GetData(XmlNode node)
+    {
+        var text = node.SelectSingleNode("data").InnerText;
+        return Type.GetType(text);
     }
 
     private void LoadEdges(XmlDocument document, Graph graph)
     {
         XmlNodeList edges = document.SelectNodes("/root/edges/edge");
-
-        Debug.Log("edge count: " + edges.Count);
 
         foreach (XmlNode edge in edges)
         {

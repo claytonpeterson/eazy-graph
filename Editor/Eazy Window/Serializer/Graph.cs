@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -13,11 +14,13 @@ public class SaveNode
     [SerializeField]
     private string guid;
 
-    public string Name { get => name; set => name = value; }
-    
-    public Vector2 Position { get => position; set => position = value; }
+    [SerializeField]
+    private Type data;
 
+    public string Name { get => name; set => name = value; }
+    public Vector2 Position { get => position; set => position = value; }
     public string Guid { get => guid; set => guid = value; }
+    public Type Data { get => data; set => data = value; }
 }
 
 public class SaveConnection
@@ -29,7 +32,6 @@ public class SaveConnection
     private string guidB;
 
     public string GuidA { get => guidA; set => guidA = value; }
-
     public string GuidB { get => guidB; set => guidB = value; }
 }
 

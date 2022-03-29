@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public interface INodeSpawner
 {
-    NodeView CreateNode(string name, Vector2 position);
+    NodeView CreateNodeView(Type type, Vector2 position, PortInformation portInfo);
 }
