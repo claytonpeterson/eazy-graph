@@ -2,6 +2,7 @@
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 using UnityEditor;
+using System;
 
 public class NodeCreationToolbar : Toolbar
 {
@@ -27,19 +28,26 @@ public class NodeCreationToolbar : Toolbar
     private Button[] CreateButtonsForTypes(TypeCache.TypeCollection types)
     {
         Button[] buttons = new Button[types.Count];
+        foreach(var type in types)
+        {
+            CreateButton(type);
+        }
+
         for (int i = 0; i < types.Count; i++)
         {
-            buttons[i] = CreateButton(types[i].Name);
+            buttons[i] = CreateButton(types[i]);
         }
         return buttons;
     }
 
-    private Button CreateButton(string text)
+    private Button CreateButton(Type nodeType)
     {
+        var testNode = Activator.CreateInstance(nodeType) as TestNode;
+
         return new Button(clickEvent: () =>
         {
-            view.CreateNode("Test Node", new Vector2(0, 0));
+            view.CreateNode(testNode, new Vector2(0, 0));
         })
-        { text = "Add " + text };
+        { text = "Add " + testNode };
     }
 }

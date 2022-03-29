@@ -20,10 +20,10 @@ public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
         this.AddManipulator(new SelectionDragger());
         this.AddManipulator(new RectangleSelector());
 
-        this.AddManipulator(CreateContextualMenu("Create Node"));
+        //this.AddManipulator(CreateContextualMenu("Create Node"));
     }
 
-    private ContextualMenuManipulator CreateContextualMenu(string contextualMenuText)
+    /*private ContextualMenuManipulator CreateContextualMenu(string contextualMenuText)
     {
         return new ContextualMenuManipulator(menuEvent =>
             menuEvent.menu.AppendAction(contextualMenuText, actionEvent =>
@@ -33,29 +33,33 @@ public class EditorGraphView : UnityEditor.Experimental.GraphView.GraphView
                         actionEvent.eventInfo.mousePosition)), 
                         DropdownMenuAction.AlwaysEnabled));
     }
-
+*/
     private List<NodeView> Nodes => nodes.ToList().Cast<NodeView>().ToList();
 
     private List<Edge> Edges => edges.ToList();
 
-    public NodeView CreateNode(string data, Vector2 position)
+   /* public NodeView CreateNode(Vector2 position)
     {
         var node = new NodeView(data, position, null); // nodeBuilder.CreateNode(data, position);
         AddElement(node);
         return node;
-    }
+    }*/
 
-    public NodeView CreateNode(NodeView node)
+    public NodeView CreateNode(TestNode test, Vector2 position)
     {
-        AddElement(node);
-        return node;
-    }
+        var portInformation = new PortInformation
+        {
+            InputPortCapacity = Port.Capacity.Single,
+            OutputPortCapacity = Port.Capacity.Multi
+        };
 
-    public NodeView CreateRootNode()
-    {
-        var node = new NodeView("root", Vector2.zero, null);
-        AddElement(node);
-        return node;
+        var nodeView = new NodeView(
+            test, 
+            position, 
+            portInformation);
+
+        AddElement(nodeView);
+        return nodeView;
     }
 
     // THIS IS THE IMPORTANT ONE
