@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class LittleTestNode : TestNode
 {
-    
+    public float number;
 }

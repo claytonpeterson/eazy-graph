@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class Saving
+public class Saving : ISaveGraph
 {
     public void Save(string fileName, List<NodeView> nodes, List<Edge> edges)
     {
