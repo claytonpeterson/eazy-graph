@@ -68,7 +68,7 @@ public class XMLGraphSaving : ISaveGraph
 
             // Save data
             XmlNode dataNode = document.CreateElement("data");
-            dataNode.InnerText = nodes[i].text;
+            dataNode.InnerText = nodes[i].testNode.ToString();
             node.AppendChild(dataNode);
         }
 

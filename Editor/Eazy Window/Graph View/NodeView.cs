@@ -16,9 +16,13 @@ public class NodeView : Node
 
     public string data;
 
+    public TestNode testNode;
+
     public NodeView(TestNode node, Vector2 position, PortInformation portInfo)
     {
-        Debug.Log(node);
+        this.testNode = node;
+
+        title = node.ToString();
 
         guid = Guid.NewGuid().ToString();
 
