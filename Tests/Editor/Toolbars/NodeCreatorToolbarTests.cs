@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEngine;
+﻿using NUnit.Framework;
 using UnityEngine.TestTools;
 
 namespace Tests
@@ -11,7 +8,7 @@ namespace Tests
         [Test]
         public void CreateNodeToolbarTest()
         {
-            var toolbar = new NodeCreatorToolbar();
+            var toolbar = new NodeCreatorToolbar(null);
         }
     }
 }

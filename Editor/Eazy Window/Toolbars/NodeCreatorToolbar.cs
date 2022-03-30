@@ -13,12 +13,14 @@ public class NodeCreatorToolbar : Toolbar
         this.view = view;
 
         Add(new TextElement { text = "Node Creation: " });
+
         AddButtons();
     }
 
     private void AddButtons()
     {
         var types = TypeCache.GetTypesDerivedFrom<TestNode>();
+
         foreach (var button in CreateButtonsForTypes(types))
         {
             Add(button);
