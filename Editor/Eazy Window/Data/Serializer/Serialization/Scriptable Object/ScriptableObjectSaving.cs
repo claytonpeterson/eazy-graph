@@ -7,6 +7,7 @@ public class ScriptableObjectGraphSaving : ISaveGraph
 {
     public void Save(string path, List<NodeView> nodes, List<Edge> edges)
     {
+        Debug.Log(path);
         var graphData = GetGraphData(path);
         //var connectedPorts = edges.Where(x => x.input.node != null).ToArray();
 
@@ -44,12 +45,14 @@ public class ScriptableObjectGraphSaving : ISaveGraph
 
         for(int i = 0; i < nodes.Count; i++)
         {
-            var nodeView = nodes[i];
             var pos = nodes[i].GetPosition();
 
             var nodeData = Create<NodeData>("node");
+            nodeData.Type = nodes[i].testNode.GetType();
+
            /* nodeData.name = graphNode.type.ToString();
             nodeData.Type = graphNode.type;*/
+
             nodeData.Position = new Vector2(pos.x, pos.y);
 
             graph.AddNode(nodeData);

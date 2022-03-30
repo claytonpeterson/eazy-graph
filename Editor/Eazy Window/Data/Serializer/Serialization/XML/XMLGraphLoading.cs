@@ -9,6 +9,7 @@ public class XMLGraphLoading : ILoadGraph
         var graph = new Graph();
 
         XmlDocument document = new XmlDocument();
+
         document.Load(path);
 
         LoadNodes(document, graph);

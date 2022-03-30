@@ -1,22 +1,46 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
 
-public class ScriptableObjectLoading
+
+public class ScriptableObjectLoading : ILoadGraph
 {
-    public GraphData Load(string fileName)
+    public Graph Load(string path)
     {
-        if (IsValidFileName(fileName) == false)
-        {
-            return null;
-        }
-        return Resources.Load<GraphData>(fileName);
+        var graphData = AssetDatabase.LoadAssetAtPath<GraphData>(path);
+        var graph = new Graph();
+
+        LoadNodes(graphData.Nodes, graph);
+        LoadEdges(graph);
+
+        return graph;
     }
 
-    private bool IsValidFileName(string fileName)
+    private void LoadNodes(List<NodeData> nodes, Graph graph)
     {
-        if (string.IsNullOrEmpty(fileName))
+        foreach (var node in nodes)
         {
-            return false;
+            var saveNode = new SaveNode
+            {
+                Name = node.name,
+                Guid = null,
+                Position = node.Position,
+                Data = node.Type
+            };
+
+            Debug.Log(string.Format(
+                "{0}{1}{2}{3}", 
+                saveNode.Name, 
+                saveNode.Guid, 
+                saveNode.Position, 
+                saveNode.Data));
+
+            graph.Nodes.Add(saveNode);
         }
-        return true;
+    }
+
+    private void LoadEdges(Graph graph)
+    {
+
     }
 }

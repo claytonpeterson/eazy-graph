@@ -8,8 +8,6 @@ public class XMLGraphSaving : ISaveGraph
 {
     public void Save(string path, List<NodeView> graphNodes, List<Edge> graphEdges)
     {
-        Debug.Log(path);
-
         // Create document
         var document = new XmlDocument();
 
