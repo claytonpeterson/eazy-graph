@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 public abstract class EazyWindow : EditorWindow
 {
-    private EditorGraphView view;
+    protected EditorGraphView view;
 
     private void OnEnable()
     {
@@ -19,7 +19,7 @@ public abstract class EazyWindow : EditorWindow
     private void SetupWindow()
     {
         AddView();
-        AddToolbars(CreateToolbars(view));
+        AddToolbars(CreateToolbars());
     }
 
     private void TeardownWindow()
@@ -44,5 +44,5 @@ public abstract class EazyWindow : EditorWindow
 
     protected abstract INodeSpawner GetNodeSpawner();
 
-    protected abstract Toolbar[] CreateToolbars(EditorGraphView view);
+    protected abstract Toolbar[] CreateToolbars();
 }
