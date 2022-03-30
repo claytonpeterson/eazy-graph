@@ -5,7 +5,7 @@ public class Serializer
     private readonly ISaveGraph save;
     private readonly ILoadGraph load;
 
-    public Serializer(ISaveGraph saving, ILoadGraph loading)
+    public Serializer(ISaveGraph saving, ILoadGraph loading, string fileExtension)
     {
         save = saving;
         load = loading;
@@ -14,25 +14,24 @@ public class Serializer
     public void Save(string fileName, EditorGraphView graphView)
     {
         save.Save(
-            path: GetFilePath(FixEmptyName(fileName)), 
+            path: FilePath(FixEmptyName(fileName)), 
             nodes: graphView.nodes.ToList().Cast<NodeView>().ToList(), 
             edges: graphView.edges.ToList());
     }
 
     public Graph Load(string fileName)
     {
-        string path = (fileName == null) ? null : GetFilePath(fileName);
+        string path = (fileName == null) ? null : FilePath(fileName);
         return load.Load(path);
     }
 
-    // TODO, it's safe to say we could move this up a level
-    private string FixEmptyName(string fileName)
+    private string FilePath(string fileName)
     {
-        return (fileName == null) ? "New" : fileName;
+        return string.Format("Assets/Resources/{0}", fileName);
     }
 
-    private string GetFilePath(string fileName)
+    private string FixEmptyName(string fileName)
     {
-        return string.Format("Assets/Resources/{0}.xml", fileName);
+        return fileName == null ? "New" : fileName;
     }
 }

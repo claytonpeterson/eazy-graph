@@ -1,52 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class Saving : ISaveGraph
+public class ScriptableObjectGraphSaving : ISaveGraph
 {
-    public void Save(string fileName, List<NodeView> nodes, List<Edge> edges)
+    public void Save(string path, List<NodeView> nodes, List<Edge> edges)
     {
-        // the path should be passed, not just the file name!
-        if (fileName == null)
-            fileName = "New";
-        var path = string.Format("Assets/Resources/{0}.asset", fileName);
-
-        var container = GetContainer(path);
+        var graphData = GetGraphData(path);
 
         //var connectedPorts = edges.Where(x => x.input.node != null).ToArray();
 
-        SaveNodes(container, nodes);
+        SaveNodes(graphData, nodes);
         //SaveConnections(container, connectedPorts);
 
-        if(!AssetDatabase.Contains(container))
+        if(!AssetDatabase.Contains(graphData))
         {
-            AssetDatabase.CreateAsset(container, path: path);
+            AssetDatabase.CreateAsset(graphData, path: path);
         }
 
         AssetDatabase.SaveAssets();
     }
 
-    private GraphData GetContainer(string path)
+    private GraphData GetGraphData(string path)
     {
-        var container = Resources.Load<GraphData>(path);
+        var graphData = Resources.Load<GraphData>(path);
         
-        if(container != null)
+        if(graphData != null)
         {
             Debug.Log("creating container");
-            return container;
+            return graphData;
         }
 
-        return CreateContainer(path);
+        return CreateGraphData(path);
     }
 
-    private GraphData CreateContainer(string path)
+    private GraphData CreateGraphData(string path)
     {
-        var testContainer = ScriptableObject.CreateInstance<GraphData>();
+        var graphData = ScriptableObject.CreateInstance<GraphData>();
 
-        AssetDatabase.CreateAsset(testContainer, path);
+        AssetDatabase.CreateAsset(graphData, path);
 /*
         var spriteNode = Create<SpriteTestNode>("Sprite Node");
         var numberNode = Create<NumberNodeData>("Number Node");
@@ -54,7 +47,7 @@ public class Saving : ISaveGraph
         testContainer.AddNode(spriteNode);
         testContainer.AddNode(numberNode);
 */
-        return testContainer;
+        return graphData;
     }
 
     private void SaveNodes(GraphData graph, List<NodeView> nodes)
