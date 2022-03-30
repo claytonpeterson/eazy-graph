@@ -4,11 +4,11 @@ using UnityEngine.UIElements;
 using UnityEditor;
 using System;
 
-public class NodeCreationToolbar : Toolbar
+public class NodeCreatorToolbar : Toolbar
 {
     private readonly EditorGraphView view;
 
-    public NodeCreationToolbar(EditorGraphView view)
+    public NodeCreatorToolbar(EditorGraphView view)
     {
         this.view = view;
 
