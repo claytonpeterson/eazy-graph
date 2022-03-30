@@ -18,7 +18,7 @@ public class GraphData : ScriptableObject
     {
         GraphData graph = CreateInstance<GraphData>();
 
-        string path = string.Format("Assets/{0}.asset", name);
+        string path = string.Format("Assets/Resources/{0}.asset", name);
         AssetDatabase.CreateAsset(graph, path);
 
         return graph;

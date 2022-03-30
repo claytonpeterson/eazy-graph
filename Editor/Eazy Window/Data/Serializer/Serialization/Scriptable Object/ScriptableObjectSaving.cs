@@ -8,7 +8,6 @@ public class ScriptableObjectGraphSaving : ISaveGraph
     public void Save(string path, List<NodeView> nodes, List<Edge> edges)
     {
         var graphData = GetGraphData(path);
-
         //var connectedPorts = edges.Where(x => x.input.node != null).ToArray();
 
         SaveNodes(graphData, nodes);
@@ -16,7 +15,7 @@ public class ScriptableObjectGraphSaving : ISaveGraph
 
         if(!AssetDatabase.Contains(graphData))
         {
-            AssetDatabase.CreateAsset(graphData, path: path);
+            AssetDatabase.CreateAsset(graphData, path);
         }
 
         AssetDatabase.SaveAssets();
@@ -25,28 +24,17 @@ public class ScriptableObjectGraphSaving : ISaveGraph
     private GraphData GetGraphData(string path)
     {
         var graphData = Resources.Load<GraphData>(path);
-        
         if(graphData != null)
         {
-            Debug.Log("creating container");
             return graphData;
         }
-
         return CreateGraphData(path);
     }
 
     private GraphData CreateGraphData(string path)
     {
         var graphData = ScriptableObject.CreateInstance<GraphData>();
-
         AssetDatabase.CreateAsset(graphData, path);
-/*
-        var spriteNode = Create<SpriteTestNode>("Sprite Node");
-        var numberNode = Create<NumberNodeData>("Number Node");
-
-        testContainer.AddNode(spriteNode);
-        testContainer.AddNode(numberNode);
-*/
         return graphData;
     }
 
@@ -56,22 +44,8 @@ public class ScriptableObjectGraphSaving : ISaveGraph
 
         for(int i = 0; i < nodes.Count; i++)
         {
-            var graphNode = nodes[i];
+            var nodeView = nodes[i];
             var pos = nodes[i].GetPosition();
-
-            /*NodeData nodeData;
-            if(graphNode.type == typeof(CompositeNode))
-            {
-                //nodeData = Create<COm>("Composite Node");
-            }
-            else if (graphNode.type == typeof(LeafNodeView))
-            {
-
-            }
-            else if (graphNode.type == typeof(DecoratorNode))
-            {
-
-            }*/
 
             var nodeData = Create<NodeData>("node");
            /* nodeData.name = graphNode.type.ToString();

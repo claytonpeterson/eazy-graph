@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Loading
+public class ScriptableObjectLoading
 {
     public GraphData Load(string fileName)
     {
