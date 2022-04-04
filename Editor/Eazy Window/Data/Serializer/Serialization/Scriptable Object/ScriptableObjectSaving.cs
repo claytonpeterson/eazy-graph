@@ -10,6 +10,10 @@ public class ScriptableObjectGraphSaving : ISaveGraph
     {
         var graphData = GetGraphData(path);
 
+        // Must create it first!
+        AssetDatabase.CreateAsset(graphData, path);
+        AssetDatabase.SaveAssets();
+
         AddNodesToGraph(
             graph: graphData, 
             nodes: nodes);
@@ -17,9 +21,6 @@ public class ScriptableObjectGraphSaving : ISaveGraph
         AddConnectionsToGraph(
             container: graphData, 
             connectedPorts: edges.Where(x => x.input.node != null).ToArray());
-
-        AssetDatabase.CreateAsset(graphData, path);
-        AssetDatabase.SaveAssets();
     }
 
     private bool ContainsGraphData(string path)
@@ -27,14 +28,14 @@ public class ScriptableObjectGraphSaving : ISaveGraph
         return Resources.Load<GraphData>(path) != null;
     }
 
-    private GraphData GetGraphData(string loadPath)
+    private GraphData GetGraphData(string path)
     {
-        if(ContainsGraphData(loadPath))
+        if(ContainsGraphData(path))
         {
-            return LoadGraphData(loadPath);
+            return LoadGraphData(path);
         }
 
-        return CreateDataGraphInstance();
+        return CreateDataGraphInstance(path);
     }
 
     private GraphData LoadGraphData(string loadPath)
@@ -42,7 +43,7 @@ public class ScriptableObjectGraphSaving : ISaveGraph
         return Resources.Load<GraphData>(loadPath);
     }
 
-    private GraphData CreateDataGraphInstance()
+    private GraphData CreateDataGraphInstance(string savePath)
     {
         return ScriptableObject.CreateInstance<GraphData>();
     }
@@ -112,7 +113,6 @@ public class ScriptableObjectGraphSaving : ISaveGraph
     {
         T node = ScriptableObject.CreateInstance<T>();
         node.name = name;
-
         return node;
     }
 }
