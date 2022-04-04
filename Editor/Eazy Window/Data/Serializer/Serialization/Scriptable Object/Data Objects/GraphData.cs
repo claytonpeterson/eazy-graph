@@ -27,13 +27,15 @@ public class GraphData : ScriptableObject
     public void AddNode(NodeData node)
     {
         nodes.Add(node);
-        AddAsset(node);
+
+        AddSubAsset(node);
     }
 
     public void AddConnection(ConnectionData connection)
     {
         connections.Add(connection);
-        AddAsset(connection);
+
+        AddSubAsset(connection);
     }
 
     public List<NodeData> GetConnections(NodeData node)
@@ -52,7 +54,7 @@ public class GraphData : ScriptableObject
         return c;
     }
 
-    public void AddAsset(Object asset)
+    public void AddSubAsset(Object asset)
     {
         AssetDatabase.AddObjectToAsset(asset, this);
         AssetDatabase.SaveAssets();

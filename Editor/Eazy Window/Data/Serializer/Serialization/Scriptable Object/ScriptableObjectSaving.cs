@@ -19,7 +19,7 @@ public class ScriptableObjectGraphSaving : ISaveGraph
             nodes: nodes);
 
         AddConnectionsToGraph(
-            container: graphData, 
+            graphData: graphData, 
             connectedPorts: edges.Where(x => x.input.node != null).ToArray());
     }
 
@@ -91,13 +91,17 @@ public class ScriptableObjectGraphSaving : ISaveGraph
         }*/
     }
 
-    private void AddConnectionsToGraph(GraphData container, Edge[] connectedPorts)
+    private void AddConnectionsToGraph(GraphData graphData, Edge[] connectedPorts)
     {
         for (int i = 0; i < connectedPorts.Length; i++)
         {
             var outputNode = connectedPorts[i].output.node as NodeView;
             var inputNode = connectedPorts[i].input.node as NodeView;
-            var connection = ScriptableObject.CreateInstance<ConnectionData>();
+
+            Debug.Log("input: " + inputNode + " output: " + outputNode);
+
+            graphData.AddConnection(
+                connection: CreateConnectionScriptableObject("connection"));
 
             /*var connection = new NodeConnection(
                 portName: connectedPorts[i].output.portName,
@@ -105,8 +109,15 @@ public class ScriptableObjectGraphSaving : ISaveGraph
                 endNodeGUID: inputNode.guid);
 */
 
-            container.Connections.Add(connection);
+            //container.Connections.Add(connection);
         }
+    }
+
+    private ConnectionData CreateConnectionScriptableObject(string name)
+    {
+        var connection = ScriptableObject.CreateInstance<ConnectionData>();
+        connection.name = name;
+        return connection;
     }
 
     private static T Create<T>(string name) where T : NodeData
