@@ -10,8 +10,11 @@ public class ScriptableObjectGraphSaving : ISaveGraph
     {
         var graphData = GetGraphData(path);
 
-        SaveNodes(graphData, nodes);
-        SaveConnections(
+        AddNodesToGraph(
+            graph: graphData, 
+            nodes: nodes);
+
+        AddConnectionsToGraph(
             container: graphData, 
             connectedPorts: edges.Where(x => x.input.node != null).ToArray());
 
@@ -44,7 +47,7 @@ public class ScriptableObjectGraphSaving : ISaveGraph
         return ScriptableObject.CreateInstance<GraphData>();
     }
 
-    private void SaveNodes(GraphData graph, List<NodeView> nodes)
+    private void AddNodesToGraph(GraphData graph, List<NodeView> nodes)
     {
         graph.Clear();
 
@@ -87,7 +90,7 @@ public class ScriptableObjectGraphSaving : ISaveGraph
         }*/
     }
 
-    private void SaveConnections(GraphData container, Edge[] connectedPorts)
+    private void AddConnectionsToGraph(GraphData container, Edge[] connectedPorts)
     {
         for (int i = 0; i < connectedPorts.Length; i++)
         {
