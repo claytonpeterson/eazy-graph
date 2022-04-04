@@ -59,37 +59,10 @@ public class ScriptableObjectGraphSaving : ISaveGraph
             var nodeData = CreateNodeDataScriptableObject("node");
             nodeData.Type = nodes[i].testNode.GetType();
             nodeData.GUID = nodes[i].guid;
-
-           /* nodeData.name = graphNode.type.ToString();
-            nodeData.Type = graphNode.type;*/
-
             nodeData.Position = new Vector2(pos.x, pos.y);
 
             graph.AddNode(nodeData);
-
-            //graph.Nodes[i].Position = new Vector2(pos.x, pos.y);
         }
-
-        /*foreach (var graphNode in nodes)
-        {
-            //Debug.Log("saving: " + graphNode);
-            
-
-            //var node = Create<TestNode>("test");
-            //container.AddNode(node);
-
-            *//*var node = new NodeData(
-                guid: graphNode.guid,
-                text: graphNode.text,
-                position: graphNode.GetPosition().position);
-
-            if (graphNode.isRoot)
-            {
-                container.SetRoot(node);
-            }
-
-            container.nodes.Add(node);*//*
-        }*/
     }
 
     private void AddConnectionsToGraph(GraphData graphData, Edge[] connectedPorts)
