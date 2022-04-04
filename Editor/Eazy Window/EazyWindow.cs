@@ -18,8 +18,13 @@ public abstract class EazyWindow : EditorWindow
 
     private void SetupWindow()
     {
-        AddView();
-        AddToolbars(CreateToolbars());
+        var view = CreateView();
+        rootVisualElement.Add(view);
+
+        foreach (var toolbar in CreateToolbars())
+        {
+            rootVisualElement.Add(toolbar);
+        }
     }
 
     private void TeardownWindow()
@@ -27,19 +32,11 @@ public abstract class EazyWindow : EditorWindow
         rootVisualElement.Clear();
     }
 
-    private void AddView()
+    private EditorGraphView CreateView()
     {
         view = new EditorGraphView(GetNodeSpawner());
         view.StretchToParentSize();
-        rootVisualElement.Add(view);
-    }
-
-    private void AddToolbars(Toolbar[] toolbars)
-    {
-        foreach (var toolbar in toolbars)
-        {
-            rootVisualElement.Add(toolbar);
-        }
+        return view;
     }
 
     protected abstract INodeSpawner GetNodeSpawner();

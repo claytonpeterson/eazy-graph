@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -8,11 +9,13 @@ public class ScriptableObjectGraphSaving : ISaveGraph
     public void Save(string path, List<NodeView> nodes, List<Edge> edges)
     {
         Debug.Log(path);
+
         var graphData = GetGraphData(path);
-        //var connectedPorts = edges.Where(x => x.input.node != null).ToArray();
 
         SaveNodes(graphData, nodes);
-        //SaveConnections(container, connectedPorts);
+        SaveConnections(
+            container: graphData, 
+            connectedPorts: edges.Where(x => x.input.node != null).ToArray());
 
         if(!AssetDatabase.Contains(graphData))
         {
@@ -96,7 +99,7 @@ public class ScriptableObjectGraphSaving : ISaveGraph
                 endNodeGUID: inputNode.guid);
 */
 
-            //container.connections.Add(connection);
+            container.Connections.Add(connection);
         }
     }
 
@@ -104,6 +107,7 @@ public class ScriptableObjectGraphSaving : ISaveGraph
     {
         T node = ScriptableObject.CreateInstance<T>();
         node.name = name;
+
         return node;
     }
 }
