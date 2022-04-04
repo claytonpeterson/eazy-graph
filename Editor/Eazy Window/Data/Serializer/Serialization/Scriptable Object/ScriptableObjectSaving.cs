@@ -8,8 +8,6 @@ public class ScriptableObjectGraphSaving : ISaveGraph
 {
     public void Save(string path, List<NodeView> nodes, List<Edge> edges)
     {
-        Debug.Log(path);
-
         var graphData = GetGraphData(path);
 
         SaveNodes(graphData, nodes);
@@ -17,29 +15,33 @@ public class ScriptableObjectGraphSaving : ISaveGraph
             container: graphData, 
             connectedPorts: edges.Where(x => x.input.node != null).ToArray());
 
-        if(!AssetDatabase.Contains(graphData))
-        {
-            AssetDatabase.CreateAsset(graphData, path);
-        }
-
+        AssetDatabase.CreateAsset(graphData, path);
         AssetDatabase.SaveAssets();
     }
 
-    private GraphData GetGraphData(string path)
+    private bool ContainsGraphData(string path)
     {
-        var graphData = Resources.Load<GraphData>(path);
-        if(graphData != null)
-        {
-            return graphData;
-        }
-        return CreateGraphData(path);
+        return Resources.Load<GraphData>(path) != null;
     }
 
-    private GraphData CreateGraphData(string path)
+    private GraphData GetGraphData(string loadPath)
     {
-        var graphData = ScriptableObject.CreateInstance<GraphData>();
-        AssetDatabase.CreateAsset(graphData, path);
-        return graphData;
+        if(ContainsGraphData(loadPath))
+        {
+            return LoadGraphData(loadPath);
+        }
+
+        return CreateDataGraphInstance();
+    }
+
+    private GraphData LoadGraphData(string loadPath)
+    {
+        return Resources.Load<GraphData>(loadPath);
+    }
+
+    private GraphData CreateDataGraphInstance()
+    {
+        return ScriptableObject.CreateInstance<GraphData>();
     }
 
     private void SaveNodes(GraphData graph, List<NodeView> nodes)
