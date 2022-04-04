@@ -56,8 +56,9 @@ public class ScriptableObjectGraphSaving : ISaveGraph
         {
             var pos = nodes[i].GetPosition();
 
-            var nodeData = Create<NodeData>("node");
+            var nodeData = CreateNodeDataScriptableObject("node");
             nodeData.Type = nodes[i].testNode.GetType();
+            nodeData.GUID = nodes[i].guid;
 
            /* nodeData.name = graphNode.type.ToString();
             nodeData.Type = graphNode.type;*/
@@ -98,32 +99,31 @@ public class ScriptableObjectGraphSaving : ISaveGraph
             var outputNode = connectedPorts[i].output.node as NodeView;
             var inputNode = connectedPorts[i].input.node as NodeView;
 
-            Debug.Log("input: " + inputNode + " output: " + outputNode);
-
             graphData.AddConnection(
-                connection: CreateConnectionScriptableObject("connection"));
-
-            /*var connection = new NodeConnection(
-                portName: connectedPorts[i].output.portName,
-                startNodeGUID: outputNode.guid,
-                endNodeGUID: inputNode.guid);
-*/
-
-            //container.Connections.Add(connection);
+                connection: CreateConnectionScriptableObject(
+                    name: "connection", 
+                    nodeAGUID: inputNode.guid, 
+                    nodeBGUID: outputNode.guid));
         }
     }
 
-    private ConnectionData CreateConnectionScriptableObject(string name)
+    private NodeData CreateNodeDataScriptableObject(string name)
     {
-        var connection = ScriptableObject.CreateInstance<ConnectionData>();
-        connection.name = name;
+        return CreateNamedScriptableObject<NodeData>(name);
+    }
+
+    private ConnectionData CreateConnectionScriptableObject(string name, string nodeAGUID, string nodeBGUID)
+    {
+        var connection = CreateNamedScriptableObject<ConnectionData>(name);
+        connection.nodeAGUID = nodeAGUID;
+        connection.nodeBGUID = nodeBGUID;
         return connection;
     }
 
-    private static T Create<T>(string name) where T : NodeData
+    private T CreateNamedScriptableObject<T>(string name) where T : ScriptableObject
     {
-        T node = ScriptableObject.CreateInstance<T>();
-        node.name = name;
-        return node;
+        var obj = ScriptableObject.CreateInstance<T>();
+        obj.name = name;
+        return obj;
     }
 }

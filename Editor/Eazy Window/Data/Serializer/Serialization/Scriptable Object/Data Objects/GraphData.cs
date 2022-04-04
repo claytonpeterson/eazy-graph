@@ -42,15 +42,15 @@ public class GraphData : ScriptableObject
     {
         var c = new List<NodeData>();
 
-        for(int i = 0; i < connections.Count; i++)
+        /*for(int i = 0; i < connections.Count; i++)
         {
             var connection = connections[i];
-            if(node == connection.a)
+            if(node.GUID == connection.nodeAGUID)
             {
-                c.Add(connection.b);
+                c.Add(connection.nodeBGUID);
             }
         }
-
+*/
         return c;
     }
 

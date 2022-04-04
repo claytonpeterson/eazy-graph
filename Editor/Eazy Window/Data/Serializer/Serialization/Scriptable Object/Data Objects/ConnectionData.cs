@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [System.Serializable]
 public class ConnectionData : ScriptableObject
 {
-    public NodeData a;
+    public string nodeAGUID;
 
-    public NodeData b;
+    public string nodeBGUID;
 }
