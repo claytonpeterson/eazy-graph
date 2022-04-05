@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class XMLGraphSaving : ISaveGraph
+public class XMLSaving : ISaveGraph
 {
     public void Save(string path, List<NodeView> graphNodes, List<Edge> graphEdges)
     {

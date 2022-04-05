@@ -2,7 +2,7 @@
 using System.Xml;
 using UnityEngine;
 
-public class XMLGraphLoading : ILoadGraph
+public class XMLLoading : ILoadGraph
 {
     public Graph Load(string path)
     {
