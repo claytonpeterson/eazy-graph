@@ -7,7 +7,8 @@ public class Serializer
     private readonly ILoadGraph load;
 
     private readonly string parentFolder;
-    private readonly string fileExtension;
+
+    public string FileExtension { get; }
 
     public Serializer(ISaveGraph saving, ILoadGraph loading, string parentFolder, string fileExtension)
     {
@@ -15,7 +16,8 @@ public class Serializer
         load = loading;
 
         this.parentFolder = parentFolder;
-        this.fileExtension = fileExtension;
+
+        FileExtension = fileExtension;
     }
 
     public void Save(string fileName, EditorGraphView graphView)
@@ -36,7 +38,7 @@ public class Serializer
 
     private string FilePath(string fileName)
     {
-        return string.Format(parentFolder + "{0}{1}", fileName, fileExtension);
+        return string.Format(parentFolder + "{0}{1}", fileName, FileExtension);
     }
 
     private string FixEmptyName(string fileName)
