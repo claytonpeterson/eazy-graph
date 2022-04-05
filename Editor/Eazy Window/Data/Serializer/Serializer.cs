@@ -22,8 +22,6 @@ public class Serializer
 
     public void Save(string fileName, EditorGraphView graphView)
     {
-        Debug.Log("Saving: " + FilePath(FixEmptyName(fileName)));
-
         save.Save(
             path: FilePath(FixEmptyName(fileName)), 
             nodes: graphView.nodes.ToList().Cast<NodeView>().ToList(), 
