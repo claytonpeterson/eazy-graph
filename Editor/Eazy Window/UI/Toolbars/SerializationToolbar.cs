@@ -2,7 +2,7 @@
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-public abstract class SerializationToolbar : Toolbar
+public class SerializationToolbar<T> : Toolbar
 {
     protected Object obj;
 
@@ -20,13 +20,28 @@ public abstract class SerializationToolbar : Toolbar
         Add(ClearButton());
     }
 
-    protected abstract ObjectField InputField();
+    protected ObjectField InputField()
+    {
+        ObjectField objectField = new ObjectField(label: "Object field")
+        {
+            objectType = typeof(T)
+        };
+
+        objectField.SetValueWithoutNotify(obj);
+        objectField.MarkDirtyRepaint();
+        objectField.RegisterValueChangedCallback(evt => {
+            obj = evt.newValue;
+        });
+
+        return objectField;
+    }
 
     private Button SaveButton()
     {
         return new Button(clickEvent: () =>
         {
             var fileName = (obj == null) ? null : obj.name;
+
             serializer.Save(fileName, view);
         })
         { text = "Save Graph" };
