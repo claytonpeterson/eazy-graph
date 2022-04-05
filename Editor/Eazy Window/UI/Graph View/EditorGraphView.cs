@@ -3,15 +3,21 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
-using UnityEditor.UIElements;
 
 public class EditorGraphView : GraphView
 {
     private readonly INodeSpawner nodeSpawner;
 
+    // Controls
+    private readonly NodeCreator nodeCreator;
+    private readonly NodeConnector nodeConnector;
+
     public EditorGraphView(INodeSpawner nodeSpawner)
     {
         this.nodeSpawner = nodeSpawner;
+
+        nodeCreator = new NodeCreator(this);
+        nodeConnector = new NodeConnector(this);
 
         SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
 
@@ -74,7 +80,7 @@ public class EditorGraphView : GraphView
 
         AddNodes(graph);
 
-        ConnectNodes(graph);
+        nodeConnector.ConnectNodes(graph);
     }
 
     public void AddNodes(Graph graph)
@@ -99,50 +105,6 @@ public class EditorGraphView : GraphView
 
             AddElement(nodeView);
         }
-    }
-
-    private NodeView GetGraphNodeByGUID(string guid)
-    {
-        for(int i = 0; i < Nodes.Count; i++)
-        {
-            if (Nodes[i].guid == guid)
-                return Nodes[i];
-        }
-        return null;
-    }
-
-    public void ConnectNodes(Graph graph)
-    {
-        for(int i = 0; i < graph.Nodes.Count; i++)
-        {
-            // Look at each connection
-            var connections = graph.Connections;
-            for(int y = 0; y < connections.Count; y++)
-            {
-                var connection = connections[y];
-
-                if (graph.Nodes[i].Guid == connection.GuidA)
-                {
-                    var endNode = GetGraphNodeByGUID(connections[y].GuidB);
-                    LinkNodes(
-                        Nodes[i].outputContainer[0].Q<Port>(), 
-                        (Port)endNode.inputContainer[0]);
-                }
-            }
-        }
-    }
-
-    private void LinkNodes(Port output, Port input)
-    {
-        var tEdge = new Edge
-        {
-            input = input,
-            output = output
-        };
-
-        tEdge?.input.Connect(tEdge);
-        tEdge?.output.Connect(tEdge);
-        Add(tEdge);
     }
 
     private void ClearGraph()

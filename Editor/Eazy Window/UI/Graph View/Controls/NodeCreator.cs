@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NodeCreator : MonoBehaviour
+public class NodeCreator
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private EditorGraphView graphView;
 
-    // Update is called once per frame
-    void Update()
+    public NodeCreator(EditorGraphView graphView)
     {
-        
+        this.graphView = graphView;
     }
 }
