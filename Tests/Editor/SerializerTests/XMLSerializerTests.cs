@@ -31,7 +31,7 @@ public class XMLSerializerTests
     }
 
     [Test]
-    public void SavingTest()
+    public void Saving_XMLFile_CreatesAsset()
     {
         xmlSerializer.Save("test", editorGraphView);
 
@@ -43,7 +43,7 @@ public class XMLSerializerTests
     }
 
     [Test]
-    public void LoadingTest()
+    public void Loading_XMLFile_ReturnsGraph()
     {
         xmlSerializer.Save("test", editorGraphView);
 
