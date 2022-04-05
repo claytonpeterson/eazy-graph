@@ -33,7 +33,7 @@ public class EditorGraphView : GraphView
                         DropdownMenuAction.AlwaysEnabled));
     }
 */
-    private List<NodeView> Nodes => nodes.ToList().Cast<NodeView>().ToList();
+    public List<NodeView> Nodes => nodes.ToList().Cast<NodeView>().ToList();
 
     private List<Edge> Edges => edges.ToList();
 
