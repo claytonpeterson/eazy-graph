@@ -6,11 +6,11 @@ using System;
 
 public class NodeCreatorToolbar : Toolbar
 {
-    private readonly EditorGraphView view;
+    private readonly NodeCreator nodeCreator;
 
-    public NodeCreatorToolbar(EditorGraphView view)
+    public NodeCreatorToolbar(NodeCreator nodeCreator)
     {
-        this.view = view;
+        this.nodeCreator = nodeCreator;
 
         Add(new TextElement { text = "Node Creation: " });
 
@@ -48,7 +48,7 @@ public class NodeCreatorToolbar : Toolbar
 
         return new Button(clickEvent: () =>
         {
-            view.CreateNode(testNode, new Vector2(0, 0));
+            nodeCreator.CreateNode(testNode, new Vector2(0, 0));
         })
         { text = "Add " + testNode };
     }

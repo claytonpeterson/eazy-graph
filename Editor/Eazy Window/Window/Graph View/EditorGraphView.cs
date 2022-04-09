@@ -6,18 +6,15 @@ using UnityEngine.UIElements;
 
 public class EditorGraphView : GraphView
 {
-    private readonly INodeSpawner nodeSpawner;
-
     // Controls
     private readonly NodeCreator nodeCreator;
     private readonly NodeConnector nodeConnector;
 
+    // TODO this should pass a "controller" object that includes creation, connection, and erasing the grid
     public EditorGraphView(INodeSpawner nodeSpawner)
     {
-        this.nodeSpawner = nodeSpawner;
-
-        nodeCreator = new NodeCreator(this);
-        nodeConnector = new NodeConnector(this);
+        this.nodeCreator = new NodeCreator(this, nodeSpawner);
+        this.nodeConnector = new NodeConnector(this);
 
         SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
 
@@ -49,7 +46,7 @@ public class EditorGraphView : GraphView
         AddElement(node);
         return node;
     }*/
-
+/*
     public NodeView CreateNode(TestNode test, Vector2 position)
     {
         var portInformation = new PortInformation
@@ -66,7 +63,7 @@ public class EditorGraphView : GraphView
         AddElement(nodeView);
         return nodeView;
     }
-
+*/
     // THIS IS THE IMPORTANT ONE
     public void ShowGraph(Graph graph)
     {
@@ -78,11 +75,11 @@ public class EditorGraphView : GraphView
             return;
         }
 
-        AddNodes(graph);
+        nodeCreator.AddNodes(graph);
 
         nodeConnector.ConnectNodes(graph);
     }
-
+/*
     public void AddNodes(Graph graph)
     {
         if (graph == null)
@@ -106,7 +103,7 @@ public class EditorGraphView : GraphView
             AddElement(nodeView);
         }
     }
-
+*/
     private void ClearGraph()
     {
         ClearGraphElements(new List<GraphElement>(Nodes));

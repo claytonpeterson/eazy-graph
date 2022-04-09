@@ -18,8 +18,7 @@ public abstract class EazyWindow : EditorWindow
 
     private void SetupWindow()
     {
-        var view = CreateView();
-        rootVisualElement.Add(view);
+        rootVisualElement.Add(CreateView());
 
         foreach (var toolbar in CreateToolbars())
         {
