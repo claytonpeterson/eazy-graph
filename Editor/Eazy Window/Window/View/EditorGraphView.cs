@@ -1,44 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 
 public class EditorGraphView : GraphView
 {
+    private readonly NodeCreator nodeCreator;
+
     private readonly GraphController graphController;
 
     // TODO this should pass a "controller" object that includes creation, connection, and erasing the grid
     public EditorGraphView(INodeSpawner nodeSpawner)
     {
+        nodeCreator = new NodeCreator(this, nodeSpawner);
+
         graphController = new GraphController(
             view: this,
-            nodeCreator: new NodeCreator(this, nodeSpawner), 
+            nodeCreator: nodeCreator, 
             nodeConnector: new NodeConnector(this));
 
         SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
 
         AddManipulators();
-
-        //this.AddManipulator(CreateContextualMenu("Create Node"));
     }
 
-    /*private ContextualMenuManipulator CreateContextualMenu(string contextualMenuText)
-    {
-        return new ContextualMenuManipulator(menuEvent =>
-            menuEvent.menu.AppendAction(contextualMenuText, actionEvent =>
-                AddElement(
-                    CreateNode(
-                        "Test", 
-                        actionEvent.eventInfo.mousePosition)), 
-                        DropdownMenuAction.AlwaysEnabled));
-    }
-*/
     public List<NodeView> Nodes => nodes.ToList().Cast<NodeView>().ToList();
 
     public List<Edge> Edges => edges.ToList();
 
-    // THIS IS THE IMPORTANT ONE
     public void ShowGraph(Graph graph)
     {
         graphController.ShowGraph(graph);
@@ -64,5 +53,10 @@ public class EditorGraphView : GraphView
         this.AddManipulator(new ContentDragger());
         this.AddManipulator(new SelectionDragger());
         this.AddManipulator(new RectangleSelector());
+
+        this.AddManipulator(
+            new ContextMenu(
+                graphView: this,
+                nodeCreator: nodeCreator).CreateContextualMenu("test"));
     }
 }
