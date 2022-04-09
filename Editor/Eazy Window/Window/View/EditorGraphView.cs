@@ -41,16 +41,7 @@ public class EditorGraphView : GraphView
     // THIS IS THE IMPORTANT ONE
     public void ShowGraph(Graph graph)
     {
-        graphController.ClearGraph();
-
-        if (graph == null)
-        {
-            Debug.Log("Graph is null");
-            return;
-        }
-
-        graphController.AddNodes(graph);
-        graphController.ConnectNodes(graph);
+        graphController.ShowGraph(graph);
     }
 
     public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)

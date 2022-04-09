@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 
 public class GraphController
@@ -15,14 +14,15 @@ public class GraphController
         this.nodeConnector = nodeConnector;
     }
 
-    public void AddNodes(Graph graph)
+    public void ShowGraph(Graph graph)
     {
-        nodeCreator.AddNodes(graph);
-    }
+        ClearGraph();
 
-    public void ConnectNodes(Graph graph)
-    {
-        nodeConnector.ConnectNodes(graph);
+        if (graph != null)
+        {
+            AddNodes(graph);
+            ConnectNodes(graph);
+        }
     }
 
     public void ClearGraph()
@@ -40,5 +40,15 @@ public class GraphController
         {
             view.RemoveElement(elements[i]);
         }
+    }
+
+    private void AddNodes(Graph graph)
+    {
+        nodeCreator.AddNodes(graph);
+    }
+
+    private void ConnectNodes(Graph graph)
+    {
+        nodeConnector.ConnectNodes(graph);
     }
 }
