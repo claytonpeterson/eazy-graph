@@ -18,9 +18,7 @@ public class EditorGraphView : GraphView
 
         SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
 
-        this.AddManipulator(new ContentDragger());
-        this.AddManipulator(new SelectionDragger());
-        this.AddManipulator(new RectangleSelector());
+        AddManipulators();
 
         //this.AddManipulator(CreateContextualMenu("Create Node"));
     }
@@ -68,5 +66,12 @@ public class EditorGraphView : GraphView
         });
 
         return compatiblePorts;
+    }
+
+    private void AddManipulators()
+    {
+        this.AddManipulator(new ContentDragger());
+        this.AddManipulator(new SelectionDragger());
+        this.AddManipulator(new RectangleSelector());
     }
 }
