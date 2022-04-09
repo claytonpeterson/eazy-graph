@@ -40,30 +40,6 @@ public class EditorGraphView : GraphView
 
     private List<Edge> Edges => edges.ToList();
 
-   /* public NodeView CreateNode(Vector2 position)
-    {
-        var node = new NodeView(data, position, null); // nodeBuilder.CreateNode(data, position);
-        AddElement(node);
-        return node;
-    }*/
-/*
-    public NodeView CreateNode(TestNode test, Vector2 position)
-    {
-        var portInformation = new PortInformation
-        {
-            InputPortCapacity = Port.Capacity.Single,
-            OutputPortCapacity = Port.Capacity.Multi
-        };
-
-        var nodeView = new NodeView(
-            test, 
-            position, 
-            portInformation);
-
-        AddElement(nodeView);
-        return nodeView;
-    }
-*/
     // THIS IS THE IMPORTANT ONE
     public void ShowGraph(Graph graph)
     {
@@ -79,31 +55,7 @@ public class EditorGraphView : GraphView
 
         nodeConnector.ConnectNodes(graph);
     }
-/*
-    public void AddNodes(Graph graph)
-    {
-        if (graph == null)
-            return;
 
-        foreach (var nodeData in graph.Nodes)
-        {
-            var portInformation = new PortInformation
-            {
-                InputPortCapacity = Port.Capacity.Single,
-                OutputPortCapacity = Port.Capacity.Multi
-            };
-
-            var nodeView = nodeSpawner.CreateNodeView(
-                nodeData.Data,
-                nodeData.Position,
-                portInformation);
-
-            nodeView.guid = nodeData.Guid;
-
-            AddElement(nodeView);
-        }
-    }
-*/
     private void ClearGraph()
     {
         ClearGraphElements(new List<GraphElement>(Nodes));
