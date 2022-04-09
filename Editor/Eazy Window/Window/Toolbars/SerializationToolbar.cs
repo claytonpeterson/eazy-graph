@@ -22,7 +22,9 @@ public class SerializationToolbar<T> : Toolbar
 
     protected ObjectField InputField()
     {
-        ObjectField objectField = new ObjectField(label: "Object field")
+        var label = "Object Field (" + serializer.FileExtension + ")";
+
+        ObjectField objectField = new ObjectField(label: label)
         {
             objectType = typeof(T)
         };
