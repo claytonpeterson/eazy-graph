@@ -9,9 +9,7 @@ namespace EazyGraph.Editor.Tests.Serialization
         protected const string parentFolder = "Assets/Resources/";
         
         private const string fileName = "test";
-
         private EditorGraphView editorGraphView;
-
         private Serializer serializer;
 
         public abstract Serializer SerializerToTest();
@@ -21,7 +19,7 @@ namespace EazyGraph.Editor.Tests.Serialization
         {
             serializer = SerializerToTest();
 
-            //editorGraphView = new EditorGraphView(new Spawner());
+            editorGraphView = new EditorGraphView(new Spawner());
         }
 
         [Test]
