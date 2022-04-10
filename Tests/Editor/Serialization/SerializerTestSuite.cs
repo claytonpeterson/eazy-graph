@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using UnityEngine;
 using UnityEditor;
 
 namespace EazyGraph.Editor.Tests.Serialization
@@ -23,19 +22,7 @@ namespace EazyGraph.Editor.Tests.Serialization
         }
 
         [Test]
-        public void Saving_CreatesAsset()
-        {
-            serializer.Save(fileName, editorGraphView);
-
-            bool saveFileExists =
-                AssetDatabase.LoadAssetAtPath<Object>(
-                    FilePath());
-
-            Assert.IsTrue(saveFileExists, "yes");
-        }
-
-        [Test]
-        public void Loading_ReturnsGraph()
+        public void SaveAndLoad_ReturnsGraph()
         {
             serializer.Save(fileName, editorGraphView);
 
