@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using UnityEngine;
 
 public class Serializer
 {
@@ -16,7 +15,6 @@ public class Serializer
         load = loading;
 
         this.parentFolder = parentFolder;
-
         FileExtension = fileExtension;
     }
 

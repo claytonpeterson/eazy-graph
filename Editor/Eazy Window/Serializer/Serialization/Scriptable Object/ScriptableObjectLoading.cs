@@ -28,13 +28,13 @@ public class ScriptableObjectLoading : ILoadGraph
                 Data = node.Type
             };
 
-            Debug.Log(string.Format(
+            /*Debug.Log(string.Format(
                 "{0}{1}{2}{3}", 
                 saveNode.Name, 
                 saveNode.Guid, 
                 saveNode.Position, 
                 saveNode.Data));
-
+*/
             graph.Nodes.Add(saveNode);
         }
     }
