@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class EditorGraphView : GraphView
 {
     private readonly NodeCreator nodeCreator;
-
     private readonly GraphController graphController;
 
     // TODO this should pass a "controller" object that includes creation, connection, and erasing the grid
@@ -21,7 +23,7 @@ public class EditorGraphView : GraphView
 
         SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
 
-        AddManipulators();
+        AddManipulators(nodeCreator);
     }
 
     public List<NodeView> Nodes => nodes.ToList().Cast<NodeView>().ToList();
@@ -48,7 +50,7 @@ public class EditorGraphView : GraphView
         return compatiblePorts;
     }
 
-    private void AddManipulators()
+    private void AddManipulators(NodeCreator nodeCreator)
     {
         this.AddManipulator(new ContentDragger());
         this.AddManipulator(new SelectionDragger());
@@ -58,5 +60,25 @@ public class EditorGraphView : GraphView
             new ContextMenu(
                 graphView: this,
                 nodeCreator: nodeCreator).CreateContextualMenu("test"));
+    }
+
+    public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
+    {
+        var types = TypeCache.GetTypesDerivedFrom<TestNode>();
+        foreach(var type in types)
+        {
+            evt.menu.AppendAction(
+                actionName: type.ToString(),
+                action: (x) => CreateNode(type, Input.mousePosition));
+        }
+    }
+
+    private void CreateNode(Type type, Vector2 position)
+    {
+        Debug.Log(type);
+
+        var testNode = Activator.CreateInstance(type) as TestNode;
+
+        nodeCreator.CreateNode(testNode, position);
     }
 }
