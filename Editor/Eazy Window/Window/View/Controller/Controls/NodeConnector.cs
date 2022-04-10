@@ -1,4 +1,5 @@
 ﻿using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class NodeConnector
@@ -16,6 +17,7 @@ public class NodeConnector
         {
             // Look at each connection
             var connections = graph.Connections;
+
             for (int y = 0; y < connections.Count; y++)
             {
                 var connection = connections[y];
@@ -23,6 +25,7 @@ public class NodeConnector
                 if (graph.Nodes[i].Guid == connection.GuidA)
                 {
                     var endNode = GetGraphNodeByGUID(connections[y].GuidB);
+
                     LinkNodes(
                         graphView.Nodes[i].outputContainer[0].Q<Port>(),
                         (Port)endNode.inputContainer[0]);

@@ -75,8 +75,8 @@ public class ScriptableObjectGraphSaving : ISaveGraph
             graphData.AddConnection(
                 connection: CreateConnectionScriptableObject(
                     name: "connection", 
-                    nodeAGUID: inputNode.guid, 
-                    nodeBGUID: outputNode.guid));
+                    nodeAGUID: outputNode.guid, 
+                    nodeBGUID: inputNode.guid));
         }
     }
 

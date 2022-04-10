@@ -6,8 +6,6 @@ public class Spawner : INodeSpawner
 {
     public NodeView CreateNodeView(Type type, Vector2 position, PortInformation portInfo)
     {
-        Debug.Log(type);
-
         var testNode = Activator.CreateInstance(type) as TestNode;
 
         var nodeView = new NodeView(testNode, position, portInfo);

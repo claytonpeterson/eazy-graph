@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
-
 
 public class ScriptableObjectLoading : ILoadGraph
 {
@@ -11,7 +9,7 @@ public class ScriptableObjectLoading : ILoadGraph
         var graph = new Graph();
 
         LoadNodes(graphData.Nodes, graph);
-        LoadEdges(graph);
+        LoadEdges(graphData, graph);
 
         return graph;
     }
@@ -23,24 +21,26 @@ public class ScriptableObjectLoading : ILoadGraph
             var saveNode = new SaveNode
             {
                 Name = node.name,
-                Guid = null,
+                Guid = node.GUID,
                 Position = node.Position,
                 Data = node.Type
             };
 
-            /*Debug.Log(string.Format(
-                "{0}{1}{2}{3}", 
-                saveNode.Name, 
-                saveNode.Guid, 
-                saveNode.Position, 
-                saveNode.Data));
-*/
             graph.Nodes.Add(saveNode);
         }
     }
 
-    private void LoadEdges(Graph graph)
+    private void LoadEdges(GraphData data, Graph graph)
     {
+        foreach (var edge in data.Connections)
+        {
+            var connection = new SaveConnection
+            {
+                GuidA = edge.nodeAGUID,
+                GuidB = edge.nodeBGUID
+            };
 
+            graph.Connections.Add(connection);
+        }
     }
 }
