@@ -29,25 +29,10 @@ public abstract class NodeView : Node
 
         SetPosition(new Rect(position.x, position.y, 100, 100));
 
-        SetupPorts();
-
         Refresh();
     }
 
-    protected abstract PortInformation GetPortInformation();
-
-    private void SetupPorts()
-    {
-        var portInfo = GetPortInformation();
-
-        inputContainer.Add(
-            child: AddPort(Direction.Input, portInfo.InputPortCapacity, "Input"));
-
-        outputContainer.Add(
-            child: AddPort(Direction.Output, portInfo.OutputPortCapacity, "Output"));
-    }
-
-    private Port AddPort(Direction portDirection, Port.Capacity capacity = Port.Capacity.Single, string portName = "")
+    public Port CreatePort(Direction portDirection, Port.Capacity capacity = Port.Capacity.Single, string portName = "")
     {
         var newPort = InstantiatePort(
             Orientation.Horizontal, 
@@ -59,7 +44,7 @@ public abstract class NodeView : Node
         return newPort;
     }
 
-    private void Refresh()
+    public void Refresh()
     {
         RefreshExpandedState();
         RefreshPorts();

@@ -6,7 +6,7 @@ using System;
 namespace skybirdgames.eazygraph.dialog.Editor
 {
     [Serializable]
-    public class LittleTestNode : NodeView
+    public class LittleTestNode : SinglePortNode
     {
         public TextField textField;
 
@@ -19,16 +19,6 @@ namespace skybirdgames.eazygraph.dialog.Editor
             this.data = data;
 
             AddNameField();
-        }
-
-        protected override PortInformation GetPortInformation()
-        {
-            var portInfo = new PortInformation
-            {
-                InputPortCapacity = Port.Capacity.Single,
-                OutputPortCapacity = Port.Capacity.Single
-            };
-            return portInfo;
         }
 
         private void AddNameField()

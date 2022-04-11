@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 namespace skybirdgames.eazygraph.dialog.Editor
 {
     [Serializable]
-    public class BigTestNode : NodeView
+    public class BigTestNode : MultiPortNode
     {
         public IntegerField ageField;
 
@@ -20,16 +20,6 @@ namespace skybirdgames.eazygraph.dialog.Editor
             this.data = data;
 
             AddAgeField();
-        }
-
-        protected override PortInformation GetPortInformation()
-        {
-            var portInfo = new PortInformation
-            {
-                InputPortCapacity = Port.Capacity.Multi,
-                OutputPortCapacity = Port.Capacity.Multi
-            };
-            return portInfo;
         }
 
         private void AddAgeField()
