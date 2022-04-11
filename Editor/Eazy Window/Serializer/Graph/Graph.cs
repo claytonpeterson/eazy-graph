@@ -13,12 +13,20 @@ public class Graph
     public List<SaveNode> Nodes 
     { 
         get => nodes; 
-        set => nodes = value;  
     }
 
     public List<SaveConnection> Connections 
     { 
         get => connections; 
-        set => connections = value; 
+    }
+
+    public void AddNode(SaveNode node)
+    {
+        nodes.Add(node);
+    }
+
+    public void AddConnection(SaveConnection connection)
+    {
+        connections.Add(connection);
     }
 }
