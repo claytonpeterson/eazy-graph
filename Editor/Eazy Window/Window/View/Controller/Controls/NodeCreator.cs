@@ -12,18 +12,9 @@ public class NodeCreator
         this.nodeSpawner = nodeSpawner;
     }
 
-    public NodeView CreateNode(Type type, Vector2 position)
+    public NodeView CreateNode(Type type, Vector2 position, Data data)
     {
-        NodeView nodeView = null;
-        if (type == typeof(BigTestNode))
-        {
-            nodeView = new BigTestNode(position);
-        }
-        else if (type == typeof(LittleTestNode))
-        {
-            nodeView = new LittleTestNode(position);
-        }
-
+        var nodeView = nodeSpawner.CreateNodeView(type, position, data);
         graphView.AddElement(nodeView);
         return nodeView;
     }
@@ -36,8 +27,9 @@ public class NodeCreator
         foreach (var nodeData in graph.Nodes)
         {
             var nodeView = nodeSpawner.CreateNodeView(
-                nodeData.Data,
-                nodeData.Position);
+                Type.GetType(nodeData.ObjType),
+                nodeData.Position,
+                nodeData.Data);
 
             nodeView.guid = nodeData.Guid;
 

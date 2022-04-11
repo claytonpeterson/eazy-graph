@@ -3,5 +3,5 @@ using UnityEngine;
 
 public interface INodeSpawner
 {
-    NodeView CreateNodeView(Type type, Vector2 position);
+    NodeView CreateNodeView(Type type, Vector2 position, Data data);
 }

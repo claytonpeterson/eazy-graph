@@ -2,21 +2,22 @@
 using UnityEditor.UIElements;
 using UnityEditor.Experimental.GraphView;
 using System;
+using UnityEngine.UIElements;
 
 [Serializable]
 public class BigTestNode : NodeView
 {
-    public FloatField floatField;
+    public IntegerField ageField;
 
-    public BigTestNode(Vector2 position) : base(position)
+    public BigTestNode(Vector2 position, Data data) : base(position)
     {
         title = "Big Test Node";
 
         mainContainer.style.backgroundColor = Color.red;
 
-        floatField = new FloatField("float field");
+        this.data = data;
 
-        Add(floatField);
+        AddAgeField();
     }
 
     protected override PortInformation GetPortInformation()
@@ -27,5 +28,21 @@ public class BigTestNode : NodeView
             OutputPortCapacity = Port.Capacity.Multi
         };
         return portInfo;
+    }
+
+    private void AddAgeField()
+    {
+        ageField = new IntegerField("age field")
+        {
+            value = data.age
+        };
+
+        ageField.RegisterValueChangedCallback((evt) =>
+        {
+            data.age = evt.newValue;
+            Debug.Log(evt.newValue);
+        });
+
+        Add(ageField);
     }
 }

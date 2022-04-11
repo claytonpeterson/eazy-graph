@@ -79,6 +79,6 @@ public class EditorGraphView : GraphView
 
         //var testNode = Activator.CreateInstance(type) as TestNode;
 
-        nodeCreator.CreateNode(type, position);
+        nodeCreator.CreateNode(type, position, new Data());
     }
 }

@@ -7,25 +7,19 @@ using UnityEngine.UIElements;
 public abstract class NodeView : Node
 {
     public string guid;
+
+    public Vector2 Position;
+
+    public Data data = new Data();
+
+    public Type type;
     
     public VisualElement[] visualElements;
 
     public NodeView(Vector2 position)
     {
-        guid = Guid.NewGuid().ToString();
-
-        SetPosition(new Rect(position.x, position.y, 100, 100));
-
-        SetupPorts();
-
-        Refresh();
-    }
-
-    // TODO break this constructor into 2 objects! one of those objects should be port information
-    public NodeView(string title, Vector2 position, VisualElement[] visualElements, PortInformation portInfo, string data = "")
-    {
-        this.visualElements = visualElements;
-        base.title = title;
+        type = GetType();
+        Position = new Vector2(position.x, position.y);
 
         guid = Guid.NewGuid().ToString();
 
@@ -35,7 +29,6 @@ public abstract class NodeView : Node
 
         Refresh();
     }
-
 
     public void AddVisualElements(Port inputPort, Port outputPort)
     {

@@ -6,15 +6,17 @@ using System;
 [Serializable]
 public class LittleTestNode : NodeView
 {
-    public float number;
+    public TextField textField;
 
-    public LittleTestNode(Vector2 position) : base(position)
+    public LittleTestNode(Vector2 position, Data data) : base(position)
     {
         title = "Little Test Node";
 
         mainContainer.style.backgroundColor = Color.green;
 
-        Add(new TextField());
+        this.data = data;
+
+        AddNameField();
     }
 
     protected override PortInformation GetPortInformation()
@@ -25,5 +27,20 @@ public class LittleTestNode : NodeView
             OutputPortCapacity = Port.Capacity.Single
         };
         return portInfo;
+    }
+
+    private void AddNameField()
+    {
+        textField = new TextField("name field")
+        {
+            value = data.name
+        };
+
+        textField.RegisterValueChangedCallback((evt) =>
+        {
+            data.name = evt.newValue;
+        });
+
+        Add(textField);
     }
 }

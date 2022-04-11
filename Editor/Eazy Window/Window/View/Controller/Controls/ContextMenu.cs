@@ -14,12 +14,13 @@ public class ContextMenu
 
     public ContextualMenuManipulator CreateContextualMenu(string contextualMenuText)
     {
-        return new ContextualMenuManipulator(menuEvent =>
+        return null;
+        /*return new ContextualMenuManipulator(menuEvent =>
             menuEvent.menu.AppendAction(contextualMenuText, actionEvent =>
                 graphView.AddElement(
                     nodeCreator.CreateNode(
                         null,
                         actionEvent.eventInfo.mousePosition)),
-                        DropdownMenuAction.AlwaysEnabled));
+                        DropdownMenuAction.AlwaysEnabled));*/
     }
 }

@@ -11,11 +11,21 @@ public class NodeData : ScriptableObject
     private Vector2 position;
 
     [SerializeField]
-    private Type nodeType;
+    private string nodeType;
+
+    [SerializeField]
+    private Data data;
 
     public string GUID { get => guid; set => guid = value; }
 
     public Vector2 Position { get => position; set => position = value; }
 
-    public Type Type { get => nodeType; set => nodeType = value; }
+    public string NodeType { get => nodeType; set => nodeType = value; }
+
+    public Data Data { get => data; set => data = value; }
+
+    public override string ToString()
+    {
+        return string.Format("Position {0}, GUID {1}, Type {2}, Data {3}", position, guid, nodeType, data);
+    }
 }

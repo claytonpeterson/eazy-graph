@@ -26,10 +26,9 @@ public class XMLLoading : ILoadGraph
         {
             var n = new SaveNode
             {
-                Name = GetName(node),
                 Guid = GetGUID(node),
                 Position = GetPosition(node),
-                Data = GetData(node)
+                ObjType = GetType(node).AssemblyQualifiedName
             };
 
             graph.Nodes.Add(n);
@@ -53,10 +52,10 @@ public class XMLLoading : ILoadGraph
         return new Vector2(float.Parse(x), float.Parse(y));
     }
 
-    private Type GetData(XmlNode node)
+    private Type GetType(XmlNode node)
     {
-        var text = node.SelectSingleNode("data").InnerText;
-        return Type.GetType(text);
+        var type = node.SelectSingleNode("type").InnerText;
+        return Type.GetType(type);
     }
 
     private void LoadEdges(XmlDocument document, Graph graph)

@@ -14,7 +14,10 @@ public class SaveNode
     private string guid;
 
     [SerializeField]
-    private Type data;
+    private string type;
+
+    [SerializeField]
+    private Data data;
 
     public string Name { get => name; set => name = value; }
 
@@ -22,5 +25,12 @@ public class SaveNode
 
     public string Guid { get => guid; set => guid = value; }
 
-    public Type Data { get => data; set => data = value; }
+    public string ObjType { get => type; set => type = value; }
+
+    public Data Data { get => data; set => data = value; }
+
+    public override string ToString()
+    {
+        return string.Format("Position {0}, GUID {1}, Type {2}, Data {3}", position, guid, type, data);
+    }
 }

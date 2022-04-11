@@ -23,7 +23,8 @@ public class ScriptableObjectLoading : ILoadGraph
                 Name = node.name,
                 Guid = node.GUID,
                 Position = node.Position,
-                Data = node.Type
+                ObjType = node.NodeType,
+                Data = node.Data
             };
 
             graph.Nodes.Add(saveNode);

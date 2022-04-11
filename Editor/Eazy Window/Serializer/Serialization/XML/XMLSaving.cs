@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Xml;
+using System.Xml.Serialization;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -15,13 +17,9 @@ public class XMLSaving : ISaveGraph
         XmlNode rootNode = document.CreateElement("root");
         document.AppendChild(rootNode);
 
-        // Create the nodes
-        var nodes = SaveNodes(document, graphNodes);
-        rootNode.AppendChild(nodes);
-
-        // Create the edges
-        var edges = SaveEdges(document, graphEdges);
-        rootNode.AppendChild(edges);
+        rootNode.AppendChild(SaveNodes(document, graphNodes));
+        rootNode.AppendChild(SaveEdges(document, graphEdges));
+        //rootNode.AppendChild(SaveData(document, graphNodes));
 
         document.Save(path);
 
@@ -59,10 +57,22 @@ public class XMLSaving : ISaveGraph
             yPosition.InnerText = pos.y.ToString();
             position.AppendChild(yPosition);
 
-            // Save data
+            // Save type
+            XmlNode typeNode = document.CreateElement("type");
+            typeNode.InnerText = nodes[i].GetType().ToString();
+            node.AppendChild(typeNode);
+
+            //var data = MySerializer<Data>.Serialize(nodes[i].data);
+
+            /*// Save data object
             XmlNode dataNode = document.CreateElement("data");
-            dataNode.InnerText = nodes[i].GetType().ToString();
-            node.AppendChild(dataNode);
+            using (var stringwriter = new StringWriter())
+            {
+                var serializer = new XmlSerializer(typeof(Data));
+                serializer.Serialize(stringwriter, nodes[i].data);
+                dataNode.InnerText = stringwriter.ToString();
+            }
+            node.AppendChild(dataNode);*/
         }
 
         return nodeParent;
@@ -92,5 +102,62 @@ public class XMLSaving : ISaveGraph
         }
 
         return edges;
+    }
+
+    private XmlNode SaveData(XmlDocument document, List<NodeView> nodes)
+    {
+        var nodeParent = document.CreateElement("data");
+
+        for (int i = 0; i < nodes.Count; i++)
+        {
+            // Create the root node
+            XmlNode node = document.CreateElement("node");
+            nodeParent.AppendChild(node);
+
+            // Create the guid node
+            XmlNode guid = document.CreateElement("guid");
+            guid.InnerText = nodes[i].guid;
+            node.AppendChild(guid);
+
+            //DataToXML(document, nodes[i].data);
+
+            /*// Create the guid node
+            XmlNode data = document.CreateElement("data");
+            guid.InnerText = nodes[i].data;
+            node.AppendChild(guid);*/
+        }
+
+        return nodeParent;
+    }
+
+    private XmlNode DataToXML(XmlDocument document, Data data)
+    {
+        var d = MySerializer<Data>.Serialize(data);
+
+        return null;
+    }
+
+    public static void Serialize(object item, string path)
+    {
+        XmlSerializer serializer = new XmlSerializer(item.GetType());
+        StreamWriter writer = new StreamWriter(path);
+        serializer.Serialize(writer.BaseStream, item);
+        writer.Close();
+    }
+
+    public class MySerializer<T> where T : class
+    {
+        public static string Serialize(T obj)
+        {
+            XmlSerializer xsSubmit = new XmlSerializer(typeof(T));
+            using (var sww = new StringWriter())
+            {
+                using (XmlTextWriter writer = new XmlTextWriter(sww) { Formatting = Formatting.Indented })
+                {
+                    xsSubmit.Serialize(writer, obj);
+                    return sww.ToString();
+                }
+            }
+        }
     }
 }

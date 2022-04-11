@@ -57,8 +57,9 @@ public class ScriptableObjectGraphSaving : ISaveGraph
             var pos = nodes[i].GetPosition();
 
             var nodeData = CreateNodeDataScriptableObject("node");
-            nodeData.Type = nodes[i].GetType();
+            nodeData.NodeType = nodes[i].GetType().AssemblyQualifiedName;
             nodeData.GUID = nodes[i].guid;
+            nodeData.Data = nodes[i].data;
             nodeData.Position = new Vector2(pos.x, pos.y);
 
             graph.AddNode(nodeData);
