@@ -38,11 +38,6 @@ public class XMLSaving : ISaveGraph
             XmlNode node = document.CreateElement("node");
             nodeParent.AppendChild(node);
 
-            // Create name node
-            XmlNode name = document.CreateElement("name");
-            name.InnerText = nodes[i].text;
-            node.AppendChild(name);
-
             // Create the guid node
             XmlNode guid = document.CreateElement("guid");
             guid.InnerText = nodes[i].guid;

@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
+using System;
 
+[Serializable]
 public class LittleTestNode : NodeView
 {
     public float number;

@@ -8,13 +8,7 @@ public abstract class NodeView : Node
 {
     public string guid;
     
-    public string text;
-    
-    public bool isRoot = false;
-
     public VisualElement[] visualElements;
-
-    public string data;
 
     public NodeView(Vector2 position)
     {
@@ -30,10 +24,8 @@ public abstract class NodeView : Node
     // TODO break this constructor into 2 objects! one of those objects should be port information
     public NodeView(string title, Vector2 position, VisualElement[] visualElements, PortInformation portInfo, string data = "")
     {
-        text = title;
         this.visualElements = visualElements;
         base.title = title;
-        this.data = data;
 
         guid = Guid.NewGuid().ToString();
 
