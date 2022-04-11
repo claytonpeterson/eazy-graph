@@ -64,7 +64,7 @@ public class EditorGraphView : GraphView
 
     public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
     {
-        var types = TypeCache.GetTypesDerivedFrom<TestNode>();
+        var types = TypeCache.GetTypesDerivedFrom<NodeView>();
         foreach(var type in types)
         {
             evt.menu.AppendAction(
