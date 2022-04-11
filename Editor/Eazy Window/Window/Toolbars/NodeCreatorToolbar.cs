@@ -46,7 +46,7 @@ public class NodeCreatorToolbar : Toolbar
     {
         return new Button(clickEvent: () =>
         {
-            nodeCreator.CreateNode(nodeType, new Vector2(0, 0), new Data());
+            nodeCreator.CreateNode(nodeType, new Vector2(0, 0), new TestingOutData());
         })
         { text = "Add " + nodeType };
     }

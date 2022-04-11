@@ -14,7 +14,7 @@ public class NodeData : ScriptableObject
     private string nodeType;
 
     [SerializeField]
-    private Data data;
+    private TestingOutData data;
 
     public string GUID { get => guid; set => guid = value; }
 
@@ -22,7 +22,7 @@ public class NodeData : ScriptableObject
 
     public string NodeType { get => nodeType; set => nodeType = value; }
 
-    public Data Data { get => data; set => data = value; }
+    public TestingOutData Data { get => data; set => data = value; }
 
     public override string ToString()
     {

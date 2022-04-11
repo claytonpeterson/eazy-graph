@@ -10,16 +10,18 @@ public abstract class NodeView : Node
 
     public Vector2 Position;
 
-    public Data data = new Data();
+    public TestingOutData data = new TestingOutData();
 
     public Type type;
     
     public VisualElement[] visualElements;
 
-    public NodeView(Vector2 position)
+    public NodeView(Vector2 position, TestingOutData data)
     {
         type = GetType();
         Position = new Vector2(position.x, position.y);
+
+        this.data = data;
 
         guid = Guid.NewGuid().ToString();
 

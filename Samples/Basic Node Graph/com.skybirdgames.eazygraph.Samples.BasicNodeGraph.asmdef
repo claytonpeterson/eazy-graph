@@ -1,8 +1,7 @@
 {
-    "name": "com.skybirdgames.eazygraph.Editor.Tests",
+    "name": "com.skybirdgames.eazygraph.Samples.BasicNodeGraph",
     "references": [
-        "GUID:e02d55cfd0a97cd419c0a720a621d742",
-        "GUID:1ca4f4ae42508ff40b4d84083491139c"
+        "GUID:e02d55cfd0a97cd419c0a720a621d742"
     ],
     "includePlatforms": [
         "Editor"

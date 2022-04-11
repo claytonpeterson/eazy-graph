@@ -18,7 +18,7 @@ namespace EazyGraph.Editor.Tests.Serialization
         {
             serializer = SerializerToTest();
 
-            editorGraphView = new EditorGraphView(new Spawner());
+            editorGraphView = new EditorGraphView(new BasicNodeSpawner());
         }
 
         [Test]

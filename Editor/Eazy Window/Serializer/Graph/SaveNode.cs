@@ -17,7 +17,7 @@ public class SaveNode
     private string type;
 
     [SerializeField]
-    private Data data;
+    private TestingOutData data;
 
     public string Name { get => name; set => name = value; }
 
@@ -27,7 +27,7 @@ public class SaveNode
 
     public string ObjType { get => type; set => type = value; }
 
-    public Data Data { get => data; set => data = value; }
+    public TestingOutData Data { get => data; set => data = value; }
 
     public override string ToString()
     {

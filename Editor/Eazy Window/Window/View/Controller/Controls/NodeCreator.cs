@@ -12,7 +12,7 @@ public class NodeCreator
         this.nodeSpawner = nodeSpawner;
     }
 
-    public NodeView CreateNode(Type type, Vector2 position, Data data)
+    public NodeView CreateNode(Type type, Vector2 position, TestingOutData data)
     {
         var nodeView = nodeSpawner.CreateNodeView(type, position, data);
         graphView.AddElement(nodeView);

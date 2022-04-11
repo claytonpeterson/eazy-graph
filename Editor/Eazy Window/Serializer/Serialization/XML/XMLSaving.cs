@@ -130,9 +130,9 @@ public class XMLSaving : ISaveGraph
         return nodeParent;
     }
 
-    private XmlNode DataToXML(XmlDocument document, Data data)
+    private XmlNode DataToXML(XmlDocument document, TestingOutData data)
     {
-        var d = MySerializer<Data>.Serialize(data);
+        var d = MySerializer<TestingOutData>.Serialize(data);
 
         return null;
     }

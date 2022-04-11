@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 [Serializable]
 [XmlRoot("Data")]
-public class Data
+public class TestingOutData
 {
     [XmlElement("name")]
     public string name;
