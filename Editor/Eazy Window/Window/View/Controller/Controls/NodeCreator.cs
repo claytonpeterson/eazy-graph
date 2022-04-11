@@ -1,4 +1,5 @@
-﻿using UnityEditor.Experimental.GraphView;
+﻿using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class NodeCreator
@@ -12,7 +13,7 @@ public class NodeCreator
         this.nodeSpawner = nodeSpawner;
     }
 
-    public NodeView CreateNode(TestNode test, Vector2 position)
+    public NodeView CreateNode(Type type, Vector2 position)
     {
         var portInformation = new PortInformation
         {
@@ -20,10 +21,15 @@ public class NodeCreator
             OutputPortCapacity = Port.Capacity.Multi
         };
 
-        var nodeView = new NodeView(
-            test,
-            position,
-            portInformation);
+        NodeView nodeView = null;
+        if (type == typeof(BigTestNode))
+        {
+            nodeView = new BigTestNode(position, portInformation);
+        }
+        else if (type == typeof(LittleTestNode))
+        {
+            nodeView = new LittleTestNode(position, portInformation);
+        }
 
         graphView.AddElement(nodeView);
         return nodeView;

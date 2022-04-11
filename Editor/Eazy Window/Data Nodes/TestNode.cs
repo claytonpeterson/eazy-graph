@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class TestNode
+public class TestNode : NodeView
 {
-
+    public TestNode(Vector2 position, PortInformation portInfo) : base(position, portInfo)
+    {
+    }
 }

@@ -44,12 +44,10 @@ public class NodeCreatorToolbar : Toolbar
 
     private Button CreateButton(Type nodeType)
     {
-        var testNode = Activator.CreateInstance(nodeType) as TestNode;
-
         return new Button(clickEvent: () =>
         {
-            nodeCreator.CreateNode(testNode, new Vector2(0, 0));
+            nodeCreator.CreateNode(nodeType, new Vector2(0, 0));
         })
-        { text = "Add " + testNode };
+        { text = "Add " + nodeType };
     }
 }

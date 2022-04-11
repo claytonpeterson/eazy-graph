@@ -16,14 +16,8 @@ public class NodeView : Node
 
     public string data;
 
-    public TestNode testNode;
-
-    public NodeView(TestNode node, Vector2 position, PortInformation portInfo)
+    public NodeView(Vector2 position, PortInformation portInfo)
     {
-        this.testNode = node;
-
-        title = node.ToString();
-
         guid = Guid.NewGuid().ToString();
 
         SetPosition(new Rect(position.x, position.y, 100, 100));
