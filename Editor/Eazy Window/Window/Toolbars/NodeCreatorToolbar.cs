@@ -19,7 +19,7 @@ public class NodeCreatorToolbar : Toolbar
 
     private void AddButtons()
     {
-        var types = TypeCache.GetTypesDerivedFrom<TestNode>();
+        var types = TypeCache.GetTypesDerivedFrom<NodeView>();
 
         foreach (var button in CreateButtonsForTypes(types))
         {

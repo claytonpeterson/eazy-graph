@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [System.Serializable]
-public class NodeView : Node
+public abstract class NodeView : Node
 {
     public string guid;
     
@@ -16,16 +16,14 @@ public class NodeView : Node
 
     public string data;
 
-    public NodeView(Vector2 position, PortInformation portInfo)
+    public NodeView(Vector2 position)
     {
         guid = Guid.NewGuid().ToString();
 
         SetPosition(new Rect(position.x, position.y, 100, 100));
 
-        var inputPort = AddPort(Direction.Input, portInfo.InputPortCapacity, "Input");
-        var outputPort = AddPort(Direction.Output, portInfo.OutputPortCapacity, "Output");
+        SetupPorts();
 
-        AddVisualElements(inputPort, outputPort);
         Refresh();
     }
 
@@ -41,12 +39,11 @@ public class NodeView : Node
 
         SetPosition(new Rect(position.x, position.y, 100, 100));
 
-        var inputPort = AddPort(Direction.Input, portInfo.InputPortCapacity, "Input");
-        var outputPort = AddPort(Direction.Output, portInfo.OutputPortCapacity, "Output");
+        SetupPorts();
 
-        AddVisualElements(inputPort, outputPort);
         Refresh();
     }
+
 
     public void AddVisualElements(Port inputPort, Port outputPort)
     {
@@ -59,6 +56,16 @@ public class NodeView : Node
         {
             mainContainer.Add(visualElements[i]);
         }*/
+    }
+
+    protected abstract PortInformation GetPortInformation();
+
+    private void SetupPorts()
+    {
+        var portInfo = GetPortInformation();
+        var inputPort = AddPort(Direction.Input, portInfo.InputPortCapacity, "Input");
+        var outputPort = AddPort(Direction.Output, portInfo.OutputPortCapacity, "Output");
+        AddVisualElements(inputPort, outputPort);
     }
 
     private Port AddPort(Direction portDirection, Port.Capacity capacity = Port.Capacity.Single, string portName = "")

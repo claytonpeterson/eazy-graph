@@ -2,7 +2,12 @@
 
 public class TestNode : NodeView
 {
-    public TestNode(Vector2 position, PortInformation portInfo) : base(position, portInfo)
+    public TestNode(Vector2 position) : base(position)
     {
+    }
+
+    protected override PortInformation GetPortInformation()
+    {
+        throw new System.NotImplementedException();
     }
 }

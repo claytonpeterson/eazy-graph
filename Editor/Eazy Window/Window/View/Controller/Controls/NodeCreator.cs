@@ -24,11 +24,11 @@ public class NodeCreator
         NodeView nodeView = null;
         if (type == typeof(BigTestNode))
         {
-            nodeView = new BigTestNode(position, portInformation);
+            nodeView = new BigTestNode(position);
         }
         else if (type == typeof(LittleTestNode))
         {
-            nodeView = new LittleTestNode(position, portInformation);
+            nodeView = new LittleTestNode(position);
         }
 
         graphView.AddElement(nodeView);
@@ -50,8 +50,7 @@ public class NodeCreator
 
             var nodeView = nodeSpawner.CreateNodeView(
                 nodeData.Data,
-                nodeData.Position,
-                portInformation);
+                nodeData.Position);
 
             nodeView.guid = nodeData.Guid;
 
