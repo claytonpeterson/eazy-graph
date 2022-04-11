@@ -21,6 +21,8 @@ public abstract class NodeView : Node
         type = GetType();
         Position = new Vector2(position.x, position.y);
 
+        title = type.ToString();
+
         this.data = data;
 
         guid = Guid.NewGuid().ToString();
@@ -32,27 +34,17 @@ public abstract class NodeView : Node
         Refresh();
     }
 
-    public void AddVisualElements(Port inputPort, Port outputPort)
-    {
-        // Add ports
-        inputContainer.Add(inputPort);
-        outputContainer.Add(outputPort);
-/*
-        // Add content
-        for(int i = 0; i < visualElements.Length; i++)
-        {
-            mainContainer.Add(visualElements[i]);
-        }*/
-    }
-
     protected abstract PortInformation GetPortInformation();
 
     private void SetupPorts()
     {
         var portInfo = GetPortInformation();
-        var inputPort = AddPort(Direction.Input, portInfo.InputPortCapacity, "Input");
-        var outputPort = AddPort(Direction.Output, portInfo.OutputPortCapacity, "Output");
-        AddVisualElements(inputPort, outputPort);
+
+        inputContainer.Add(
+            child: AddPort(Direction.Input, portInfo.InputPortCapacity, "Input"));
+
+        outputContainer.Add(
+            child: AddPort(Direction.Output, portInfo.OutputPortCapacity, "Output"));
     }
 
     private Port AddPort(Direction portDirection, Port.Capacity capacity = Port.Capacity.Single, string portName = "")
@@ -63,7 +55,7 @@ public abstract class NodeView : Node
             capacity, 
             typeof(float));
 
-        newPort.name = portName;
+        newPort.portName = portName;
         return newPort;
     }
 

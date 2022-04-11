@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+﻿using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SinglePortNode : NodeView
@@ -15,7 +13,7 @@ public class SinglePortNode : NodeView
         var portInfo = new PortInformation
         {
             InputPortCapacity = Port.Capacity.Single,
-            OutputPortCapacity = Port.Capacity.Multi
+            OutputPortCapacity = Port.Capacity.Single
         };
         return portInfo;
     }
