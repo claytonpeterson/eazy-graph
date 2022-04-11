@@ -1,5 +1,5 @@
 {
-    "name": "com.skybirdgames.eazygraph.Samples.BasicNodeGraph",
+    "name": "com.skybirdgames.eazygraph.dialog.Editor",
     "references": [
         "GUID:e02d55cfd0a97cd419c0a720a621d742"
     ],

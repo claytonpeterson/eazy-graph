@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 
-public class OperatorNode : SinglePortNode
+namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public OperatorNode(Vector2 position, TestingOutData data) : base(position, data)
+    public class OperatorNode : SinglePortNode
     {
-        mainContainer.style.backgroundColor = Color.blue;
+        public OperatorNode(Vector2 position, TestingOutData data) : base(position, data)
+        {
+            mainContainer.style.backgroundColor = Color.blue;
+        }
     }
 }

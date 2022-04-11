@@ -8,36 +8,36 @@ public class NodeCreatorToolbar : Toolbar
 {
     private readonly NodeCreator nodeCreator;
 
-    public NodeCreatorToolbar(NodeCreator nodeCreator)
+    public NodeCreatorToolbar(NodeCreator nodeCreator, string nameSpace)
     {
         this.nodeCreator = nodeCreator;
 
         Add(new TextElement { text = "Node Creation: " });
 
-        AddButtons();
+        AddButtons(nameSpace);
     }
 
-    private void AddButtons()
+    private void AddButtons(string nameSpace)
     {
         var types = TypeCache.GetTypesDerivedFrom<NodeView>();
 
-        foreach (var button in CreateButtonsForTypes(types))
+        foreach (var button in CreateButtonsForTypes(types, nameSpace))
         {
             Add(button);
         }
     }
 
-    private Button[] CreateButtonsForTypes(TypeCache.TypeCollection types)
+    private Button[] CreateButtonsForTypes(TypeCache.TypeCollection types, string domainNamespace)
     {
         Button[] buttons = new Button[types.Count];
-        foreach(var type in types)
-        {
-            CreateButton(type);
-        }
-
+        
         for (int i = 0; i < types.Count; i++)
         {
-            buttons[i] = CreateButton(types[i]);
+            // Only grab if it's in the same namespace
+            if (types[i].ToString().Contains(domainNamespace))
+            {
+                buttons[i] = CreateButton(types[i]);
+            }
         }
         return buttons;
     }
@@ -48,6 +48,6 @@ public class NodeCreatorToolbar : Toolbar
         {
             nodeCreator.CreateNode(nodeType, new Vector2(0, 0), new TestingOutData());
         })
-        { text = "Add " + nodeType };
+        { text = "Add " + nodeType.Name };
     }
 }

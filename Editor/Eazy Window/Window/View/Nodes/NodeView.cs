@@ -21,7 +21,7 @@ public abstract class NodeView : Node
         type = GetType();
         Position = new Vector2(position.x, position.y);
 
-        title = type.ToString();
+        title = type.Name;
 
         this.data = data;
 

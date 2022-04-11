@@ -1,12 +1,15 @@
 ﻿using UnityEditor.UIElements;
 using UnityEngine;
 
-public class NumberNode : SinglePortNode
+namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public NumberNode(Vector2 position, TestingOutData data) : base(position, data)
+    public class NumberNode : SinglePortNode
     {
-        mainContainer.style.backgroundColor = Color.green;
+        public NumberNode(Vector2 position, TestingOutData data) : base(position, data)
+        {
+            mainContainer.style.backgroundColor = Color.green;
 
-        Add(new FloatField("number"));
+            Add(new FloatField("number"));
+        }
     }
 }

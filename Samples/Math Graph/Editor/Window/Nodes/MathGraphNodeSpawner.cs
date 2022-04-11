@@ -1,19 +1,22 @@
 ﻿using System;
 using UnityEngine;
 
-public class MathGraphNodeSpawner : INodeSpawner
+namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public NodeView CreateNodeView(Type type, Vector2 position, TestingOutData data)
+    public class MathGraphNodeSpawner : INodeSpawner
     {
-        if (type == typeof(NumberNode))
+        public NodeView CreateNodeView(Type type, Vector2 position, TestingOutData data)
         {
-            return new NumberNode(position, data);
-        }
-        else if (type == typeof(OperatorNode))
-        {
-            return new OperatorNode(position, data);
-        }
+            if (type == typeof(NumberNode))
+            {
+                return new NumberNode(position, data);
+            }
+            else if (type == typeof(OperatorNode))
+            {
+                return new OperatorNode(position, data);
+            }
 
-        return null;
+            return null;
+        }
     }
 }
