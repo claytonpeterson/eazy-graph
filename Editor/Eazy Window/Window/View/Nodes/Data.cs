@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 [Serializable]
@@ -13,4 +14,6 @@ public class TestingOutData
 
     [XmlElement("location")]
     public string location;
+
+    public Dictionary<string, string> lookup = new Dictionary<string, string>();
 }
