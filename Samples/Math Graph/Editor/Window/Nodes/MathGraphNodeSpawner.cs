@@ -15,7 +15,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             {
                 return new OperatorNode(position, data);
             }
-
             return null;
         }
     }

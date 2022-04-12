@@ -5,6 +5,8 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
     public class MathGraphWindow : EazyWindow
     {
+        private RunableSerializationToolbar<GraphData> serializationToolbar;
+
         [MenuItem("Eazy Graph/Samples/Math Graph")]
         public static void ShowWindow()
         {
@@ -23,9 +25,14 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
                     parentFolder: "Assets/Resources/",
                     fileExtension: ".asset");
 
+            serializationToolbar = new RunableSerializationToolbar<GraphData>(
+                view, 
+                scriptableObjectSerializer, 
+                new MathRunner());
+
             return new Toolbar[]
             {
-                new RunableSerializationToolbar<GraphData>(view, scriptableObjectSerializer, new MathRunner()),
+                serializationToolbar,
                 new NodeCreatorToolbar(new NodeCreator(view, GetNodeSpawner()), GetType().Namespace)
             };
         }

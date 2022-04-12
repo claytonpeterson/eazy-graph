@@ -21,6 +21,20 @@ public class SerializationToolbar<T> : Toolbar
         Add(ClearButton());
     }
 
+    public void Save()
+    {
+        var fileName = (obj == null) ? null : obj.name;
+        serializer.Save(fileName, view);
+    }
+
+    public Graph LoadGraph()
+    {
+        if (obj == null)
+            return null;
+
+        return serializer.Load(obj.name);
+    }
+
     protected ObjectField InputField()
     {
         var label = "Object Field (" + serializer.FileExtension + ")";
@@ -43,9 +57,7 @@ public class SerializationToolbar<T> : Toolbar
     {
         return new Button(clickEvent: () =>
         {
-            var fileName = (obj == null) ? null : obj.name;
-
-            serializer.Save(fileName, view);
+            Save();
         })
         { text = "Save Graph" };
     }
@@ -54,9 +66,7 @@ public class SerializationToolbar<T> : Toolbar
     {
         return new Button(clickEvent: () =>
         {
-            Graph graph = serializer.Load(obj.name);
-
-            view.ShowGraph(graph);
+            view.ShowGraph(LoadGraph());
         })
         { text = "Load Graph" };
     }

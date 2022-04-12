@@ -8,29 +8,35 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
     public class OperatorNode : NodeView
     {
-        PopupField<string> popupField;
+        private PopupField<string> popupField;
 
-        List<string> popupFieldValues = new List<string> { "Add", "Subtract", "Multiply", "Divide" };
+        private readonly List<string> popupFieldValues = new List<string> 
+        { 
+            "Add", 
+            "Subtract", 
+            "Multiply", 
+            "Divide" 
+        };
+
+        private Label calculationField;
 
         public OperatorNode(Vector2 position, TestingOutData data) : base(position, data)
         {
             mainContainer.style.backgroundColor = Color.blue;
 
-            var portInfo = new PortInformation
-            {
-                InputPortCapacity = Port.Capacity.Multi,
-                OutputPortCapacity = Port.Capacity.Single
-            };
+            SetupPorts();
+            AddPopupField();
+            AddCalculationField();
+            Refresh();
+        }
 
+        private void SetupPorts()
+        {
             inputContainer.Add(
-                child: CreatePort(Direction.Input, portInfo.InputPortCapacity, "Input A"));
+                child: CreatePort(Direction.Input, Port.Capacity.Multi, "Input A"));
 
             outputContainer.Add(
-                child: CreatePort(Direction.Output, portInfo.OutputPortCapacity, "Output"));
-
-            AddPopupField();
-
-            Refresh();
+                child: CreatePort(Direction.Output, Port.Capacity.Single, "Output"));
         }
 
         private void AddPopupField()
@@ -44,9 +50,33 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             {
                 data.name = evt.newValue;
                 Debug.Log(evt.newValue);
+
+                Calculate();
             });
 
             Add(popupField);
+        }
+
+        private void AddCalculationField()
+        {
+            calculationField = new Label();
+            Add(calculationField);
+        }
+
+        private void Calculate()
+        {
+            Debug.Log("calculating");
+
+            foreach(var connection in Connections())
+            {
+                var numberNode = (NumberNode)connection.output.node;
+                Debug.Log(numberNode.Value());
+            }
+        }
+
+        IEnumerable<Edge> Connections()
+        {
+            return inputContainer.Q<Port>().connections;
         }
     }
 }

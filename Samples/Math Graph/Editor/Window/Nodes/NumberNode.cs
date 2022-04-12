@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+﻿using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -25,6 +24,11 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
             AddNumberField();
             Refresh();
+        }
+
+        public int Value()
+        {
+            return (int)numberField.value;
         }
 
         private void AddNumberField()
