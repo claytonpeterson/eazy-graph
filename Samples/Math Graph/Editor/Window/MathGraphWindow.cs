@@ -25,8 +25,8 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
             return new Toolbar[]
             {
-            new SerializationToolbar<GraphData>(view, scriptableObjectSerializer),
-            new NodeCreatorToolbar(new NodeCreator(view, GetNodeSpawner()), GetType().Namespace)
+                new RunableSerializationToolbar<GraphData>(view, scriptableObjectSerializer, new MathRunner()),
+                new NodeCreatorToolbar(new NodeCreator(view, GetNodeSpawner()), GetType().Namespace)
             };
         }
 

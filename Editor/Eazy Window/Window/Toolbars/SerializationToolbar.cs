@@ -6,8 +6,9 @@ public class SerializationToolbar<T> : Toolbar
 {
     protected Object obj;
 
+    protected readonly Serializer serializer;
+
     private readonly EditorGraphView view;
-    private readonly Serializer serializer;
 
     public SerializationToolbar(EditorGraphView view, Serializer serializer)
     {

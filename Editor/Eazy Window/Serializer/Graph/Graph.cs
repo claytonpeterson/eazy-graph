@@ -29,4 +29,29 @@ public class Graph
     {
         connections.Add(connection);
     }
+
+    public List<SaveNode> Inputs(string guid)
+    {
+        var inputs = new List<SaveNode>();
+
+        foreach (var connection in connections)
+        {
+            if (connection.GuidB == guid)
+            {
+                inputs.Add(GetNode(connection.GuidA));
+            }
+        }
+
+        return inputs;
+    }
+
+    public SaveNode GetNode(string guid)
+    {
+        foreach(var node in nodes)
+        {
+            if (node.Guid == guid)
+                return node;
+        }
+        return null;
+    }
 }
