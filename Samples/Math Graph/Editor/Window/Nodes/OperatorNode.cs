@@ -36,11 +36,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return Calculate();
         }
 
-        protected override void OnPortRemoved(Port port)
-        {
-            Debug.Log(port + " down");
-        }
-
         private void SetupPorts()
         {
             inputContainer.Add(
@@ -61,7 +56,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             {
                 data.name = evt.newValue;
 
-                calculationField.text = Calculate().ToString();
+                UpdateCalculationField();
             });
 
             Add(popupField);
@@ -70,17 +65,23 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         private void AddCalculationField()
         {
             calculationField = new Label(Calculate().ToString());
+
             Add(calculationField);
         }
 
-        List<Edge> Connections()
+        List<Edge> InputConnections()
         {
             return inputContainer.Q<Port>().connections.ToList();
         }
 
+        List<Edge> OutputConnections()
+        {
+            return outputContainer.Q<Port>().connections.ToList();
+        }
+
         private bool CanCalculate()
         {
-            return Connections().Count == 2;
+            return InputConnections().Count == 2;
         }
 
         private int Calculate()
@@ -88,7 +89,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             if (!CanCalculate())
                 return 0;
 
-            var conn = Connections();
+            var conn = InputConnections();
             var a = (IContainsValue)conn[0].output.node;
             var b = (IContainsValue)conn[1].output.node;
 
@@ -98,6 +99,23 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
                 op: data.name);
 
             return value;
+        }
+
+        public void UpdateCalculationField()
+        {
+            calculationField.text = Calculate().ToString();
+
+            if (OutputConnections().Count > 0)
+                UpdateOutputConnections();
+        }
+
+        private void UpdateOutputConnections()
+        {
+            foreach(var output in OutputConnections())
+            {
+                var operatorNode = (OperatorNode)output.input.node;
+                operatorNode.UpdateCalculationField();
+            }
         }
 
         private int FigureOutMathAndStuff(int inputA, int inputB, string op)
