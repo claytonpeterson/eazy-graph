@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -30,6 +31,11 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             Refresh();
         }
 
+        protected override void OnPortRemoved(Port port)
+        {
+            Debug.Log(port + " down");
+        }
+
         private void SetupPorts()
         {
             inputContainer.Add(
@@ -49,9 +55,8 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             popupField.RegisterValueChangedCallback((evt) =>
             {
                 data.name = evt.newValue;
-                Debug.Log(evt.newValue);
 
-                Calculate();
+                calculationField.text = Calculate();
             });
 
             Add(popupField);
@@ -59,24 +64,56 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         private void AddCalculationField()
         {
-            calculationField = new Label();
+            calculationField = new Label(Calculate());
             Add(calculationField);
         }
 
-        private void Calculate()
+        List<Edge> Connections()
         {
-            Debug.Log("calculating");
-
-            foreach(var connection in Connections())
-            {
-                var numberNode = (NumberNode)connection.output.node;
-                Debug.Log(numberNode.Value());
-            }
+            return inputContainer.Q<Port>().connections.ToList();
         }
 
-        IEnumerable<Edge> Connections()
+        private bool CanCalculate()
         {
-            return inputContainer.Q<Port>().connections;
+            return Connections().Count == 2;
+        }
+
+        private string Calculate()
+        {
+            if (!CanCalculate())
+                return "";
+
+            var conn = Connections();
+            var a = (NumberNode)conn[0].output.node;
+            var b = (NumberNode)conn[1].output.node;
+
+            var value = FigureOutMathAndStuff(
+                inputA: a.Value(),
+                inputB: b.Value(), 
+                op: data.name);
+
+            return value.ToString();
+        }
+
+        private int FigureOutMathAndStuff(int inputA, int inputB, string op)
+        {
+            if (op == "Add")
+            {
+                return inputA + inputB;
+            }
+            else if (op == "Subtract")
+            {
+                return inputA - inputB;
+            }
+            else if (op == "Multiply")
+            {
+                return inputA * inputB;
+            }
+            else if (op == "Divide")
+            {
+                return inputA / inputB;
+            }
+            return 0;
         }
     }
 }
