@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public class OperatorNode : NodeView
+    public class OperatorNode : NodeView, IContainsValue
     {
         private PopupField<string> popupField;
 
@@ -29,6 +29,11 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             AddPopupField();
             AddCalculationField();
             Refresh();
+        }
+
+        public int Value()
+        {
+            return Calculate();
         }
 
         protected override void OnPortRemoved(Port port)
@@ -56,7 +61,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             {
                 data.name = evt.newValue;
 
-                calculationField.text = Calculate();
+                calculationField.text = Calculate().ToString();
             });
 
             Add(popupField);
@@ -64,7 +69,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         private void AddCalculationField()
         {
-            calculationField = new Label(Calculate());
+            calculationField = new Label(Calculate().ToString());
             Add(calculationField);
         }
 
@@ -78,21 +83,21 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return Connections().Count == 2;
         }
 
-        private string Calculate()
+        private int Calculate()
         {
             if (!CanCalculate())
-                return "";
+                return 0;
 
             var conn = Connections();
-            var a = (NumberNode)conn[0].output.node;
-            var b = (NumberNode)conn[1].output.node;
+            var a = (IContainsValue)conn[0].output.node;
+            var b = (IContainsValue)conn[1].output.node;
 
             var value = FigureOutMathAndStuff(
                 inputA: a.Value(),
                 inputB: b.Value(), 
                 op: data.name);
 
-            return value.ToString();
+            return value;
         }
 
         private int FigureOutMathAndStuff(int inputA, int inputB, string op)
