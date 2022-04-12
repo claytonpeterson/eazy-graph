@@ -15,7 +15,10 @@ public class RunableSerializationToolbar<T> : SerializationToolbar<T>
     {
         return new Button(clickEvent: () =>
         {
+            Save();
+
             Graph graph = serializer.Load(obj.name);
+
             graphRunner.Run(graph);
         })
         { text = "Run Graph" };

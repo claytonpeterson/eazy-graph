@@ -44,7 +44,7 @@ public abstract class NodeView : Node
         return newPort;
     }
 
-    public void Refresh()
+    public virtual void Refresh()
     {
         RefreshExpandedState();
         RefreshPorts();

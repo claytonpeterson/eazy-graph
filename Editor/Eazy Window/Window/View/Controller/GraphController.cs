@@ -23,6 +23,7 @@ public class GraphController
             AddNodes(graph);
             ConnectNodes(graph);
         }
+        // here
     }
 
     public void ClearGraph()

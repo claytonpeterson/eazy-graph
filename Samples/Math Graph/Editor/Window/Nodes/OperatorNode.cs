@@ -21,8 +21,13 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         private Label calculationField;
 
+        private readonly OutputUpdater output;
+
+
         public OperatorNode(Vector2 position, TestingOutData data) : base(position, data)
         {
+            output = new OutputUpdater(this);
+
             mainContainer.style.backgroundColor = Color.blue;
 
             SetupPorts();
@@ -65,18 +70,12 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         private void AddCalculationField()
         {
             calculationField = new Label(Calculate().ToString());
-
             Add(calculationField);
         }
 
         List<Edge> InputConnections()
         {
             return inputContainer.Q<Port>().connections.ToList();
-        }
-
-        List<Edge> OutputConnections()
-        {
-            return outputContainer.Q<Port>().connections.ToList();
         }
 
         private bool CanCalculate()
@@ -105,17 +104,8 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         {
             calculationField.text = Calculate().ToString();
 
-            if (OutputConnections().Count > 0)
-                UpdateOutputConnections();
-        }
-
-        private void UpdateOutputConnections()
-        {
-            foreach(var output in OutputConnections())
-            {
-                var operatorNode = (OperatorNode)output.input.node;
-                operatorNode.UpdateCalculationField();
-            }
+            // send the message forth
+            output.UpdateOutputConnections();
         }
 
         private int FigureOutMathAndStuff(int inputA, int inputB, string op)

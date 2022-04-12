@@ -9,8 +9,12 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
     {
         FloatField numberField;
 
+        private readonly OutputUpdater output;
+
         public NumberNode(Vector2 position, TestingOutData data) : base(position, data)
         {
+            output = new OutputUpdater(this);
+
             mainContainer.style.backgroundColor = Color.green;
 
             var portInfo = new PortInformation
@@ -41,7 +45,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             numberField.RegisterValueChangedCallback((evt) =>
             {
                 data.age = (int)evt.newValue;
-                Debug.Log(evt.newValue);
+                output.UpdateOutputConnections();
             });
 
             Add(numberField);
