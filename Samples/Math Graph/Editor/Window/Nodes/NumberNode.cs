@@ -20,9 +20,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
                 OutputPortCapacity = Port.Capacity.Single
             };
 
-            inputContainer.Add(
-                child: CreatePort(Direction.Input, portInfo.InputPortCapacity, "Input"));
-
             outputContainer.Add(
                 child: CreatePort(Direction.Output, portInfo.OutputPortCapacity, "Output"));
 
@@ -32,7 +29,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         private void AddNumberField()
         {
-            numberField = new FloatField("number field")
+            numberField = new FloatField()
             {
                 value = data.age
             };
