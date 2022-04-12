@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public class NumberNode : NodeView, IContainsValue
+    public class NumberNode : NodeView, IContainsValue, IUpdate
     {
         FloatField numberField;
 
@@ -49,6 +49,11 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             });
 
             Add(numberField);
+        }
+
+        public void Update()
+        {
+            
         }
     }
 }

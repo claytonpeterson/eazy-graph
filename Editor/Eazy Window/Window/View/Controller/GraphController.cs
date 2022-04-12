@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 
 public class GraphController
 {
@@ -22,6 +23,19 @@ public class GraphController
         {
             AddNodes(graph);
             ConnectNodes(graph);
+
+            // Update the ui of anything that is updated globally
+            for (int i = 0; i < view.Nodes.Count; i++)
+            {
+                var node = view.Nodes[i];
+                Debug.Log(node);
+
+                var updateable = (IUpdate)node;
+                if(updateable != null)
+                {
+                    updateable.Update();
+                }
+            }
         }
         // here
     }
