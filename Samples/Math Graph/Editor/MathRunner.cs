@@ -7,28 +7,74 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
     {
         public void Run(Graph graph)
         {
-            GetOperators(graph);
+            foreach (var node in graph.Nodes)
+            {
+                ProcessNode(node, graph);
+            }
         }
 
-        private List<OperatorNode> GetOperators(Graph graph)
+        private void ProcessNode(SaveNode node, Graph graph)
         {
-            var operators = new List<OperatorNode>();
-
-            foreach(var node in graph.Nodes)
+            if (IsOperator(node))
             {
-                if(node.Data.name.Length > 0)
-                {
-                    Debug.Log(node.Data.name);
-
-                    var i = graph.Inputs(node.Guid);
-                    foreach(var b in i)
-                    {
-                        Debug.Log(b.Data.age);
-                    }
-                }
+                var value = ProcessOperaterNode(node, graph);
+                Debug.Log(value);
             }
+        }
 
-            return operators;
+        private int ProcessOperaterNode(SaveNode node, Graph graph)
+        {
+            var inputs = GetInputs(node, graph);
+            if (inputs != null)
+            {
+                int inputA = inputs[0].Data.age;
+                int inputB = inputs[1].Data.age;
+                return FigureOutMathAndStuff(
+                    inputA, 
+                    inputB, 
+                    GetOperation(node));
+            }
+            return 0;
+        }
+
+        private bool IsOperator(SaveNode node)
+        {
+            Debug.Log(node.Data);
+            return node.Data.name.Length > 0;
+        }
+
+        private string GetOperation(SaveNode node)
+        {
+            return node.Data.name;
+        }
+
+        private List<SaveNode> GetInputs(SaveNode node, Graph graph)
+        {
+            return 
+                graph.Inputs(node.Guid).Count == 2 ? 
+                graph.Inputs(node.Guid) : 
+                null;
+        }
+
+        private int FigureOutMathAndStuff(int inputA, int inputB, string op)
+        {
+            if (op == "Add")
+            {
+                return inputA + inputB;
+            }
+            else if (op == "Subtract")
+            {
+                return inputA - inputB;
+            }
+            else if (op == "Multiply")
+            {
+                return inputA * inputB;
+            }
+            else if (op == "Divide")
+            {
+                return inputA / inputB;
+            }
+            return 0;
         }
     }
 }

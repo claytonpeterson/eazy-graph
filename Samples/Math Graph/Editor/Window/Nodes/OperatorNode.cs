@@ -10,7 +10,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
     {
         PopupField<string> popupField;
 
-        List<string> popupFieldValues = new List<string> { "Add +", "Subtract", "Multiply", "Divide" };
+        List<string> popupFieldValues = new List<string> { "Add", "Subtract", "Multiply", "Divide" };
 
         public OperatorNode(Vector2 position, TestingOutData data) : base(position, data)
         {
