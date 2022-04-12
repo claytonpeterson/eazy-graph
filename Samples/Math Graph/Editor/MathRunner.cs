@@ -39,7 +39,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         private bool IsOperator(SaveNode node)
         {
-            return node.Data.name.Length > 0;
+            return node.Data.name != null && node.Data.name.Length > 0;
         }
 
         private string GetOperation(SaveNode node)

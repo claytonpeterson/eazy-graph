@@ -5,7 +5,7 @@ using UnityEngine;
 public class SaveNode
 {
     [SerializeField]
-    private string name;
+    private string name = "";
 
     [SerializeField]
     private Vector2 position;
