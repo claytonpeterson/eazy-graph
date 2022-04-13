@@ -1,5 +1,7 @@
 ﻿using UnityEditor;
 using UnityEditor.UIElements;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
@@ -10,8 +12,13 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         [MenuItem("Eazy Graph/Samples/Math Graph")]
         public static void ShowWindow()
         {
+            StyleSheet styleSheet = (StyleSheet)Resources.Load("layout");
+
+            Debug.Log(styleSheet);
+
             var window = GetWindow(typeof(MathGraphWindow));
             window.titleContent.text = "Math Graph";
+            window.rootVisualElement.styleSheets.Add(styleSheet);
             window.Show();
         }
 
