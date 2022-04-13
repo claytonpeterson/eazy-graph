@@ -28,7 +28,6 @@ public class GraphController
             for (int i = 0; i < view.Nodes.Count; i++)
             {
                 var node = view.Nodes[i];
-                Debug.Log(node);
 
                 var updateable = (IUpdate)node;
                 if(updateable != null)

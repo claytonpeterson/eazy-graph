@@ -23,7 +23,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         private readonly OutputUpdater output;
 
-
         public OperatorNode(Vector2 position, TestingOutData data) : base(position, data)
         {
             output = new OutputUpdater(this);
@@ -60,7 +59,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             popupField.RegisterValueChangedCallback((evt) =>
             {
                 data.name = evt.newValue;
-
+                data.age = Calculate();
                 UpdateCalculationField();
             });
 
@@ -132,6 +131,8 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         public void Update()
         {
             UpdateCalculationField();
+
+            data.age = Calculate();
         }
     }
 }

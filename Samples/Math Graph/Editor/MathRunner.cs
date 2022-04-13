@@ -9,7 +9,10 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         {
             foreach (var node in graph.Nodes)
             {
-                ProcessNode(node, graph);
+                if (!HasChildren(node, graph))
+                {
+                    ProcessNode(node, graph);
+                }
             }
         }
 
@@ -40,6 +43,11 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         private bool IsOperator(SaveNode node)
         {
             return node.Data.name != null && node.Data.name.Length > 0;
+        }
+
+        private bool HasChildren(SaveNode node, Graph graph)
+        {
+            return graph.Outputs(node.Guid).Count > 0;
         }
 
         private string GetOperation(SaveNode node)

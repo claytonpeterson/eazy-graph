@@ -41,8 +41,21 @@ public class Graph
                 inputs.Add(GetNode(connection.GuidA));
             }
         }
-
         return inputs;
+    }
+
+    public List<SaveNode> Outputs(string guid)
+    {
+        var outputs = new List<SaveNode>();
+
+        foreach (var connection in connections)
+        {
+            if (connection.GuidA == guid)
+            {
+                outputs.Add(GetNode(connection.GuidB));
+            }
+        }
+        return outputs;
     }
 
     public SaveNode GetNode(string guid)
