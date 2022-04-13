@@ -6,7 +6,7 @@ using System;
 namespace skybirdgames.eazygraph.dialog.Editor
 {
     [Serializable]
-    public class LittleTestNode : SinglePortNode
+    public class LittleTestNode : NodeView
     {
         public TextField textField;
 
@@ -17,6 +17,11 @@ namespace skybirdgames.eazygraph.dialog.Editor
             mainContainer.style.backgroundColor = Color.green;
 
             AddNameField();
+        }
+
+        protected override void SetupPorts()
+        {
+            
         }
 
         private void AddNameField()
