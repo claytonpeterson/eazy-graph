@@ -53,13 +53,13 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         {
             popupField = new PopupField<string>(popupFieldValues, popupFieldValues[0])
             {
-                value = data.name == null ? popupFieldValues[0] : data.name
+                value = Data().name == null ? popupFieldValues[0] : Data().name
             };
 
             popupField.RegisterValueChangedCallback((evt) =>
             {
-                data.name = evt.newValue;
-                data.age = Calculate();
+                Data().name = evt.newValue;
+                Data().age = Calculate();
                 UpdateCalculationField();
             });
 
@@ -94,7 +94,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             var value = FigureOutMathAndStuff(
                 inputA: a.Value(),
                 inputB: b.Value(), 
-                op: data.name);
+                op: Data().name);
 
             return value;
         }
@@ -132,7 +132,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         {
             UpdateCalculationField();
 
-            data.age = Calculate();
+            Data().age = Calculate();
         }
     }
 }

@@ -41,12 +41,12 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         {
             numberField = new FloatField()
             {
-                value = data.age
+                value = Data().age
             };
 
             numberField.RegisterValueChangedCallback((evt) =>
             {
-                data.age = (int)evt.newValue;
+                Data().age = (int)evt.newValue;
                 output.UpdateOutputConnections();
             });
 

@@ -16,8 +16,6 @@ namespace skybirdgames.eazygraph.dialog.Editor
 
             mainContainer.style.backgroundColor = Color.red;
 
-            this.data = data;
-
             AddAgeField();
         }
 
@@ -25,12 +23,12 @@ namespace skybirdgames.eazygraph.dialog.Editor
         {
             ageField = new IntegerField("age field")
             {
-                value = data.age
+                value = Data().age
             };
 
             ageField.RegisterValueChangedCallback((evt) =>
             {
-                data.age = evt.newValue;
+                Data().age = evt.newValue;
                 Debug.Log(evt.newValue);
             });
 

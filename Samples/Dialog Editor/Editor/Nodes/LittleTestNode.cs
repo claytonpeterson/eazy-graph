@@ -16,8 +16,6 @@ namespace skybirdgames.eazygraph.dialog.Editor
 
             mainContainer.style.backgroundColor = Color.green;
 
-            this.data = data;
-
             AddNameField();
         }
 
@@ -25,12 +23,12 @@ namespace skybirdgames.eazygraph.dialog.Editor
         {
             textField = new TextField("name field")
             {
-                value = data.name
+                value = Data().name
             };
 
             textField.RegisterValueChangedCallback((evt) =>
             {
-                data.name = evt.newValue;
+                Data().name = evt.newValue;
             });
 
             Add(textField);
