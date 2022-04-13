@@ -24,7 +24,7 @@ namespace skybirdgames.eazygraph.Samples.Programming.Editor
 
         protected override INodeSpawner GetNodeSpawner()
         {
-            return null;
+            return new NodeSpawner();
         }
 
         private Serializer GetSerializer()

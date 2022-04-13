@@ -2,20 +2,20 @@ using UnityEngine;
 
 namespace skybirdgames.eazygraph.Samples.Programming.Editor
 {
-    public class ForLoopNode : NodeView, IContainsValue, IUpdate
+    public class LogicNode : NodeView, IContainsValue, IUpdate
     {
-        public ForLoopNode(Vector2 position, TestingOutData data) : base(position, data)
+        public LogicNode(Vector2 position, TestingOutData data) : base(position, data)
         {
-            title = "for loop";
+            title = "logic";
 
-            mainContainer.style.backgroundColor = Color.blue;
+            mainContainer.style.backgroundColor = Color.cyan;
 
             Refresh();
         }
 
         public void Update()
         {
-            
+
         }
 
         public int Value()
