@@ -7,7 +7,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
     public class NumberNode : NodeView, IContainsValue, IUpdate
     {
-        FloatField numberField;
+        private FloatField numberField;
 
         private readonly OutputUpdater output;
 
@@ -20,15 +20,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             Data().name = "Number";
 
             mainContainer.style.backgroundColor = Color.green;
-
-            var portInfo = new PortInformation
-            {
-                InputPortCapacity = Port.Capacity.Single,
-                OutputPortCapacity = Port.Capacity.Single
-            };
-
-            outputContainer.Add(
-                child: CreatePort(Direction.Output, portInfo.OutputPortCapacity, "Output"));
 
             AddNumberField();
             Refresh();
@@ -58,6 +49,12 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         public void Update()
         {
             
+        }
+
+        protected override void SetupPorts()
+        {
+            outputContainer.Add(
+                child: CreatePort(Direction.Output, Port.Capacity.Single, "Output"));
         }
     }
 }

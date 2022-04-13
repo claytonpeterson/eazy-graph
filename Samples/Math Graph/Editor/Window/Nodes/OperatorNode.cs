@@ -29,7 +29,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
             mainContainer.style.backgroundColor = Color.blue;
 
-            SetupPorts();
             AddPopupField();
             AddCalculationField();
             Refresh();
@@ -40,7 +39,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return Calculate();
         }
 
-        private void SetupPorts()
+        protected override void SetupPorts()
         {
             inputContainer.Add(
                 child: CreatePort(Direction.Input, Port.Capacity.Multi, "Input A"));

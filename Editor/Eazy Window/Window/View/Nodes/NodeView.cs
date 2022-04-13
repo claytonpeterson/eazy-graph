@@ -18,9 +18,12 @@ public abstract class NodeView : Node
         guid = Guid.NewGuid().ToString();
 
         SetPosition(new Rect(position.x, position.y, 100, 100));
+        SetupPorts();
 
         Refresh();
     }
+
+    protected abstract void SetupPorts();
 
     public TestingOutData Data()
     {

@@ -26,10 +26,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             obj = Resources.Load<GraphData>(Data().name);
 
             mainContainer.style.backgroundColor = Color.red;
-
-            outputContainer.Add(
-                child: CreatePort(Direction.Output, Port.Capacity.Single, "Output"));
-
+            
             Add(InputField());
 
             Refresh();
@@ -89,6 +86,12 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             var graph = loading.Load(gd);
 
             return graphRunner.Run(graph);
+        }
+
+        protected override void SetupPorts()
+        {
+            outputContainer.Add(
+                child: CreatePort(Direction.Output, Port.Capacity.Single, "Output"));
         }
     }
 }
