@@ -1,4 +1,5 @@
-﻿using UnityEngine.UIElements;
+﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RunableSerializationToolbar<T> : SerializationToolbar<T>
 {
@@ -19,7 +20,7 @@ public class RunableSerializationToolbar<T> : SerializationToolbar<T>
 
             Graph graph = serializer.Load(obj.name);
 
-            graphRunner.Run(graph);
+            Debug.Log(graphRunner.Run(graph));
         })
         { text = "Run Graph" };
     }

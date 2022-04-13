@@ -4,6 +4,8 @@ using UnityEditor;
 
 public class GraphData : ScriptableObject
 {
+
+
     [SerializeField]
     private List<NodeData> nodes = new List<NodeData>();
 

@@ -25,8 +25,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
             obj = Resources.Load<GraphData>(Data().name);
 
-            Debug.Log(string.Format("Creating portal node {0}", obj != null));
-
             mainContainer.style.backgroundColor = Color.red;
 
             outputContainer.Add(
