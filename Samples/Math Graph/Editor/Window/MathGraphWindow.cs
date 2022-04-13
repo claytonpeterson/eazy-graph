@@ -14,8 +14,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         {
             StyleSheet styleSheet = (StyleSheet)Resources.Load("layout");
 
-            Debug.Log(styleSheet);
-
             var window = GetWindow(typeof(MathGraphWindow));
             window.titleContent.text = "Math Graph";
             window.rootVisualElement.styleSheets.Add(styleSheet);

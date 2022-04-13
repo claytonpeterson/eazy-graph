@@ -18,6 +18,21 @@ public class XMLLoading : ILoadGraph
         return graph;
     }
 
+
+    public Graph Load(GraphData graphData)
+    {
+        var graph = new Graph();
+
+        XmlDocument document = new XmlDocument();
+/*
+        document.Load(path);
+
+        LoadNodes(document, graphData);
+        LoadEdges(document, graphData);
+*/
+        return graph;
+    }
+
     private void LoadNodes(XmlDocument document, Graph graph)
     {
         XmlNodeList nodes = document.SelectNodes("/root/nodes/node");

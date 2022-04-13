@@ -14,6 +14,16 @@ public class ScriptableObjectLoading : ILoadGraph
         return graph;
     }
 
+    public Graph Load(GraphData graphData)
+    {
+        var graph = new Graph();
+
+        LoadNodes(graphData.Nodes, graph);
+        LoadEdges(graphData, graph);
+
+        return graph;
+    }
+
     private void LoadNodes(List<NodeData> nodes, Graph graph)
     {
         foreach (var node in nodes)

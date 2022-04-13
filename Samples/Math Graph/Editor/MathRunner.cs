@@ -5,24 +5,25 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
     public class MathRunner : IGraphRunner
     {
-        public void Run(Graph graph)
+        public int Run(Graph graph)
         {
             foreach (var node in graph.Nodes)
             {
                 if (!HasChildren(node, graph))
                 {
-                    ProcessNode(node, graph);
+                    return ProcessNode(node, graph);
                 }
             }
+            return 0;
         }
 
-        private void ProcessNode(SaveNode node, Graph graph)
+        private int ProcessNode(SaveNode node, Graph graph)
         {
             if (IsOperator(node))
             {
-                var value = ProcessOperaterNode(node, graph);
-                Debug.Log(value);
+                return ProcessOperaterNode(node, graph);
             }
+            return 0;
         }
 
         private int ProcessOperaterNode(SaveNode node, Graph graph)

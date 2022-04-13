@@ -27,9 +27,7 @@ public class GraphController
             // Update the ui of anything that is updated globally
             for (int i = 0; i < view.Nodes.Count; i++)
             {
-                var node = view.Nodes[i];
-
-                var updateable = (IUpdate)node;
+                var updateable = (IUpdate)view.Nodes[i];
                 if(updateable != null)
                 {
                     updateable.Update();

@@ -15,6 +15,10 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             {
                 return new OperatorNode(position, data);
             }
+            else if (type == typeof(PortalNode))
+            {
+                return new PortalNode(position, data, new MathRunner());
+            }
             return null;
         }
     }
