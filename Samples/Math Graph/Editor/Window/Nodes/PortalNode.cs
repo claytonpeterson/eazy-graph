@@ -7,8 +7,11 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
     public class PortalNode : NodeView, IContainsValue, IUpdate
     {
+        // For running the graph
         private readonly IGraphRunner graphRunner;
         private readonly ILoadGraph loading;
+
+        private readonly OutputUpdater output;
 
         protected Object obj;
         private ObjectField objectField;
@@ -17,6 +20,12 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         {
             graphRunner = runner;
             loading = new ScriptableObjectLoading();
+
+            output = new OutputUpdater(this);
+
+            obj = Resources.Load<GraphData>(Data().name);
+
+            Debug.Log(string.Format("Creating portal node {0}", obj != null));
 
             mainContainer.style.backgroundColor = Color.red;
 
@@ -30,15 +39,26 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         private ObjectField InputField()
         {
-            objectField = new ObjectField(label: "hello")
+            objectField = new ObjectField()
             {
                 objectType = typeof(GraphData)
             };
 
             objectField.SetValueWithoutNotify(obj);
             objectField.MarkDirtyRepaint();
-            objectField.RegisterValueChangedCallback(evt => {
+            objectField.RegisterValueChangedCallback(evt => 
+            {
                 obj = evt.newValue;
+
+                if(obj != null)
+                {
+                    Data().name = evt.newValue.name;
+                }
+                else
+                {
+                    Data().name = "";
+                    Data().age = 0;
+                }
 
                 Update();
             });
@@ -48,15 +68,25 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         public void Update()
         {
+            if (obj == null)
+                return;
+
             var gd = (GraphData)obj;
             var graph = loading.Load(gd);
             var value = graphRunner.Run(graph);
 
             objectField.label = value.ToString();
+
+            Data().age = Value();
+
+            output.UpdateOutputConnections();
         }
 
         public int Value()
         {
+            if (obj == null)
+                return 0;
+
             var gd = (GraphData)obj;
             var graph = loading.Load(gd);
 

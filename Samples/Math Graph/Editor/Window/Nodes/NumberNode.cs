@@ -17,6 +17,8 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
             title = "Number";
 
+            Data().name = "Number";
+
             mainContainer.style.backgroundColor = Color.green;
 
             var portInfo = new PortInformation
