@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEditor.UIElements;
+using skybirdgames.eazygraph.Editor;
 
 namespace skybirdgames.eazygraph.dialog.Editor
 {

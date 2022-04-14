@@ -3,51 +3,65 @@ using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 using UnityEditor;
 using System;
+using System.Collections.Generic;
 
-public class NodeCreatorToolbar : Toolbar
+namespace skybirdgames.eazygraph.Editor
 {
-    private readonly NodeCreator nodeCreator;
-
-    public NodeCreatorToolbar(NodeCreator nodeCreator, string nameSpace)
+    public class NodeCreatorToolbar : Toolbar
     {
-        this.nodeCreator = nodeCreator;
+        private readonly NodeCreator nodeCreator;
 
-        Add(new TextElement { text = "Node Creation: " });
-
-        AddButtons(nameSpace);
-    }
-
-    private void AddButtons(string nameSpace)
-    {
-        var types = TypeCache.GetTypesDerivedFrom<NodeView>();
-
-        foreach (var button in CreateButtonsForTypes(types, nameSpace))
+        public NodeCreatorToolbar(NodeCreator nodeCreator, string buttonNamespace)
         {
-            Add(button);
+            this.nodeCreator = nodeCreator;
+
+            Add(new TextElement { text = "Node Creation: " });
+
+            AddButtons(buttonNamespace);
         }
-    }
 
-    private Button[] CreateButtonsForTypes(TypeCache.TypeCollection types, string domainNamespace)
-    {
-        Button[] buttons = new Button[types.Count];
-        
-        for (int i = 0; i < types.Count; i++)
+        private void AddButtons(string domainNamespace)
         {
-            // Only grab if it's in the same namespace
-            if (types[i].ToString().Contains(domainNamespace))
+            foreach (var button in CreateButtonsForTypes(GetLocalTypes(domainNamespace)))
             {
-                buttons[i] = CreateButton(types[i]);
+                Add(button);
             }
         }
-        return buttons;
-    }
 
-    private Button CreateButton(Type nodeType)
-    {
-        return new Button(clickEvent: () =>
+        private Button[] CreateButtonsForTypes(List<Type> types)
         {
-            nodeCreator.CreateNode(nodeType, new Vector2(0, 0), new TestingOutData());
-        })
-        { text = "Add " + nodeType.Name };
+            Button[] buttons = new Button[types.Count];
+
+            for (int i = 0; i < types.Count; i++)
+            {
+                buttons[i] = CreateNodeButton(types[i]);
+            }
+            return buttons;
+        }
+
+        private Button CreateNodeButton(Type nodeType)
+        {
+            return new Button(clickEvent: () =>
+            {
+                nodeCreator.CreateNode(nodeType, new Vector2(0, 0), new TestingOutData());
+            })
+            { text = "Add " + nodeType.Name };
+        }
+
+        private List<Type> GetLocalTypes(string domainNamespace)
+        {
+            var localTypes = new List<Type>();
+
+            foreach(var type in TypeCache.GetTypesDerivedFrom<NodeView>())
+            {
+                if (type.ToString().Contains(domainNamespace))
+                {
+                    localTypes.Add(type);
+                }
+            }
+
+            return localTypes;
+        }
     }
 }
+
