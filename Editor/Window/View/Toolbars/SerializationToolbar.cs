@@ -2,81 +2,85 @@
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-public class SerializationToolbar<T> : Toolbar
+namespace skybirdgames.eazygraph.Editor
 {
-    protected Object obj;
-
-    protected readonly Serializer serializer;
-
-    private readonly View view;
-
-    public SerializationToolbar(View view, Serializer serializer)
+    public class SerializationToolbar<T> : Toolbar
     {
-        this.view = view;
-        this.serializer = serializer;
+        protected Object obj;
 
-        Add(InputField());
-        Add(SaveButton());
-        Add(LoadButton());
-        Add(ClearButton());
-    }
+        protected readonly Serializer serializer;
 
-    public void Save()
-    {
-        var fileName = (obj == null) ? null : obj.name;
-        serializer.Save(fileName, view);
-    }
+        private readonly View view;
 
-    public GraphData LoadGraph()
-    {
-        if (obj == null)
-            return null;
-
-        return serializer.Load(obj.name);
-    }
-
-    protected ObjectField InputField()
-    {
-        var label = "Object Field (" + serializer.FileExtension + ")";
-
-        ObjectField objectField = new ObjectField(label: label)
+        public SerializationToolbar(View view, Serializer serializer)
         {
-            objectType = typeof(T)
-        };
+            this.view = view;
+            this.serializer = serializer;
 
-        objectField.SetValueWithoutNotify(obj);
-        objectField.MarkDirtyRepaint();
-        objectField.RegisterValueChangedCallback(evt => {
-            obj = evt.newValue;
-        });
+            Add(InputField());
+            Add(SaveButton());
+            Add(LoadButton());
+            Add(ClearButton());
+        }
 
-        return objectField;
-    }
-
-    private Button SaveButton()
-    {
-        return new Button(clickEvent: () =>
+        public void Save()
         {
-            Save();
-        })
-        { text = "Save Graph" };
-    }
+            var fileName = (obj == null) ? null : obj.name;
+            serializer.Save(fileName, view);
+        }
 
-    private Button LoadButton()
-    {
-        return new Button(clickEvent: () =>
+        public GraphData LoadGraph()
         {
-            view.ShowGraph(LoadGraph());
-        })
-        { text = "Load Graph" };
-    }
+            if (obj == null)
+                return null;
 
-    private Button ClearButton()
-    {
-        return new Button(clickEvent: () =>
+            return serializer.Load(obj.name);
+        }
+
+        protected ObjectField InputField()
         {
-            view.ShowGraph(null);
-        })
-        { text = "Clear" };
+            var label = "Object Field (" + serializer.FileExtension + ")";
+
+            ObjectField objectField = new ObjectField(label: label)
+            {
+                objectType = typeof(T)
+            };
+
+            objectField.SetValueWithoutNotify(obj);
+            objectField.MarkDirtyRepaint();
+            objectField.RegisterValueChangedCallback(evt =>
+            {
+                obj = evt.newValue;
+            });
+
+            return objectField;
+        }
+
+        private Button SaveButton()
+        {
+            return new Button(clickEvent: () =>
+            {
+                Save();
+            })
+            { text = "Save Graph" };
+        }
+
+        private Button LoadButton()
+        {
+            return new Button(clickEvent: () =>
+            {
+                view.ShowGraph(LoadGraph());
+            })
+            { text = "Load Graph" };
+        }
+
+        private Button ClearButton()
+        {
+            return new Button(clickEvent: () =>
+            {
+                view.ShowGraph(null);
+            })
+            { text = "Clear" };
+        }
     }
 }
