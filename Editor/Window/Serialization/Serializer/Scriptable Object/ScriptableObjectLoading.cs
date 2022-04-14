@@ -7,7 +7,7 @@ public class ScriptableObjectLoading : ILoadGraph
     public GraphData Load(string path)
     {
         var graphData = AssetDatabase.LoadAssetAtPath<GraphData>(path);
-        var graph = new GraphData();
+        var graph = ScriptableObject.CreateInstance<GraphData>();
 
         LoadNodes(graphData.Nodes, graph);
         LoadEdges(graphData, graph);
@@ -17,7 +17,7 @@ public class ScriptableObjectLoading : ILoadGraph
 
     public GraphData Load(GraphData graphData)
     {
-        var graph = new GraphData();
+        var graph = ScriptableObject.CreateInstance<GraphData>();
 
         LoadNodes(graphData.Nodes, graph);
         LoadEdges(graphData, graph);
