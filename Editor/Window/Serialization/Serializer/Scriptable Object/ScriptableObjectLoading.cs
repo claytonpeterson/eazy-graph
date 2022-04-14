@@ -29,14 +29,7 @@ public class ScriptableObjectLoading : ILoadGraph
     {
         foreach (var node in nodes)
         {
-            var saveNode = ScriptableObject.CreateInstance<NodeData>();
-            saveNode.name = node.name;
-            saveNode.GUID = node.GUID;
-            saveNode.Position = node.Position;
-            saveNode.NodeType = node.NodeType;
-            saveNode.Data = node.Data;
-
-            graph.Nodes.Add(saveNode);
+            graph.Nodes.Add(node);
         }
     }
 
@@ -44,13 +37,7 @@ public class ScriptableObjectLoading : ILoadGraph
     {
         foreach (var edge in data.Connections)
         {
-            var saveConnection = ScriptableObject.CreateInstance<ConnectionData>();
-            saveConnection.nodeAGUID = edge.nodeAGUID;
-            saveConnection.nodeBGUID = edge.nodeBGUID;
-            saveConnection.nodeAPortName = edge.nodeAPortName;
-            saveConnection.nodeBPortName = edge.nodeBPortName;
-
-            graph.Connections.Add(saveConnection);
+            graph.Connections.Add(edge);
         }
     }
 }
