@@ -18,7 +18,7 @@ public class Serializer
         FileExtension = fileExtension;
     }
 
-    public void Save(string fileName, EditorGraphView graphView)
+    public void Save(string fileName, View graphView)
     {
         save.Save(
             path: FilePath(FixEmptyName(fileName)), 

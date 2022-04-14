@@ -6,13 +6,13 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class EditorGraphView : GraphView
+public class View : GraphView
 {
     private readonly NodeCreator nodeCreator;
     private readonly GraphController graphController;
 
     // TODO this should pass a "controller" object that includes creation, connection, and erasing the grid
-    public EditorGraphView(INodeSpawner nodeSpawner)
+    public View(INodeSpawner nodeSpawner)
     {
         nodeCreator = new NodeCreator(this, nodeSpawner);
 

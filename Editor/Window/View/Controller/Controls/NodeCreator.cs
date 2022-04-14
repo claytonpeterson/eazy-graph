@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class NodeCreator
 {
-    private EditorGraphView graphView;
+    private View graphView;
     private readonly INodeSpawner nodeSpawner;
 
-    public NodeCreator(EditorGraphView graphView, INodeSpawner nodeSpawner)
+    public NodeCreator(View graphView, INodeSpawner nodeSpawner)
     {
         this.graphView = graphView;
         this.nodeSpawner = nodeSpawner;

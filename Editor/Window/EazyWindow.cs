@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public abstract class EazyWindow : EditorWindow
 {
-    protected EditorGraphView view;
+    protected View view;
 
     private void OnEnable()
     {
@@ -32,9 +32,9 @@ public abstract class EazyWindow : EditorWindow
         rootVisualElement.Clear();
     }
 
-    private EditorGraphView CreateView()
+    private View CreateView()
     {
-        view = new EditorGraphView(GetNodeSpawner());
+        view = new View(GetNodeSpawner());
         view.StretchToParentSize();
         return view;
     }

@@ -3,10 +3,10 @@ using UnityEngine.UIElements;
 
 public class ContextMenu
 {
-    private readonly EditorGraphView graphView;
+    private readonly View graphView;
     private readonly NodeCreator nodeCreator;
 
-    public ContextMenu(EditorGraphView graphView, NodeCreator nodeCreator)
+    public ContextMenu(View graphView, NodeCreator nodeCreator)
     {
         this.graphView = graphView;
         this.nodeCreator = nodeCreator;

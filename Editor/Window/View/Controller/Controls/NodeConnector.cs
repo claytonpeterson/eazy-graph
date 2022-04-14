@@ -2,9 +2,9 @@
 
 public class NodeConnector
 {
-    private EditorGraphView graphView;
+    private View graphView;
 
-    public NodeConnector(EditorGraphView graphView)
+    public NodeConnector(View graphView)
     {
         this.graphView = graphView;
     }

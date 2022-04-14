@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GraphController
 {
-    private readonly EditorGraphView view;
+    private readonly View view;
     private readonly NodeCreator nodeCreator;
     private readonly NodeConnector nodeConnector;
 
-    public GraphController (EditorGraphView view, NodeCreator nodeCreator, NodeConnector nodeConnector)
+    public GraphController (View view, NodeCreator nodeCreator, NodeConnector nodeConnector)
     {
         this.view = view;
         this.nodeCreator = nodeCreator;

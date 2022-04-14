@@ -5,7 +5,7 @@ public class RunableSerializationToolbar<T> : SerializationToolbar<T>
 {
     private readonly IGraphRunner graphRunner;
 
-    public RunableSerializationToolbar(EditorGraphView view, Serializer serializer, IGraphRunner runner) : base(view, serializer)
+    public RunableSerializationToolbar(View view, Serializer serializer, IGraphRunner runner) : base(view, serializer)
     {
         graphRunner = runner;
 

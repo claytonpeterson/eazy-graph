@@ -8,9 +8,9 @@ public class SerializationToolbar<T> : Toolbar
 
     protected readonly Serializer serializer;
 
-    private readonly EditorGraphView view;
+    private readonly View view;
 
-    public SerializationToolbar(EditorGraphView view, Serializer serializer)
+    public SerializationToolbar(View view, Serializer serializer)
     {
         this.view = view;
         this.serializer = serializer;
