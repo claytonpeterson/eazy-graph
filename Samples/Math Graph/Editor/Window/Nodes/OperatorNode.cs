@@ -46,7 +46,10 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         protected override void SetupPorts()
         {
             inputA = CreatePort(Direction.Input, Port.Capacity.Multi, "Input A");
+            inputA.AddManipulator(new EdgeConnector<Edge>(new NodeUpdateManipulator(this)));
+
             inputB = CreatePort(Direction.Input, Port.Capacity.Multi, "Input B");
+            inputB.AddManipulator(new EdgeConnector<Edge>(new NodeUpdateManipulator(this)));
 
             inputContainer.Add(
                 child: inputA);
