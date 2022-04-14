@@ -44,6 +44,9 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             inputContainer.Add(
                 child: CreatePort(Direction.Input, Port.Capacity.Multi, "Input A"));
 
+            inputContainer.Add(
+                child: CreatePort(Direction.Input, Port.Capacity.Multi, "Input B"));
+
             outputContainer.Add(
                 child: CreatePort(Direction.Output, Port.Capacity.Single, "Output"));
         }

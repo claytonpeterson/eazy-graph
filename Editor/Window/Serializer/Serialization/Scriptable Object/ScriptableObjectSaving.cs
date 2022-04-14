@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class ScriptableObjectGraphSaving : ISaveGraph
 {
+    private struct ConnectionInfo
+    {
+        public string guid;
+        public string portName;
+    }
+
     public void Save(string path, List<NodeView> nodes, List<Edge> edges)
     {
         var graphData = GetGraphData(path);
@@ -70,14 +76,17 @@ public class ScriptableObjectGraphSaving : ISaveGraph
     {
         for (int i = 0; i < connectedPorts.Length; i++)
         {
-            var outputNode = connectedPorts[i].output.node as NodeView;
-            var inputNode = connectedPorts[i].input.node as NodeView;
+            var outputPort = connectedPorts[i].output;
+            var outputNode = outputPort.node as NodeView;
+
+            var inputPort = connectedPorts[i].input;
+            var inputNode = inputPort.node as NodeView;
 
             graphData.AddConnection(
                 connection: CreateConnectionScriptableObject(
                     name: "connection", 
-                    nodeAGUID: outputNode.guid, 
-                    nodeBGUID: inputNode.guid));
+                    nodeA: new ConnectionInfo { guid = outputNode.guid, portName = outputPort.portName }, 
+                    nodeB: new ConnectionInfo { guid = inputNode.guid, portName = inputPort.portName }));
         }
     }
 
@@ -86,11 +95,16 @@ public class ScriptableObjectGraphSaving : ISaveGraph
         return CreateNamedScriptableObject<NodeData>(name);
     }
 
-    private ConnectionData CreateConnectionScriptableObject(string name, string nodeAGUID, string nodeBGUID)
+    private ConnectionData CreateConnectionScriptableObject(string name, ConnectionInfo nodeA, ConnectionInfo nodeB)
     {
         var connection = CreateNamedScriptableObject<ConnectionData>(name);
-        connection.nodeAGUID = nodeAGUID;
-        connection.nodeBGUID = nodeBGUID;
+        
+        connection.nodeAGUID = nodeA.guid;
+        connection.nodeAPortName = nodeA.portName;
+
+        connection.nodeBGUID = nodeB.guid;
+        connection.nodeBPortName = nodeB.portName;
+
         return connection;
     }
 
