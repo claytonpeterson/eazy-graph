@@ -33,6 +33,8 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
             AddPopupField();
             AddCalculationField();
+
+            Update();
             Refresh();
         }
 
@@ -149,6 +151,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         {
             UpdateCalculationField();
 
+            Data().name = Data().name ?? popupFieldValues[0];
             Data().age = Calculate();
         }
     }
