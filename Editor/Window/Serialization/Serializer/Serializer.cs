@@ -28,8 +28,8 @@ public class Serializer
 
     public GraphData Load(string fileName)
     {
-        string path = (fileName == null) ? null : FilePath(fileName);
-        return load.Load(path);
+        return load.Load(
+            path: (fileName == null) ? null : FilePath(fileName));
     }
 
     private string FilePath(string fileName)
@@ -39,6 +39,6 @@ public class Serializer
 
     private string FixEmptyName(string fileName)
     {
-        return fileName == null ? "New" : fileName;
+        return fileName ?? "New";
     }
 }
