@@ -11,13 +11,13 @@ namespace skybirdgames.eazygraph.Editor
     {
         private readonly NodeCreator nodeCreator;
 
-        public NodeCreatorToolbar(NodeCreator nodeCreator, string buttonNamespace)
+        public NodeCreatorToolbar(NodeCreator nodeCreator, string domainNamespace)
         {
             this.nodeCreator = nodeCreator;
 
             Add(new TextElement { text = "Node Creation: " });
 
-            AddButtons(buttonNamespace);
+            AddButtons(domainNamespace);
         }
 
         private void AddButtons(string domainNamespace)
