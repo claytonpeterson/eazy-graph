@@ -47,4 +47,27 @@ public abstract class NodeView : Node
         RefreshExpandedState();
         RefreshPorts();
     }
+
+    public Port GetPort(string portName)
+    {
+        foreach (var child in inputContainer.Children())
+        {
+            var port = (Port)child;
+            if (port == null)
+                continue;
+
+            if (port.portName == portName)
+                return port;
+        }
+        foreach (var child in outputContainer.Children())
+        {
+            var port = (Port)child;
+            if (port == null)
+                continue;
+
+            if (port.portName == portName)
+                return port;
+        }
+        return null;
+    }
 }

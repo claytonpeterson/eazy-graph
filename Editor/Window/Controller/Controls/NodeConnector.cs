@@ -1,6 +1,4 @@
 ﻿using UnityEditor.Experimental.GraphView;
-using UnityEngine;
-using UnityEngine.UIElements;
 
 public class NodeConnector
 {
@@ -24,11 +22,13 @@ public class NodeConnector
 
                 if (graph.Nodes[i].Guid == connection.GuidA)
                 {
+                    var startNode = GetGraphNodeByGUID(connections[y].GuidA);
                     var endNode = GetGraphNodeByGUID(connections[y].GuidB);
 
-                    LinkNodes(
-                        graphView.Nodes[i].outputContainer[0].Q<Port>(),
-                        (Port)endNode.inputContainer[0]);
+                    var startPort = startNode.GetPort(connections[y].PortAName);
+                    var endPort = endNode.GetPort(connections[y].PortBName);
+
+                    LinkNodes(startPort, endPort);
                 }
             }
         }

@@ -23,6 +23,9 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         private readonly OutputUpdater output;
 
+        private Port inputA;
+        private Port inputB;
+
         public OperatorNode(Vector2 position, TestingOutData data) : base(position, data)
         {
             output = new OutputUpdater(this);
@@ -41,11 +44,14 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         protected override void SetupPorts()
         {
-            inputContainer.Add(
-                child: CreatePort(Direction.Input, Port.Capacity.Multi, "Input A"));
+            inputA = CreatePort(Direction.Input, Port.Capacity.Multi, "Input A");
+            inputB = CreatePort(Direction.Input, Port.Capacity.Multi, "Input B");
 
             inputContainer.Add(
-                child: CreatePort(Direction.Input, Port.Capacity.Multi, "Input B"));
+                child: inputA);
+
+            inputContainer.Add(
+                child: inputB);
 
             outputContainer.Add(
                 child: CreatePort(Direction.Output, Port.Capacity.Single, "Output"));
@@ -76,7 +82,17 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         List<Edge> InputConnections()
         {
-            return inputContainer.Q<Port>().connections.ToList();
+            /*Debug.Log(string.Format(
+                "{0}, {1}",
+                inputA.connections.Count(),
+                inputB.connections.Count()));
+*/
+            var output = new List<Edge>();
+            output.AddRange(inputA.connections);
+            output.AddRange(inputB.connections);
+
+            return output;
+            /*return inputContainer.Q<Port>().connections.ToList();*/
         }
 
         private bool CanCalculate()

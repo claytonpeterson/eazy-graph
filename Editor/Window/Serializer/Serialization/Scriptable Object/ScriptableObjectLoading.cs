@@ -48,7 +48,9 @@ public class ScriptableObjectLoading : ILoadGraph
             var connection = new SaveConnection
             {
                 GuidA = edge.nodeAGUID,
-                GuidB = edge.nodeBGUID
+                GuidB = edge.nodeBGUID,
+                PortAName = edge.nodeAPortName,
+                PortBName = edge.nodeBPortName
             };
 
             graph.Connections.Add(connection);

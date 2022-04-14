@@ -8,7 +8,7 @@ public class ScriptableObjectGraphSaving : ISaveGraph
 {
     private struct ConnectionInfo
     {
-        public string guid;
+        public string nodeGuid;
         public string portName;
     }
 
@@ -85,8 +85,18 @@ public class ScriptableObjectGraphSaving : ISaveGraph
             graphData.AddConnection(
                 connection: CreateConnectionScriptableObject(
                     name: "connection", 
-                    nodeA: new ConnectionInfo { guid = outputNode.guid, portName = outputPort.portName }, 
-                    nodeB: new ConnectionInfo { guid = inputNode.guid, portName = inputPort.portName }));
+                    nodeA: new ConnectionInfo 
+                    { 
+                        nodeGuid = outputNode.guid, 
+                        portName = outputPort.portName 
+                    }, 
+                    nodeB: new ConnectionInfo 
+                    { 
+                        nodeGuid = inputNode.guid, 
+                        portName = inputPort.portName 
+                    }
+                )
+            );
         }
     }
 
@@ -99,10 +109,10 @@ public class ScriptableObjectGraphSaving : ISaveGraph
     {
         var connection = CreateNamedScriptableObject<ConnectionData>(name);
         
-        connection.nodeAGUID = nodeA.guid;
+        connection.nodeAGUID = nodeA.nodeGuid;
         connection.nodeAPortName = nodeA.portName;
 
-        connection.nodeBGUID = nodeB.guid;
+        connection.nodeBGUID = nodeB.nodeGuid;
         connection.nodeBPortName = nodeB.portName;
 
         return connection;
