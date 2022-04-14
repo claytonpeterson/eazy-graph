@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public class PortalNode : NodeView, IContainsValue, IUpdate
+    public class PortalNode : NodeView, IContainsValue
     {
         // For running the graph
         private readonly IGraphRunner graphRunner;
@@ -61,22 +61,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return objectField;
         }
 
-        public void Update()
-        {
-            if (obj == null)
-                return;
-
-            var gd = (GraphData)obj;
-            var graph = loading.Load(gd);
-            var value = graphRunner.Run(graph);
-
-            objectField.label = value.ToString();
-
-            Data().age = Value();
-
-            output.UpdateOutputConnections();
-        }
-
         public int Value()
         {
             if (obj == null)
@@ -92,6 +76,22 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         {
             outputContainer.Add(
                 child: CreatePort(Direction.Output, Port.Capacity.Single, "Output"));
+        }
+
+        public override void Update()
+        {
+            if (obj == null)
+                return;
+
+            var gd = (GraphData)obj;
+            var graph = loading.Load(gd);
+            var value = graphRunner.Run(graph);
+
+            objectField.label = value.ToString();
+
+            Data().age = Value();
+
+            output.UpdateOutputConnections();
         }
     }
 }

@@ -19,6 +19,11 @@ namespace skybirdgames.eazygraph.dialog.Editor
             AddAgeField();
         }
 
+        public override void Update()
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void SetupPorts()
         {
         }

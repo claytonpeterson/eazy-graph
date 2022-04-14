@@ -13,6 +13,8 @@ public class NodeUpdateManipulator : IEdgeConnectorListener
     public void OnDrop(GraphView graphView, Edge edge)
     {
         Debug.Log(string.Format("connecting: {0} with {1}", edge.input.portName, edge.output.portName));
+
+        node.Update();
     }
 
     public void OnDropOutsidePort(Edge edge, Vector2 position)

@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public class OperatorNode : NodeView, IContainsValue, IUpdate
+    public class OperatorNode : NodeView, IContainsValue
     {
         private PopupField<string> popupField;
 
@@ -150,7 +150,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return 0;
         }
 
-        public void Update()
+        public override void Update()
         {
             UpdateCalculationField();
 

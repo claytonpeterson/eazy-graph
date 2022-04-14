@@ -3,7 +3,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [System.Serializable]
-public abstract class NodeView : Node
+public abstract class NodeView : Node, IUpdate
 {
     public string guid;
 
@@ -70,4 +70,6 @@ public abstract class NodeView : Node
         }
         return null;
     }
+
+    public abstract void Update();
 }
