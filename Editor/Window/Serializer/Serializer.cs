@@ -26,7 +26,7 @@ public class Serializer
             edges: graphView.edges.ToList());
     }
 
-    public Graph Load(string fileName)
+    public GraphData Load(string fileName)
     {
         string path = (fileName == null) ? null : FilePath(fileName);
         return load.Load(path);

@@ -5,7 +5,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
     public class MathRunner : IGraphRunner
     {
-        public int Run(Graph graph)
+        public int Run(GraphData graph)
         {
             foreach (var node in graph.Nodes)
             {
@@ -17,7 +17,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return 0;
         }
 
-        private int ProcessNode(NodeData node, Graph graph)
+        private int ProcessNode(NodeData node, GraphData graph)
         {
             if (IsOperator(node))
             {
@@ -26,7 +26,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return 0;
         }
 
-        private int ProcessOperaterNode(NodeData node, Graph graph)
+        private int ProcessOperaterNode(NodeData node, GraphData graph)
         {
             var inputs = GetInputs(node, graph);
             if (inputs != null)
@@ -46,7 +46,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return node.Data.name != null && node.Data.name.Length > 0;
         }
 
-        private bool HasChildren(NodeData node, Graph graph)
+        private bool HasChildren(NodeData node, GraphData graph)
         {
             return graph.Outputs(node.GUID).Count > 0;
         }
@@ -56,7 +56,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return node.Data.name;
         }
 
-        private List<NodeData> GetInputs(NodeData node, Graph graph)
+        private List<NodeData> GetInputs(NodeData node, GraphData graph)
         {
             return 
                 graph.Inputs(node.GUID).Count == 2 ? 

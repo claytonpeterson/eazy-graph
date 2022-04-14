@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class XMLLoading : ILoadGraph
 {
-    public Graph Load(string path)
+    public GraphData Load(string path)
     {
-        var graph = new Graph();
+        var graph = ScriptableObject.CreateInstance<GraphData>();
 
         XmlDocument document = new XmlDocument();
 
@@ -19,9 +19,9 @@ public class XMLLoading : ILoadGraph
     }
 
 
-    public Graph Load(GraphData graphData)
+    public GraphData Load(GraphData graphData)
     {
-        var graph = new Graph();
+        var graph = ScriptableObject.CreateInstance<GraphData>();
 
         XmlDocument document = new XmlDocument();
 /*
@@ -33,7 +33,7 @@ public class XMLLoading : ILoadGraph
         return graph;
     }
 
-    private void LoadNodes(XmlDocument document, Graph graph)
+    private void LoadNodes(XmlDocument document, GraphData graph)
     {
         XmlNodeList nodes = document.SelectNodes("/root/nodes/node");
 
@@ -70,7 +70,7 @@ public class XMLLoading : ILoadGraph
         return Type.GetType(type);
     }
 
-    private void LoadEdges(XmlDocument document, Graph graph)
+    private void LoadEdges(XmlDocument document, GraphData graph)
     {
         XmlNodeList edges = document.SelectNodes("/root/edges/edge");
 

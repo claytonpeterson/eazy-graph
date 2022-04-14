@@ -27,7 +27,7 @@ public class SerializationToolbar<T> : Toolbar
         serializer.Save(fileName, view);
     }
 
-    public Graph LoadGraph()
+    public GraphData LoadGraph()
     {
         if (obj == null)
             return null;

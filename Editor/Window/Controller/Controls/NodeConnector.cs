@@ -9,7 +9,7 @@ public class NodeConnector
         this.graphView = graphView;
     }
 
-    public void ConnectNodes(Graph graph)
+    public void ConnectNodes(GraphData graph)
     {
         for (int i = 0; i < graph.Nodes.Count; i++)
         {

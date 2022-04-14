@@ -15,7 +15,7 @@ public class GraphController
         this.nodeConnector = nodeConnector;
     }
 
-    public void ShowGraph(Graph graph)
+    public void ShowGraph(GraphData graph)
     {
         ClearGraph();
 
@@ -54,12 +54,12 @@ public class GraphController
         }
     }
 
-    private void AddNodes(Graph graph)
+    private void AddNodes(GraphData graph)
     {
         nodeCreator.AddNodes(graph);
     }
 
-    private void ConnectNodes(Graph graph)
+    private void ConnectNodes(GraphData graph)
     {
         nodeConnector.ConnectNodes(graph);
     }

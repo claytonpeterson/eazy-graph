@@ -30,7 +30,7 @@ public class EditorGraphView : GraphView
 
     public List<Edge> Edges => edges.ToList();
 
-    public void ShowGraph(Graph graph)
+    public void ShowGraph(GraphData graph)
     {
         graphController.ShowGraph(graph);
     }

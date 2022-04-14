@@ -19,7 +19,7 @@ public class NodeCreator
         return nodeView;
     }
 
-    public void AddNodes(Graph graph)
+    public void AddNodes(GraphData graph)
     {
         if (graph == null)
             return;

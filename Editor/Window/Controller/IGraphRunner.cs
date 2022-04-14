@@ -1,4 +1,4 @@
 ﻿public interface IGraphRunner
 {
-    int Run(Graph graph);
+    int Run(GraphData graph);
 }

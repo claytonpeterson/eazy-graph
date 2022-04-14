@@ -1,7 +1,7 @@
 ﻿
 public interface ILoadGraph
 {
-    Graph Load(string path);
+    GraphData Load(string path);
 
-    Graph Load(GraphData graphData);
+    GraphData Load(GraphData graphData);
 }

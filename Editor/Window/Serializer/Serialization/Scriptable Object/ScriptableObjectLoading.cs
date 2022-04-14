@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ScriptableObjectLoading : ILoadGraph
 {
-    public Graph Load(string path)
+    public GraphData Load(string path)
     {
         var graphData = AssetDatabase.LoadAssetAtPath<GraphData>(path);
-        var graph = new Graph();
+        var graph = new GraphData();
 
         LoadNodes(graphData.Nodes, graph);
         LoadEdges(graphData, graph);
@@ -15,9 +15,9 @@ public class ScriptableObjectLoading : ILoadGraph
         return graph;
     }
 
-    public Graph Load(GraphData graphData)
+    public GraphData Load(GraphData graphData)
     {
-        var graph = new Graph();
+        var graph = new GraphData();
 
         LoadNodes(graphData.Nodes, graph);
         LoadEdges(graphData, graph);
@@ -25,7 +25,7 @@ public class ScriptableObjectLoading : ILoadGraph
         return graph;
     }
 
-    private void LoadNodes(List<NodeData> nodes, Graph graph)
+    private void LoadNodes(List<NodeData> nodes, GraphData graph)
     {
         foreach (var node in nodes)
         {
@@ -40,7 +40,7 @@ public class ScriptableObjectLoading : ILoadGraph
         }
     }
 
-    private void LoadEdges(GraphData data, Graph graph)
+    private void LoadEdges(GraphData data, GraphData graph)
     {
         foreach (var edge in data.Connections)
         {

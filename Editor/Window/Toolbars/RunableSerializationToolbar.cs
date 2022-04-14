@@ -18,7 +18,7 @@ public class RunableSerializationToolbar<T> : SerializationToolbar<T>
         {
             Save();
 
-            Graph graph = serializer.Load(obj.name);
+            GraphData graph = serializer.Load(obj.name);
 
             Debug.Log(graphRunner.Run(graph));
         })
