@@ -10,7 +10,7 @@ namespace skybirdgames.eazygraph.Editor
 
         protected readonly Serializer serializer;
 
-        private readonly View view;
+        protected readonly View view;
 
         public SerializationToolbar(View view, Serializer serializer)
         {

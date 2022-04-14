@@ -12,6 +12,7 @@ namespace skybirdgames.eazygraph.Editor
             graphRunner = runner;
 
             Add(RunButton());
+            Add(UpdateGraphButton());
         }
 
         private Button RunButton()
@@ -25,6 +26,19 @@ namespace skybirdgames.eazygraph.Editor
                 Debug.Log(graphRunner.Run(graph));
             })
             { text = "Run Graph" };
+        }
+
+        private Button UpdateGraphButton()
+        {
+            return new Button(clickEvent: () =>
+            {
+                /*Save();
+
+                GraphData graph = serializer.Load(obj.name);
+
+                view.ShowGraph(graph);*/
+            })
+            { text = "Update Graph" };
         }
     }
 }
