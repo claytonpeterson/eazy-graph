@@ -5,12 +5,12 @@ using UnityEngine;
 public class Graph
 {
     [SerializeField]
-    private List<SaveNode> nodes = new List<SaveNode>();
+    private List<NodeData> nodes = new List<NodeData>();
 
     [SerializeField]
     private List<SaveConnection> connections = new List<SaveConnection>();
 
-    public List<SaveNode> Nodes 
+    public List<NodeData> Nodes 
     { 
         get => nodes; 
     }
@@ -20,7 +20,7 @@ public class Graph
         get => connections; 
     }
 
-    public void AddNode(SaveNode node)
+    public void AddNode(NodeData node)
     {
         nodes.Add(node);
     }
@@ -30,9 +30,9 @@ public class Graph
         connections.Add(connection);
     }
 
-    public List<SaveNode> Inputs(string guid)
+    public List<NodeData> Inputs(string guid)
     {
-        var inputs = new List<SaveNode>();
+        var inputs = new List<NodeData>();
 
         foreach (var connection in connections)
         {
@@ -44,9 +44,9 @@ public class Graph
         return inputs;
     }
 
-    public List<SaveNode> Outputs(string guid)
+    public List<NodeData> Outputs(string guid)
     {
-        var outputs = new List<SaveNode>();
+        var outputs = new List<NodeData>();
 
         foreach (var connection in connections)
         {
@@ -58,11 +58,11 @@ public class Graph
         return outputs;
     }
 
-    public SaveNode GetNode(string guid)
+    public NodeData GetNode(string guid)
     {
         foreach(var node in nodes)
         {
-            if (node.Guid == guid)
+            if (node.GUID == guid)
                 return node;
         }
         return null;

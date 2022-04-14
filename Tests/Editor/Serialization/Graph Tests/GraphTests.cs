@@ -14,7 +14,7 @@ namespace EazyGraph.Editor.Tests.Serialization
         public void AddNode_Inserts()
         {
             var graph = new Graph();
-            graph.AddNode(new SaveNode());
+            //graph.AddNode(new SaveNode());
             Assert.IsTrue(graph.Nodes.Count == 1);
         }
 

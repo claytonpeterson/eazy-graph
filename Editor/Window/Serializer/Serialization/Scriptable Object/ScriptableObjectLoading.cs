@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
 
 public class ScriptableObjectLoading : ILoadGraph
 {
@@ -28,14 +29,12 @@ public class ScriptableObjectLoading : ILoadGraph
     {
         foreach (var node in nodes)
         {
-            var saveNode = new SaveNode
-            {
-                Name = node.name,
-                Guid = node.GUID,
-                Position = node.Position,
-                ObjType = node.NodeType,
-                Data = node.Data
-            };
+            var saveNode = ScriptableObject.CreateInstance<NodeData>();
+            saveNode.name = node.name;
+            saveNode.GUID = node.GUID;
+            saveNode.Position = node.Position;
+            saveNode.NodeType = node.NodeType;
+            saveNode.Data = node.Data;
 
             graph.Nodes.Add(saveNode);
         }

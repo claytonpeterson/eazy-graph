@@ -39,14 +39,11 @@ public class XMLLoading : ILoadGraph
 
         foreach (XmlNode node in nodes)
         {
-            var n = new SaveNode
-            {
-                Guid = GetGUID(node),
-                Position = GetPosition(node),
-                ObjType = GetType(node).AssemblyQualifiedName
-            };
-
-            graph.Nodes.Add(n);
+            var saveNode = ScriptableObject.CreateInstance<NodeData>();
+            saveNode.GUID = GetGUID(node);
+            saveNode.Position = GetPosition(node);
+            saveNode.NodeType = GetType(node).AssemblyQualifiedName;
+            graph.Nodes.Add(saveNode);
         }
     }
 

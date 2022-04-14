@@ -20,7 +20,7 @@ public class NodeConnector
             {
                 var connection = connections[y];
 
-                if (graph.Nodes[i].Guid == connection.GuidA)
+                if (graph.Nodes[i].GUID == connection.GuidA)
                 {
                     var startNode = GetGraphNodeByGUID(connections[y].GuidA);
                     var endNode = GetGraphNodeByGUID(connections[y].GuidB);

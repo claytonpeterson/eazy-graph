@@ -27,11 +27,11 @@ public class NodeCreator
         foreach (var nodeData in graph.Nodes)
         {
             var nodeView = nodeSpawner.CreateNodeView(
-                Type.GetType(nodeData.ObjType),
+                Type.GetType(nodeData.NodeType),
                 nodeData.Position,
                 nodeData.Data);
 
-            nodeView.guid = nodeData.Guid;
+            nodeView.guid = nodeData.GUID;
 
             graphView.AddElement(nodeView);
         }

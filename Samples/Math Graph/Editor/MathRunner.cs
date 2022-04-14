@@ -17,7 +17,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return 0;
         }
 
-        private int ProcessNode(SaveNode node, Graph graph)
+        private int ProcessNode(NodeData node, Graph graph)
         {
             if (IsOperator(node))
             {
@@ -26,7 +26,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return 0;
         }
 
-        private int ProcessOperaterNode(SaveNode node, Graph graph)
+        private int ProcessOperaterNode(NodeData node, Graph graph)
         {
             var inputs = GetInputs(node, graph);
             if (inputs != null)
@@ -41,26 +41,26 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return 0;
         }
 
-        private bool IsOperator(SaveNode node)
+        private bool IsOperator(NodeData node)
         {
             return node.Data.name != null && node.Data.name.Length > 0;
         }
 
-        private bool HasChildren(SaveNode node, Graph graph)
+        private bool HasChildren(NodeData node, Graph graph)
         {
-            return graph.Outputs(node.Guid).Count > 0;
+            return graph.Outputs(node.GUID).Count > 0;
         }
 
-        private string GetOperation(SaveNode node)
+        private string GetOperation(NodeData node)
         {
             return node.Data.name;
         }
 
-        private List<SaveNode> GetInputs(SaveNode node, Graph graph)
+        private List<NodeData> GetInputs(NodeData node, Graph graph)
         {
             return 
-                graph.Inputs(node.Guid).Count == 2 ? 
-                graph.Inputs(node.Guid) : 
+                graph.Inputs(node.GUID).Count == 2 ? 
+                graph.Inputs(node.GUID) : 
                 null;
         }
 
