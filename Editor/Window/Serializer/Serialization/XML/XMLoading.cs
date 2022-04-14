@@ -76,13 +76,11 @@ public class XMLLoading : ILoadGraph
 
         foreach (XmlNode edge in edges)
         {
-            var connection = new SaveConnection
-            {
-                GuidA = edge.SelectSingleNode("start").InnerText,
-                GuidB = edge.SelectSingleNode("end").InnerText
-            };
+            var saveConnection = ScriptableObject.CreateInstance<ConnectionData>();
+            saveConnection.nodeAGUID = edge.SelectSingleNode("start").InnerText;
+            saveConnection.nodeBGUID = edge.SelectSingleNode("end").InnerText;
 
-            graph.Connections.Add(connection);
+            graph.Connections.Add(saveConnection);
         }
     }
 }

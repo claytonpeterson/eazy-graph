@@ -20,13 +20,13 @@ public class NodeConnector
             {
                 var connection = connections[y];
 
-                if (graph.Nodes[i].GUID == connection.GuidA)
+                if (graph.Nodes[i].GUID == connection.nodeAGUID)
                 {
-                    var startNode = GetGraphNodeByGUID(connections[y].GuidA);
-                    var endNode = GetGraphNodeByGUID(connections[y].GuidB);
+                    var startNode = GetGraphNodeByGUID(connections[y].nodeAGUID);
+                    var endNode = GetGraphNodeByGUID(connections[y].nodeBGUID);
 
-                    var startPort = startNode.GetPort(connections[y].PortAName);
-                    var endPort = endNode.GetPort(connections[y].PortBName);
+                    var startPort = startNode.GetPort(connections[y].nodeAPortName);
+                    var endPort = endNode.GetPort(connections[y].nodeBPortName);
 
                     LinkNodes(startPort, endPort);
                 }

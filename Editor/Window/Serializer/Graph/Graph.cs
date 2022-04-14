@@ -8,14 +8,14 @@ public class Graph
     private List<NodeData> nodes = new List<NodeData>();
 
     [SerializeField]
-    private List<SaveConnection> connections = new List<SaveConnection>();
+    private List<ConnectionData> connections = new List<ConnectionData>();
 
     public List<NodeData> Nodes 
     { 
         get => nodes; 
     }
 
-    public List<SaveConnection> Connections 
+    public List<ConnectionData> Connections 
     { 
         get => connections; 
     }
@@ -25,7 +25,7 @@ public class Graph
         nodes.Add(node);
     }
 
-    public void AddConnection(SaveConnection connection)
+    public void AddConnection(ConnectionData connection)
     {
         connections.Add(connection);
     }
@@ -36,9 +36,9 @@ public class Graph
 
         foreach (var connection in connections)
         {
-            if (connection.GuidB == guid)
+            if (connection.nodeBGUID == guid)
             {
-                inputs.Add(GetNode(connection.GuidA));
+                inputs.Add(GetNode(connection.nodeAGUID));
             }
         }
         return inputs;
@@ -50,9 +50,9 @@ public class Graph
 
         foreach (var connection in connections)
         {
-            if (connection.GuidA == guid)
+            if (connection.nodeAGUID == guid)
             {
-                outputs.Add(GetNode(connection.GuidB));
+                outputs.Add(GetNode(connection.nodeBGUID));
             }
         }
         return outputs;

@@ -44,15 +44,13 @@ public class ScriptableObjectLoading : ILoadGraph
     {
         foreach (var edge in data.Connections)
         {
-            var connection = new SaveConnection
-            {
-                GuidA = edge.nodeAGUID,
-                GuidB = edge.nodeBGUID,
-                PortAName = edge.nodeAPortName,
-                PortBName = edge.nodeBPortName
-            };
+            var saveConnection = ScriptableObject.CreateInstance<ConnectionData>();
+            saveConnection.nodeAGUID = edge.nodeAGUID;
+            saveConnection.nodeBGUID = edge.nodeBGUID;
+            saveConnection.nodeAPortName = edge.nodeAPortName;
+            saveConnection.nodeBPortName = edge.nodeBPortName;
 
-            graph.Connections.Add(connection);
+            graph.Connections.Add(saveConnection);
         }
     }
 }

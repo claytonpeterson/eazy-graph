@@ -22,7 +22,9 @@ namespace EazyGraph.Editor.Tests.Serialization
         public void AddConnection_Inserts()
         {
             var graph = new Graph();
-            graph.AddConnection(new SaveConnection());
+            
+            //graph.AddConnection(new SaveConnection());
+            
             Assert.IsTrue(graph.Connections.Count == 1);
         }
 
