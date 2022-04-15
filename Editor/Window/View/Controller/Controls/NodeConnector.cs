@@ -1,4 +1,5 @@
-﻿using UnityEditor.Experimental.GraphView;
+﻿using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 
 public class NodeConnector
 {
@@ -11,27 +12,38 @@ public class NodeConnector
 
     public void ConnectNodes(GraphData graph)
     {
-        for (int i = 0; i < graph.Nodes.Count; i++)
+        foreach (NodeData node in graph.Nodes)
         {
-            // Look at each connection
-            var connections = graph.Connections;
+            ConnectNode(GetConnections(node, graph.Connections));
+        }
+    }
 
-            for (int y = 0; y < connections.Count; y++)
+    private void ConnectNode(List<ConnectionData> connections)
+    {
+        foreach (var connection in connections)
+        {
+            LinkNodes(
+                GetPort(connection.nodeAGUID, connection.nodeAPortName),
+                GetPort(connection.nodeBGUID, connection.nodeBPortName));
+        }
+    }
+
+    private bool IsConnected(NodeData node, ConnectionData connection)
+    {
+        return node.GUID == connection.nodeAGUID;
+    }
+
+    private List<ConnectionData> GetConnections(NodeData node, List<ConnectionData> allConnections)
+    {
+        var output = new List<ConnectionData>();
+        foreach(var connection in allConnections)
+        {
+            if(IsConnected(node, connection))
             {
-                var connection = connections[y];
-
-                if (graph.Nodes[i].GUID == connection.nodeAGUID)
-                {
-                    var startNode = GetGraphNodeByGUID(connections[y].nodeAGUID);
-                    var endNode = GetGraphNodeByGUID(connections[y].nodeBGUID);
-
-                    var startPort = startNode.GetPort(connections[y].nodeAPortName);
-                    var endPort = endNode.GetPort(connections[y].nodeBPortName);
-
-                    LinkNodes(startPort, endPort);
-                }
+                output.Add(connection);
             }
         }
+        return output;
     }
 
     private void LinkNodes(Port output, Port input)
@@ -45,6 +57,12 @@ public class NodeConnector
         tEdge?.input.Connect(tEdge);
         tEdge?.output.Connect(tEdge);
         graphView.Add(tEdge);
+    }
+
+
+    private Port GetPort(string nodeGUID, string portName)
+    {
+        return GetGraphNodeByGUID(nodeGUID).GetPort(portName);
     }
 
     private NodeView GetGraphNodeByGUID(string guid)
