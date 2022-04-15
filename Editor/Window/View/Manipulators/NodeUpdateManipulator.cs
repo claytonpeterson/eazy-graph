@@ -17,6 +17,5 @@ public class NodeUpdateManipulator : IEdgeConnectorListener
 
     public void OnDropOutsidePort(Edge edge, Vector2 position)
     {
-        throw new System.NotImplementedException();
     }
 }
