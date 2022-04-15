@@ -18,8 +18,7 @@ public class View : GraphView
 
         graphController = new GraphController(
             view: this,
-            nodeCreator: nodeCreator, 
-            nodeConnector: new NodeConnector(this));
+            nodeCreator: nodeCreator);
 
         SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
 

@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
-using UnityEngine;
-
+﻿
 public class GraphController
 {
     private readonly View view;
     private readonly NodeCreator nodeCreator;
     private readonly NodeConnector nodeConnector;
+    private readonly NodeEraser nodeEraser;
 
-    public GraphController (View view, NodeCreator nodeCreator, NodeConnector nodeConnector)
+    public GraphController (View view, NodeCreator nodeCreator)
     {
         this.view = view;
         this.nodeCreator = nodeCreator;
-        this.nodeConnector = nodeConnector;
+
+        nodeConnector = new NodeConnector(view);
+        nodeEraser = new NodeEraser(view);
     }
 
     public void ShowGraph(GraphData graph)
@@ -39,19 +39,7 @@ public class GraphController
 
     public void ClearGraph()
     {
-        ClearGraphElements(new List<GraphElement>(view.Nodes));
-        view.Nodes.Clear();
-
-        ClearGraphElements(new List<GraphElement>(view.Edges));
-        view.Edges.Clear();
-    }
-
-    private void ClearGraphElements(List<GraphElement> elements)
-    {
-        for (int i = 0; i < elements.Count; i++)
-        {
-            view.RemoveElement(elements[i]);
-        }
+        nodeEraser.ClearGraph();
     }
 
     private void AddNodes(GraphData graph)
