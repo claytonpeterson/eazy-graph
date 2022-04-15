@@ -23,18 +23,8 @@ public class GraphController
         {
             AddNodes(graph);
             ConnectNodes(graph);
-
-            // Update the ui of anything that is updated globally
-            for (int i = 0; i < view.Nodes.Count; i++)
-            {
-                var updateable = (IUpdate)view.Nodes[i];
-                if(updateable != null)
-                {
-                    updateable.Update();
-                }
-            }
+            UpdateNodes();
         }
-        // here
     }
 
     public void ClearGraph()
@@ -50,5 +40,17 @@ public class GraphController
     private void ConnectNodes(GraphData graph)
     {
         nodeConnector.ConnectNodes(graph);
+    }
+
+    private void UpdateNodes()
+    {
+        foreach(var node in view.Nodes)
+        {
+            var updateable = (IUpdate)node;
+            if (updateable != null)
+            {
+                updateable.Update();
+            }
+        }
     }
 }
