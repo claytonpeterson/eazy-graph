@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
+using System.Linq;
 
 public class NodeConnector
 {
@@ -35,15 +36,7 @@ public class NodeConnector
 
     private List<ConnectionData> GetConnections(NodeData node, List<ConnectionData> allConnections)
     {
-        var output = new List<ConnectionData>();
-        foreach(var connection in allConnections)
-        {
-            if(IsConnected(node, connection))
-            {
-                output.Add(connection);
-            }
-        }
-        return output;
+        return allConnections.Where(x => IsConnected(node, x)).ToList();
     }
 
     private void LinkNodes(Port output, Port input)
@@ -67,10 +60,10 @@ public class NodeConnector
 
     private NodeView GetGraphNodeByGUID(string guid)
     {
-        for (int i = 0; i < graphView.Nodes.Count; i++)
+        foreach (NodeView node in graphView.Nodes)
         {
-            if (graphView.Nodes[i].guid == guid)
-                return graphView.Nodes[i];
+            if (node.guid == guid)
+                return node;
         }
         return null;
     }
