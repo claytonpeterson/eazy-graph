@@ -25,10 +25,22 @@ namespace skybirdgames.eazygraph.Editor
         {
             foreach (var connection in connections)
             {
+                if(!DoesPortExist(connection.nodeBGUID, connection.nodeBPortName))
+                {
+                    GetGraphNodeByGUID(connection.nodeBGUID).Ports.AddInputPort(connection.nodeBPortName, Port.Capacity.Single);
+                }
+
                 CreateEdge(
                     GetPort(connection.nodeAGUID, connection.nodeAPortName),
                     GetPort(connection.nodeBGUID, connection.nodeBPortName));
             }
+        }
+
+        private bool DoesPortExist(string nodeGUID, string portName)
+        {
+            return
+                GetGraphNodeByGUID(nodeGUID) != null && 
+                GetGraphNodeByGUID(nodeGUID).GetPort(portName) != null;
         }
 
         private bool IsConnected(NodeData node, ConnectionData connection)
@@ -53,7 +65,6 @@ namespace skybirdgames.eazygraph.Editor
             tEdge?.output.Connect(tEdge);
             graphView.Add(tEdge);
         }
-
 
         private Port GetPort(string nodeGUID, string portName)
         {
