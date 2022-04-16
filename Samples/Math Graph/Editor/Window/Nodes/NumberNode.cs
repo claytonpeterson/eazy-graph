@@ -50,9 +50,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         protected override void SetupPorts()
         {
-            var port = CreatePort(Direction.Output, Port.Capacity.Single, "Output");
-            port.AddManipulator(new EdgeConnector<Edge>(new NodeUpdateManipulator(this)));
-            outputContainer.Add(port);
+            Ports.AddOutputPort("output", Port.Capacity.Single);
         }
 
         public override void Update()

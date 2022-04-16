@@ -38,7 +38,7 @@ namespace skybirdgames.eazygraph.Editor
         {
             return (TestingOutData)userData;
         }
-
+/*
         public Port CreatePort(Direction portDirection, Port.Capacity capacity = Port.Capacity.Single, string portName = "")
         {
             var newPort = InstantiatePort(
@@ -50,7 +50,7 @@ namespace skybirdgames.eazygraph.Editor
             newPort.portName = portName;
             return newPort;
         }
-
+*/
         public virtual void Refresh()
         {
             RefreshExpandedState();

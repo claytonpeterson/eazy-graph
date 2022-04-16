@@ -76,8 +76,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         protected override void SetupPorts()
         {
-            outputContainer.Add(
-                child: CreatePort(Direction.Output, Port.Capacity.Single, "Output"));
+            Ports.AddOutputPort("output", Port.Capacity.Single);
         }
 
         public override void Update()

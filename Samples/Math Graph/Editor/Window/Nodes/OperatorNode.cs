@@ -47,9 +47,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         protected override void SetupPorts()
         {
-            Debug.Log(string.Format("ports: {0}", Ports));
             inputA = Ports.AddInputPort("input a", Port.Capacity.Single);
-
             inputB = Ports.AddInputPort("input b", Port.Capacity.Single);
             Ports.AddOutputPort("output", Port.Capacity.Multi);
         }
