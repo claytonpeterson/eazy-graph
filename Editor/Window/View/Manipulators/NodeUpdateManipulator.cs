@@ -1,21 +1,24 @@
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class NodeUpdateManipulator : IEdgeConnectorListener
+namespace skybirdgames.eazygraph.Editor
 {
-    private readonly NodeView node;
-
-    public NodeUpdateManipulator(NodeView node)
+    public class NodeUpdateManipulator : IEdgeConnectorListener
     {
-        this.node = node;
-    }
+        private readonly NodeView node;
 
-    public void OnDrop(GraphView graphView, Edge edge)
-    {
-        node.Update();
-    }
+        public NodeUpdateManipulator(NodeView node)
+        {
+            this.node = node;
+        }
 
-    public void OnDropOutsidePort(Edge edge, Vector2 position)
-    {
+        public void OnDrop(GraphView graphView, Edge edge)
+        {
+            node.Update();
+        }
+
+        public void OnDropOutsidePort(Edge edge, Vector2 position)
+        {
+        }
     }
 }

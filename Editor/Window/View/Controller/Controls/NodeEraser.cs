@@ -1,27 +1,30 @@
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 
-public class NodeEraser
+namespace skybirdgames.eazygraph.Editor
 {
-    private readonly View view;
-
-    public NodeEraser(View view)
+    public class NodeEraser
     {
-        this.view = view;
-    }
+        private readonly View view;
 
-    public void ClearGraph()
-    {
-        ClearGraphElements(new List<GraphElement>(view.Nodes));
-        ClearGraphElements(new List<GraphElement>(view.Edges));
-    }
-
-    private void ClearGraphElements(List<GraphElement> elements)
-    {
-        for (int i = 0; i < elements.Count; i++)
+        public NodeEraser(View view)
         {
-            view.RemoveElement(elements[i]);
+            this.view = view;
         }
-        elements.Clear();
+
+        public void ClearGraph()
+        {
+            ClearGraphElements(new List<GraphElement>(view.Nodes));
+            ClearGraphElements(new List<GraphElement>(view.Edges));
+        }
+
+        private void ClearGraphElements(List<GraphElement> elements)
+        {
+            for (int i = 0; i < elements.Count; i++)
+            {
+                view.RemoveElement(elements[i]);
+            }
+            elements.Clear();
+        }
     }
 }

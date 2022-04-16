@@ -1,39 +1,42 @@
 ﻿using System;
 using UnityEngine;
 
-public class NodeCreator
+namespace skybirdgames.eazygraph.Editor
 {
-    private View graphView;
-    private readonly INodeSpawner nodeSpawner;
-
-    public NodeCreator(View graphView, INodeSpawner nodeSpawner)
+    public class NodeCreator
     {
-        this.graphView = graphView;
-        this.nodeSpawner = nodeSpawner;
-    }
+        private View graphView;
+        private readonly INodeSpawner nodeSpawner;
 
-    public NodeView CreateNode(Type type, Vector2 position, TestingOutData data)
-    {
-        var nodeView = nodeSpawner.CreateNodeView(type, position, data);
-        graphView.AddElement(nodeView);
-        return nodeView;
-    }
-
-    public void AddNodes(GraphData graph)
-    {
-        if (graph == null)
-            return;
-
-        foreach (var nodeData in graph.Nodes)
+        public NodeCreator(View graphView, INodeSpawner nodeSpawner)
         {
-            var nodeView = nodeSpawner.CreateNodeView(
-                Type.GetType(nodeData.NodeType),
-                nodeData.Position,
-                nodeData.Data);
+            this.graphView = graphView;
+            this.nodeSpawner = nodeSpawner;
+        }
 
-            nodeView.guid = nodeData.GUID;
-
+        public NodeView CreateNode(Type type, Vector2 position, TestingOutData data)
+        {
+            var nodeView = nodeSpawner.CreateNodeView(type, position, data);
             graphView.AddElement(nodeView);
+            return nodeView;
+        }
+
+        public void AddNodes(GraphData graph)
+        {
+            if (graph == null)
+                return;
+
+            foreach (var nodeData in graph.Nodes)
+            {
+                var nodeView = nodeSpawner.CreateNodeView(
+                    Type.GetType(nodeData.NodeType),
+                    nodeData.Position,
+                    nodeData.Data);
+
+                nodeView.guid = nodeData.GUID;
+
+                graphView.AddElement(nodeView);
+            }
         }
     }
 }

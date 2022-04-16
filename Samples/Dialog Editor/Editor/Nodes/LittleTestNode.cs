@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEditor.Experimental.GraphView;
 using System;
+
+using skybirdgames.eazygraph.Editor;
 
 namespace skybirdgames.eazygraph.dialog.Editor
 {

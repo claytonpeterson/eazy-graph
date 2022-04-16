@@ -1,55 +1,57 @@
-﻿
-public class GraphController
+﻿namespace skybirdgames.eazygraph.Editor
 {
-    private readonly View view;
-    private readonly NodeCreator nodeCreator;
-    private readonly NodeConnector nodeConnector;
-    private readonly NodeEraser nodeEraser;
-
-    public GraphController (View view, NodeCreator nodeCreator)
+    public class GraphController
     {
-        this.view = view;
-        this.nodeCreator = nodeCreator;
+        private readonly View view;
+        private readonly NodeCreator nodeCreator;
+        private readonly NodeConnector nodeConnector;
+        private readonly NodeEraser nodeEraser;
 
-        nodeConnector = new NodeConnector(view);
-        nodeEraser = new NodeEraser(view);
-    }
-
-    public void ShowGraph(GraphData graph)
-    {
-        ClearGraph();
-
-        if (graph != null)
+        public GraphController(View view, NodeCreator nodeCreator)
         {
-            AddNodes(graph);
-            ConnectNodes(graph);
-            UpdateNodes();
+            this.view = view;
+            this.nodeCreator = nodeCreator;
+
+            nodeConnector = new NodeConnector(view);
+            nodeEraser = new NodeEraser(view);
         }
-    }
 
-    public void ClearGraph()
-    {
-        nodeEraser.ClearGraph();
-    }
-
-    private void AddNodes(GraphData graph)
-    {
-        nodeCreator.AddNodes(graph);
-    }
-
-    private void ConnectNodes(GraphData graph)
-    {
-        nodeConnector.ConnectNodes(graph);
-    }
-
-    private void UpdateNodes()
-    {
-        foreach(var node in view.Nodes)
+        public void ShowGraph(GraphData graph)
         {
-            var updateable = (IUpdate)node;
-            if (updateable != null)
+            ClearGraph();
+
+            if (graph != null)
             {
-                updateable.Update();
+                AddNodes(graph);
+                ConnectNodes(graph);
+                UpdateNodes();
+            }
+        }
+
+        public void ClearGraph()
+        {
+            nodeEraser.ClearGraph();
+        }
+
+        private void AddNodes(GraphData graph)
+        {
+            nodeCreator.AddNodes(graph);
+        }
+
+        private void ConnectNodes(GraphData graph)
+        {
+            nodeConnector.ConnectNodes(graph);
+        }
+
+        private void UpdateNodes()
+        {
+            foreach (var node in view.Nodes)
+            {
+                var updateable = (IUpdate)node;
+                if (updateable != null)
+                {
+                    updateable.Update();
+                }
             }
         }
     }

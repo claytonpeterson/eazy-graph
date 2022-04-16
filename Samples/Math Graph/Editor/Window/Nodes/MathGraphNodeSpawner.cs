@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
+using skybirdgames.eazygraph.Editor;
+
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
     public class MathGraphNodeSpawner : INodeSpawner

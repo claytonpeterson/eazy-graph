@@ -5,7 +5,7 @@ namespace EazyGraph.Editor.Tests.Serialization
 {
     public abstract class SerializerTestSuite
     {
-        protected const string parentFolder = "Assets/Resources/";
+        /*protected const string parentFolder = "Assets/Resources/";
         
         private const string fileName = "test";
         private View editorGraphView;
@@ -43,6 +43,6 @@ namespace EazyGraph.Editor.Tests.Serialization
                 parentFolder + "{0}{1}", 
                 fileName, 
                 serializer.FileExtension);
-        }
+        }*/
     }
 }

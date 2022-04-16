@@ -1,7 +1,7 @@
 ﻿
 namespace EazyGraph.Editor.Tests.Serialization
 {
-    public class ScriptableObjectSerializerTests : SerializerTestSuite
+   /* public class ScriptableObjectSerializerTests : SerializerTestSuite
     {
         private const string fileExtension = ".asset";
 
@@ -13,5 +13,5 @@ namespace EazyGraph.Editor.Tests.Serialization
                 parentFolder,
                 fileExtension);
         }
-    }
+    }*/
 }

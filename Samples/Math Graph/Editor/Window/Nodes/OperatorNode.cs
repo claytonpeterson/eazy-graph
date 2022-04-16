@@ -4,6 +4,8 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+using skybirdgames.eazygraph.Editor;
+
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
     public class OperatorNode : NodeView, IContainsValue
@@ -45,20 +47,11 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         protected override void SetupPorts()
         {
-            inputA = CreatePort(Direction.Input, Port.Capacity.Multi, "Input A");
-            inputA.AddManipulator(new EdgeConnector<Edge>(new NodeUpdateManipulator(this)));
+            Debug.Log(string.Format("ports: {0}", Ports));
+            inputA = Ports.AddInputPort("input a", Port.Capacity.Single);
 
-            inputB = CreatePort(Direction.Input, Port.Capacity.Multi, "Input B");
-            inputB.AddManipulator(new EdgeConnector<Edge>(new NodeUpdateManipulator(this)));
-
-            inputContainer.Add(
-                child: inputA);
-
-            inputContainer.Add(
-                child: inputB);
-
-            outputContainer.Add(
-                child: CreatePort(Direction.Output, Port.Capacity.Single, "Output"));
+            inputB = Ports.AddInputPort("input b", Port.Capacity.Single);
+            Ports.AddOutputPort("output", Port.Capacity.Multi);
         }
 
         private void AddPopupField()
@@ -86,11 +79,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         List<Edge> InputConnections()
         {
-            /*Debug.Log(string.Format(
-                "{0}, {1}",
-                inputA.connections.Count(),
-                inputB.connections.Count()));
-*/
             var output = new List<Edge>();
             output.AddRange(inputA.connections);
             output.AddRange(inputB.connections);
