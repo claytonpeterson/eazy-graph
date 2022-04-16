@@ -14,25 +14,9 @@ namespace skybirdgames.eazygraph.Editor
 
         public Port GetPort(string portName)
         {
-            foreach (var child in view.inputContainer.Children())
-            {
-                var port = (Port)child;
-                if (port == null)
-                    continue;
-
-                if (port.portName == portName)
-                    return port;
-            }
-            foreach (var child in view.outputContainer.Children())
-            {
-                var port = (Port)child;
-                if (port == null)
-                    continue;
-
-                if (port.portName == portName)
-                    return port;
-            }
-            return null;
+            return 
+                SearchContainerForPort(portName, view.inputContainer) ?? 
+                SearchContainerForPort(portName, view.outputContainer);
         }
 
         public Port AddInputPort(string portName, Port.Capacity capacity)
@@ -67,6 +51,19 @@ namespace skybirdgames.eazygraph.Editor
             // Name 
             port.portName = portName;
             return port;
+        }
+
+        private Port SearchContainerForPort(string portName, VisualElement container)
+        {
+            foreach (VisualElement child in container.Children())
+            {
+                var port = (Port)child;
+                if (port != null && port.portName == portName)
+                {
+                    return port;
+                }
+            }
+            return null;
         }
     }
 }
