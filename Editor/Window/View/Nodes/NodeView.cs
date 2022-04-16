@@ -11,9 +11,9 @@ namespace skybirdgames.eazygraph.Editor
 
         public Vector2 Position;
 
-        private readonly Ports ports;
+        private readonly DynamicPorts ports;
 
-        public Ports Ports => ports;
+        public DynamicPorts Ports => ports;
 
         public NodeView(Vector2 position, TestingOutData data)
         {
@@ -26,7 +26,7 @@ namespace skybirdgames.eazygraph.Editor
             SetPosition(new Rect(position.x, position.y, 100, 100));
 
             // Create and set up ports using the new structure 
-            ports = new Ports(this);
+            ports = new DynamicPorts(this);
             SetupPorts();
 
             Refresh();

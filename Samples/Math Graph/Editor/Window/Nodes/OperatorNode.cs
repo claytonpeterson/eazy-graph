@@ -36,9 +36,24 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             AddPopupField();
             AddCalculationField();
 
+            Add(InputPortButton());
+            
             Update();
             Refresh();
         }
+
+        int xy = 0;
+
+        private Button InputPortButton()
+        {
+            return new Button(clickEvent: () =>
+            {
+                Ports.AddInputPort("port: " + xy, Port.Capacity.Single);
+                xy++;
+            })
+            { text = "Add Input Branch" };
+        }
+
 
         public int Value()
         {
