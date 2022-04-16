@@ -17,15 +17,15 @@ namespace skybirdgames.eazygraph.Editor
         {
             foreach (NodeData node in graph.Nodes)
             {
-                ConnectNode(GetConnections(node, graph.Connections));
+                CreateEdges(GetConnections(node, graph.Connections));
             }
         }
 
-        private void ConnectNode(List<ConnectionData> connections)
+        private void CreateEdges(List<ConnectionData> connections)
         {
             foreach (var connection in connections)
             {
-                LinkNodes(
+                CreateEdge(
                     GetPort(connection.nodeAGUID, connection.nodeAPortName),
                     GetPort(connection.nodeBGUID, connection.nodeBPortName));
             }
@@ -41,7 +41,7 @@ namespace skybirdgames.eazygraph.Editor
             return allConnections.Where(x => IsConnected(node, x)).ToList();
         }
 
-        private void LinkNodes(Port output, Port input)
+        private void CreateEdge(Port output, Port input)
         {
             var tEdge = new Edge
             {
@@ -70,5 +70,4 @@ namespace skybirdgames.eazygraph.Editor
             return null;
         }
     }
-
 }
