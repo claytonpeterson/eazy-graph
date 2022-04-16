@@ -37,15 +37,18 @@ namespace skybirdgames.eazygraph.Editor
 
         public Port AddInputPort(string portName, Port.Capacity capacity)
         {
-            var port = CreatePort(Direction.Input, capacity, portName);
-            view.inputContainer.Add(port);
-            return port;
+            return AddPort(portName, capacity, Direction.Input, view.inputContainer);
         }
 
         public Port AddOutputPort(string portName, Port.Capacity capacity)
         {
-            var port = CreatePort(Direction.Output, capacity, portName);
-            view.outputContainer.Add(port);
+            return AddPort(portName, capacity, Direction.Output, view.outputContainer);
+        }
+
+        private Port AddPort(string portName, Port.Capacity capacity, Direction direction, VisualElement container)
+        {
+            var port = CreatePort(direction, capacity, portName);
+            container.Add(port);
             return port;
         }
 
