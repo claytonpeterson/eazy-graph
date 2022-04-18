@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
@@ -15,6 +14,17 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
                 }
             }
             return 0;
+        }
+
+        public int RunNode(OperatorNode node)
+        {
+            int total = 0;
+            for (int i = 0; i < node.Ports.GetInputConnections().Count; i++)
+            {
+                var input = (IContainsValue)node.Ports.GetInputConnections()[i].output.node;
+                total = FigureOutMathAndStuff(input.Value(), total, node.Data().name);
+            }
+            return total;
         }
 
         private int ProcessNode(NodeData node, GraphData graph)

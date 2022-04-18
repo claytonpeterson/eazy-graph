@@ -23,10 +23,12 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         private Label calculationField;
 
         private readonly OutputUpdater output;
+        private readonly MathRunner mathRunner;
 
-        public OperatorNode(Vector2 position, TestingOutData data) : base(position, data)
+        public OperatorNode(Vector2 position, TestingOutData data, MathRunner mathRunner) : base(position, data)
         {
             output = new OutputUpdater(this);
+            this.mathRunner = mathRunner;
 
             mainContainer.style.backgroundColor = Color.blue;
 
@@ -50,14 +52,16 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         public int Value()
         {
-            return Calculate();
+            if (!CanCalculate())
+                return 0;
+
+            return mathRunner.RunNode(this);
         }
 
         protected override void SetupPorts()
         {
             Ports.AddInputPort("input a", Port.Capacity.Single);
             Ports.AddInputPort("input b", Port.Capacity.Single);
-
             Ports.AddOutputPort("output", Port.Capacity.Multi);
         }
 
@@ -71,7 +75,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             popupField.RegisterValueChangedCallback((evt) =>
             {
                 Data().name = evt.newValue;
-                Data().age = Calculate();
+                Data().age = Value();
                 UpdateCalculationField();
             });
 
@@ -80,7 +84,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         private void AddCalculationField()
         {
-            calculationField = new Label(Calculate().ToString());
+            calculationField = new Label(Value().ToString());
             Add(calculationField);
         }
 
@@ -89,52 +93,12 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return Ports.GetInputConnections().Count > 1;
         }
 
-        private int Calculate()
-        {
-            if (!CanCalculate())
-                return 0;
-
-            int total = 0;
-
-            for(int i = 0; i < Ports.GetInputConnections().Count; i++)
-            {
-                var node = (IContainsValue)Ports.GetInputConnections()[i].output.node;
-
-                total = FigureOutMathAndStuff(node.Value(), total, Data().name);
-            }
-
-            return total;
-        }
-
         public void UpdateCalculationField()
         {
-            calculationField.text = Calculate().ToString();
+            calculationField.text = Value().ToString();
 
             // send the message forth
             output.UpdateOutputConnections();
-        }
-
-        private int FigureOutMathAndStuff(int input, int total, string op)
-        {
-            if (op == "Add")
-            {
-                return total + input;
-            }
-            else if (op == "Subtract")
-            {
-                return total - input;
-            }
-            else if (op == "Multiply")
-            {
-                if (total == 0)
-                    total = 1;
-                return total * input;
-            }
-            else if (op == "Divide")
-            {
-                return total / input;
-            }
-            return 0;
         }
 
         public override void Update()
@@ -142,7 +106,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             UpdateCalculationField();
 
             Data().name = Data().name ?? popupFieldValues[0];
-            Data().age = Calculate();
+            Data().age = Value();
         }
     }
 }

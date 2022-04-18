@@ -15,7 +15,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             }
             else if (type == typeof(OperatorNode))
             {
-                return new OperatorNode(position, data);
+                return new OperatorNode(position, data, new MathRunner());
             }
             else if (type == typeof(PortalNode))
             {
