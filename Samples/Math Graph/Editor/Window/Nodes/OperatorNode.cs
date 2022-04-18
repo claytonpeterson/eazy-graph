@@ -27,6 +27,8 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         private Port inputA;
         private Port inputB;
 
+        int xy = 0;
+        
         public OperatorNode(Vector2 position, TestingOutData data) : base(position, data)
         {
             output = new OutputUpdater(this);
@@ -42,18 +44,14 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             Refresh();
         }
 
-        int xy = 0;
-
         private Button InputPortButton()
         {
             return new Button(clickEvent: () =>
             {
-                Ports.AddInputPort("port: " + xy, Port.Capacity.Single);
-                xy++;
+                Ports.AddInputPort("port: " + (Ports.InputPortCount()+1), Port.Capacity.Single);
             })
             { text = "Add Input Branch" };
         }
-
 
         public int Value()
         {

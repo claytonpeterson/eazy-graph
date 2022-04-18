@@ -12,6 +12,10 @@ namespace skybirdgames.eazygraph.Editor
             this.view = view;
         }
 
+        public int InputPortCount() { return view.inputContainer.childCount; }
+
+        public int OutputPortCount() { return view.outputContainer.childCount; }
+
         public Port GetPort(string portName)
         {
             return 
