@@ -84,19 +84,9 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             Add(calculationField);
         }
 
-        List<Edge> InputConnections()
-        {
-            var output = new List<Edge>();
-            foreach (var port in Ports.GetInputConnections())
-            {
-                output.Add(port);
-            }
-            return output;
-        }
-
         private bool CanCalculate()
         {
-            return InputConnections().Count > 1;
+            return Ports.GetInputConnections().Count > 1;
         }
 
         private int Calculate()
@@ -106,9 +96,9 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
             int total = 0;
 
-            for(int i = 0; i < InputConnections().Count; i++)
+            for(int i = 0; i < Ports.GetInputConnections().Count; i++)
             {
-                var node = (IContainsValue)InputConnections()[i].output.node;
+                var node = (IContainsValue)Ports.GetInputConnections()[i].output.node;
 
                 total = FigureOutMathAndStuff(node.Value(), total, Data().name);
             }
