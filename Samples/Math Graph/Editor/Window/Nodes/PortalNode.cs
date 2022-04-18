@@ -1,16 +1,15 @@
-﻿using UnityEditor.Experimental.GraphView;
-using UnityEngine;
+﻿using UnityEngine;
 
 using skybirdgames.eazygraph.Editor;
+using UnityEditor.Experimental.GraphView;
 
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public class PortalNode : ObjectNode
+    public class PortalNode : ObjectNode<GraphData>
     {
         // For running the graph
         private readonly IGraphRunner graphRunner;
         private readonly ILoadGraph loading;
-
         private readonly OutputUpdater output;
 
         public PortalNode(Vector2 position, TestingOutData data, IGraphRunner runner) : base(position, data)
@@ -20,8 +19,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
             output = new OutputUpdater(this);
 
-            obj = Resources.Load<GraphData>(Data().name);
-
             mainContainer.style.backgroundColor = Color.red;
 
             Refresh();
@@ -29,20 +26,16 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         public override int Value()
         {
-            if (obj == null)
+            if (!HasObject())
                 return 0;
 
-            var gd = (GraphData)obj;
-            var graph = loading.Load(gd);
-
-            return graphRunner.Run(graph);
+            return graphRunner.Run(loading.Load((GraphData)obj));
         }
 
         protected override void SetupPorts()
         {
             Ports.AddOutputPort("port 1", Port.Capacity.Single);
         }
-
         public override void Update()
         {
             if (obj == null)

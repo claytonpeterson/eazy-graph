@@ -4,44 +4,30 @@ using UnityEngine.UIElements;
 
 namespace skybirdgames.eazygraph.Editor
 {
-    public abstract class ObjectNode : DynamicOutputNode, IContainsValue
+    public abstract class ObjectNode<T> : DynamicOutputNode, IContainsValue where T : ScriptableObject
     {
         protected Object obj;
 
         protected ObjectField objectField;
 
-        private readonly ILoadGraph loading;
-
         public ObjectNode(Vector2 position, TestingOutData data) : base(position, data)
         {
-            loading = new ScriptableObjectLoading();
+            obj = Resources.Load<T>(Data().name);
 
             Add(InputField());
 
             Refresh();
         }
 
-        public override void Update()
-        {
-            if (obj == null)
-                return;
-
-            var gd = (GraphData)obj;
-            var graph = loading.Load(gd);
-
-            objectField.label = Value().ToString();
-            Data().age = Value();
-
-            //output.UpdateOutputConnections();
-        }
-
         public abstract int Value();
+
+        protected bool HasObject() => obj != null;
 
         private ObjectField InputField()
         {
             objectField = new ObjectField()
             {
-                objectType = typeof(GraphData)
+                objectType = typeof(T)
             };
 
             objectField.SetValueWithoutNotify(obj);
