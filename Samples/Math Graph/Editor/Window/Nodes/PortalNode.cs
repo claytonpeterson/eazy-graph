@@ -5,7 +5,7 @@ using skybirdgames.eazygraph.Editor;
 
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public class PortalNode : ObjectNode
+    public class PortalNode : ObjectNode<GraphData>
     {
         // For running the graph
         private readonly IGraphRunner graphRunner;

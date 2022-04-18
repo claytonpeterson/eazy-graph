@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace skybirdgames.eazygraph.Editor
 {
-    public abstract class ObjectNode: DynamicOutputNode, IContainsValue
+    public abstract class ObjectNode<T> : DynamicOutputNode, IContainsValue where T : ScriptableObject
     {
         protected Object obj;
 
@@ -12,7 +12,7 @@ namespace skybirdgames.eazygraph.Editor
 
         public ObjectNode(Vector2 position, TestingOutData data) : base(position, data)
         {
-            obj = Resources.Load<GraphData>(Data().name);
+            obj = Resources.Load<T>(Data().name);
 
             Add(InputField());
 
@@ -39,7 +39,7 @@ namespace skybirdgames.eazygraph.Editor
         {
             objectField = new ObjectField()
             {
-                objectType = typeof(GraphData)
+                objectType = typeof(T)
             };
 
             objectField.SetValueWithoutNotify(obj);
