@@ -27,11 +27,14 @@ namespace skybirdgames.eazygraph.Editor
             return GetConnections(view.outputContainer);
         }
 
-        public Port GetPort(string portName)
+        public Port GetInputPort(string portName)
         {
-            return 
-                SearchContainerForPort(portName, view.inputContainer) ?? 
-                SearchContainerForPort(portName, view.outputContainer);
+            return SearchContainerForPort(portName, view.inputContainer); 
+        }
+
+        public Port GetOutputPort(string portName)
+        {
+            return SearchContainerForPort(portName, view.outputContainer);
         }
 
         public Port AddInputPort(string portName, Port.Capacity capacity)

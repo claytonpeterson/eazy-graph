@@ -26,19 +26,30 @@ namespace skybirdgames.eazygraph.Editor
         {
             foreach (var connection in connections)
             {
-                if (!DoesPortExist(connection.nodeAGUID, connection.nodeAPortName))
-                {
-                    GetGraphNodeByGUID(connection.nodeAGUID).Ports.AddOutputPort(connection.nodeAPortName, Port.Capacity.Single);
-                }
-                
-                if (!DoesPortExist(connection.nodeBGUID, connection.nodeBPortName))
-                {
-                    GetGraphNodeByGUID(connection.nodeBGUID).Ports.AddInputPort(connection.nodeBPortName, Port.Capacity.Single);
-                }
 
+                if (GetGraphNodeByGUID(connection.nodeAGUID) != null &&
+                    GetGraphNodeByGUID(connection.nodeAGUID).GetOutputPort(connection.nodeAPortName) == null)
+                    GetGraphNodeByGUID(connection.nodeAGUID).Ports.AddOutputPort(connection.nodeAPortName, Port.Capacity.Single);
+
+                if (GetGraphNodeByGUID(connection.nodeBGUID) != null &&
+                    GetGraphNodeByGUID(connection.nodeBGUID).GetInputPort(connection.nodeBPortName) == null)
+                    GetGraphNodeByGUID(connection.nodeBGUID).Ports.AddInputPort(connection.nodeBPortName, Port.Capacity.Single);
+
+
+                /*
+                                if (!DoesPortExist(connection.nodeAGUID, connection.nodeAPortName))
+                                {
+                                    GetGraphNodeByGUID(connection.nodeAGUID).Ports.AddOutputPort(connection.nodeAPortName, Port.Capacity.Single);
+                                }
+
+                                if (!DoesPortExist(connection.nodeBGUID, connection.nodeBPortName))
+                                {
+                                    GetGraphNodeByGUID(connection.nodeBGUID).Ports.AddInputPort(connection.nodeBPortName, Port.Capacity.Single);
+                                }
+                */
                 CreateEdge(
-                    GetPort(connection.nodeAGUID, connection.nodeAPortName),
-                    GetPort(connection.nodeBGUID, connection.nodeBPortName));
+                    GetOutputPort(connection.nodeAGUID, connection.nodeAPortName),
+                    GetInputPort(connection.nodeBGUID, connection.nodeBPortName));
             }
         }
 
@@ -46,7 +57,8 @@ namespace skybirdgames.eazygraph.Editor
         {
             return
                 GetGraphNodeByGUID(nodeGUID) != null && 
-                GetGraphNodeByGUID(nodeGUID).GetPort(portName) != null;
+                GetGraphNodeByGUID(nodeGUID).GetInputPort(portName) != null ||
+                GetGraphNodeByGUID(nodeGUID).GetOutputPort(portName) != null;
         }
 
         private bool IsConnected(NodeData node, ConnectionData connection)
@@ -72,9 +84,14 @@ namespace skybirdgames.eazygraph.Editor
             graphView.Add(tEdge);
         }
 
-        private Port GetPort(string nodeGUID, string portName)
+        private Port GetInputPort(string nodeGUID, string portName)
         {
-            return GetGraphNodeByGUID(nodeGUID).GetPort(portName);
+            return GetGraphNodeByGUID(nodeGUID).GetInputPort(portName);
+        }
+
+        private Port GetOutputPort(string nodeGUID, string portName)
+        {
+            return GetGraphNodeByGUID(nodeGUID).GetOutputPort(portName);
         }
 
         private NodeView GetGraphNodeByGUID(string guid)

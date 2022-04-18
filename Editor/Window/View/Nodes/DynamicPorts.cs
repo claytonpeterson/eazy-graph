@@ -13,13 +13,13 @@ namespace skybirdgames.eazygraph.Editor
 
         public void AddInputPort(Port.Capacity capacity)
         {
-            AddInputPort("port: " + inputIndex, capacity);
+            AddInputPort("port " + inputIndex, capacity);
             inputIndex++;
         }
 
         public void AddOutputPort(Port.Capacity capacity)
         {
-            AddOutputPort("port: " + outputIndex, capacity);
+            AddOutputPort("port " + outputIndex, capacity);
             outputIndex++;
         }
     }

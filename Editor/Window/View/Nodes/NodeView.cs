@@ -45,9 +45,14 @@ namespace skybirdgames.eazygraph.Editor
             RefreshPorts();
         }
 
-        public Port GetPort(string portName)
+        public Port GetInputPort(string portName)
         {
-            return Ports.GetPort(portName);
+            return Ports.GetInputPort(portName);
+        }
+
+        public Port GetOutputPort(string portName)
+        {
+            return Ports.GetOutputPort(portName);
         }
 
         public abstract void Update();

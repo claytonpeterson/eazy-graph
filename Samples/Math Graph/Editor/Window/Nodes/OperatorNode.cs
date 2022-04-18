@@ -46,20 +46,19 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         {
             return new Button(clickEvent: () =>
             {
-                Ports.AddInputPort("port: " + (Ports.InputPortCount()+1), Port.Capacity.Single);
+                Ports.AddInputPort("port " + (Ports.InputPortCount() + 1), Port.Capacity.Single);
             })
-            { text = "Add Input Branch" };
+            { text = "Add Input Port" };
         }
 
         private Button OutputPortButton()
         {
             return new Button(clickEvent: () =>
             {
-                Ports.AddOutputPort("port: " + (Ports.OutputPortCount() + 1), Port.Capacity.Single);
+                Ports.AddOutputPort("port " + (Ports.OutputPortCount() + 1), Port.Capacity.Single);
             })
-            { text = "Add Output Branch" };
+            { text = "Add Output Port" };
         }
-
 
         public int Value()
         {
@@ -71,9 +70,10 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         protected override void SetupPorts()
         {
-            Ports.AddInputPort("input a", Port.Capacity.Single);
-            Ports.AddInputPort("input b", Port.Capacity.Single);
-            Ports.AddOutputPort("output", Port.Capacity.Multi);
+            Ports.AddInputPort("port 1", Port.Capacity.Single);
+            Ports.AddInputPort("port 2", Port.Capacity.Single);
+
+            Ports.AddOutputPort("port 1", Port.Capacity.Single);
         }
 
         private void AddPopupField()
