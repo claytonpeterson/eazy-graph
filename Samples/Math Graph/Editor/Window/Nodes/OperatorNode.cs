@@ -24,9 +24,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         private readonly OutputUpdater output;
 
-        private Port inputA;
-        private Port inputB;
-
         public OperatorNode(Vector2 position, TestingOutData data) : base(position, data)
         {
             output = new OutputUpdater(this);
@@ -58,8 +55,9 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         protected override void SetupPorts()
         {
-            inputA = Ports.AddInputPort("input a", Port.Capacity.Single);
-            inputB = Ports.AddInputPort("input b", Port.Capacity.Single);
+            Ports.AddInputPort("input a", Port.Capacity.Single);
+            Ports.AddInputPort("input b", Port.Capacity.Single);
+
             Ports.AddOutputPort("output", Port.Capacity.Multi);
         }
 
@@ -89,21 +87,16 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         List<Edge> InputConnections()
         {
             var output = new List<Edge>();
-            output.AddRange(inputA.connections);
-            output.AddRange(inputB.connections);
-/*
-            foreach(var p in Ports.GetInputConnections())
+            foreach (var port in Ports.GetInputConnections())
             {
-                output.Add(p);
+                output.Add(port);
             }
-*/
             return output;
-            /*return inputContainer.Q<Port>().connections.ToList();*/
         }
 
         private bool CanCalculate()
         {
-            return InputConnections().Count == 2;
+            return InputConnections().Count > 1;
         }
 
         private int Calculate()
@@ -111,16 +104,16 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             if (!CanCalculate())
                 return 0;
 
-            var conn = InputConnections();
-            var a = (IContainsValue)conn[0].output.node;
-            var b = (IContainsValue)conn[1].output.node;
+            int total = 0;
 
-            var value = FigureOutMathAndStuff(
-                inputA: a.Value(),
-                inputB: b.Value(), 
-                op: Data().name);
+            for(int i = 0; i < InputConnections().Count; i++)
+            {
+                var node = (IContainsValue)InputConnections()[i].output.node;
 
-            return value;
+                total = FigureOutMathAndStuff(node.Value(), total, Data().name);
+            }
+
+            return total;
         }
 
         public void UpdateCalculationField()
@@ -131,23 +124,25 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             output.UpdateOutputConnections();
         }
 
-        private int FigureOutMathAndStuff(int inputA, int inputB, string op)
+        private int FigureOutMathAndStuff(int input, int total, string op)
         {
             if (op == "Add")
             {
-                return inputA + inputB;
+                return total + input;
             }
             else if (op == "Subtract")
             {
-                return inputA - inputB;
+                return total - input;
             }
             else if (op == "Multiply")
             {
-                return inputA * inputB;
+                if (total == 0)
+                    total = 1;
+                return total * input;
             }
             else if (op == "Divide")
             {
-                return inputA / inputB;
+                return total / input;
             }
             return 0;
         }
