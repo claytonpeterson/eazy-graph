@@ -36,7 +36,8 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             AddCalculationField();
 
             Add(InputPortButton());
-            
+            Add(OutputPortButton());
+
             Update();
             Refresh();
         }
@@ -49,6 +50,16 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             })
             { text = "Add Input Branch" };
         }
+
+        private Button OutputPortButton()
+        {
+            return new Button(clickEvent: () =>
+            {
+                Ports.AddOutputPort("port: " + (Ports.OutputPortCount() + 1), Port.Capacity.Single);
+            })
+            { text = "Add Output Branch" };
+        }
+
 
         public int Value()
         {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using System.Linq;
+using UnityEngine;
 
 namespace skybirdgames.eazygraph.Editor
 {
@@ -25,7 +26,12 @@ namespace skybirdgames.eazygraph.Editor
         {
             foreach (var connection in connections)
             {
-                if(!DoesPortExist(connection.nodeBGUID, connection.nodeBPortName))
+                if (!DoesPortExist(connection.nodeAGUID, connection.nodeAPortName))
+                {
+                    GetGraphNodeByGUID(connection.nodeAGUID).Ports.AddOutputPort(connection.nodeAPortName, Port.Capacity.Single);
+                }
+                
+                if (!DoesPortExist(connection.nodeBGUID, connection.nodeBPortName))
                 {
                     GetGraphNodeByGUID(connection.nodeBGUID).Ports.AddInputPort(connection.nodeBPortName, Port.Capacity.Single);
                 }
