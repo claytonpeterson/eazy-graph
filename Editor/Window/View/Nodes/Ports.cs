@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace skybirdgames.eazygraph.Editor
@@ -39,6 +40,8 @@ namespace skybirdgames.eazygraph.Editor
 
         public Port AddInputPort(string portName, Port.Capacity capacity)
         {
+            Debug.Log(string.Format("adding {0}", portName));
+
             return AddPort(portName, capacity, Direction.Input, view.inputContainer);
         }
 

@@ -7,7 +7,7 @@ using skybirdgames.eazygraph.Editor;
 
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public class NumberNode : NodeView, IContainsValue
+    public class NumberNode : DynamicOutputNode, IContainsValue
     {
         private FloatField numberField;
 
