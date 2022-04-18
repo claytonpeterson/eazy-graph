@@ -1,4 +1,5 @@
-﻿using UnityEditor.Experimental.GraphView;
+﻿using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 
 namespace skybirdgames.eazygraph.Editor
@@ -15,6 +16,16 @@ namespace skybirdgames.eazygraph.Editor
         public int InputPortCount() { return view.inputContainer.childCount; }
 
         public int OutputPortCount() { return view.outputContainer.childCount; }
+
+        public List<Edge> GetInputConnections()
+        {
+            return GetConnections(view.inputContainer);
+        }
+
+        public List<Edge> GetOutputConnections()
+        {
+            return GetConnections(view.outputContainer);
+        }
 
         public Port GetPort(string portName)
         {
@@ -68,6 +79,16 @@ namespace skybirdgames.eazygraph.Editor
                 }
             }
             return null;
+        }
+
+        private List<Edge> GetConnections(VisualElement container)
+        {
+            var connections = new List<Edge>();
+            foreach (var child in container.Children())
+            {
+                connections.AddRange(((Port)child).connections);
+            }
+            return connections;
         }
     }
 }

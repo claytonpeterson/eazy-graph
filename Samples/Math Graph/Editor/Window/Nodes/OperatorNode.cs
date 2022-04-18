@@ -27,8 +27,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         private Port inputA;
         private Port inputB;
 
-        int xy = 0;
-        
         public OperatorNode(Vector2 position, TestingOutData data) : base(position, data)
         {
             output = new OutputUpdater(this);
@@ -93,7 +91,12 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             var output = new List<Edge>();
             output.AddRange(inputA.connections);
             output.AddRange(inputB.connections);
-
+/*
+            foreach(var p in Ports.GetInputConnections())
+            {
+                output.Add(p);
+            }
+*/
             return output;
             /*return inputContainer.Q<Port>().connections.ToList();*/
         }
