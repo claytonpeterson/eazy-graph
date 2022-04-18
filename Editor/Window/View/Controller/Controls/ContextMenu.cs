@@ -1,26 +1,28 @@
-﻿using UnityEngine;
-using UnityEngine.UIElements;
+﻿using UnityEngine.UIElements;
 
-public class ContextMenu
+namespace skybirdgames.eazygraph.Editor
 {
-    private readonly View graphView;
-    private readonly NodeCreator nodeCreator;
-
-    public ContextMenu(View graphView, NodeCreator nodeCreator)
+    public class ContextMenu
     {
-        this.graphView = graphView;
-        this.nodeCreator = nodeCreator;
-    }
+        private readonly View graphView;
+        private readonly NodeCreator nodeCreator;
 
-    public ContextualMenuManipulator CreateContextualMenu(string contextualMenuText)
-    {
-        return null;
-        /*return new ContextualMenuManipulator(menuEvent =>
-            menuEvent.menu.AppendAction(contextualMenuText, actionEvent =>
-                graphView.AddElement(
-                    nodeCreator.CreateNode(
-                        null,
-                        actionEvent.eventInfo.mousePosition)),
-                        DropdownMenuAction.AlwaysEnabled));*/
+        public ContextMenu(View graphView, NodeCreator nodeCreator)
+        {
+            this.graphView = graphView;
+            this.nodeCreator = nodeCreator;
+        }
+
+        public ContextualMenuManipulator CreateContextualMenu(string contextualMenuText)
+        {
+            return null;
+            /*return new ContextualMenuManipulator(menuEvent =>
+                menuEvent.menu.AppendAction(contextualMenuText, actionEvent =>
+                    graphView.AddElement(
+                        nodeCreator.CreateNode(
+                            null,
+                            actionEvent.eventInfo.mousePosition)),
+                            DropdownMenuAction.AlwaysEnabled));*/
+        }
     }
 }

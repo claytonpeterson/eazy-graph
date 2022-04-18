@@ -3,9 +3,11 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+using skybirdgames.eazygraph.Editor;
+
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public class PortalNode : NodeView, IContainsValue
+    public class PortalNode : DynamicOutputNode, IContainsValue
     {
         // For running the graph
         private readonly IGraphRunner graphRunner;
@@ -74,8 +76,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         protected override void SetupPorts()
         {
-            outputContainer.Add(
-                child: CreatePort(Direction.Output, Port.Capacity.Single, "Output"));
+            Ports.AddOutputPort("port 1", Port.Capacity.Single);
         }
 
         public override void Update()

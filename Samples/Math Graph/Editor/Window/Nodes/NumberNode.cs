@@ -3,9 +3,11 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+using skybirdgames.eazygraph.Editor;
+
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public class NumberNode : NodeView, IContainsValue
+    public class NumberNode : DynamicOutputNode, IContainsValue
     {
         private FloatField numberField;
 
@@ -48,9 +50,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         protected override void SetupPorts()
         {
-            var port = CreatePort(Direction.Output, Port.Capacity.Single, "Output");
-            port.AddManipulator(new EdgeConnector<Edge>(new NodeUpdateManipulator(this)));
-            outputContainer.Add(port);
+            Ports.AddOutputPort("output", Port.Capacity.Single);
         }
 
         public override void Update()

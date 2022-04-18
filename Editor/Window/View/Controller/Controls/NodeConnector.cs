@@ -1,59 +1,107 @@
-﻿using UnityEditor.Experimental.GraphView;
+﻿using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
+using System.Linq;
+using UnityEngine;
 
-public class NodeConnector
+namespace skybirdgames.eazygraph.Editor
 {
-    private View graphView;
-
-    public NodeConnector(View graphView)
+    public class NodeConnector
     {
-        this.graphView = graphView;
-    }
+        private View graphView;
 
-    public void ConnectNodes(GraphData graph)
-    {
-        for (int i = 0; i < graph.Nodes.Count; i++)
+        public NodeConnector(View graphView)
         {
-            // Look at each connection
-            var connections = graph.Connections;
+            this.graphView = graphView;
+        }
 
-            for (int y = 0; y < connections.Count; y++)
+        public void ConnectNodes(GraphData graph)
+        {
+            foreach (NodeData node in graph.Nodes)
             {
-                var connection = connections[y];
-
-                if (graph.Nodes[i].GUID == connection.nodeAGUID)
-                {
-                    var startNode = GetGraphNodeByGUID(connections[y].nodeAGUID);
-                    var endNode = GetGraphNodeByGUID(connections[y].nodeBGUID);
-
-                    var startPort = startNode.GetPort(connections[y].nodeAPortName);
-                    var endPort = endNode.GetPort(connections[y].nodeBPortName);
-
-                    LinkNodes(startPort, endPort);
-                }
+                CreateEdges(GetConnections(node, graph.Connections));
             }
         }
-    }
 
-    private void LinkNodes(Port output, Port input)
-    {
-        var tEdge = new Edge
+        private void CreateEdges(List<ConnectionData> connections)
         {
-            input = input,
-            output = output
-        };
+            foreach (var connection in connections)
+            {
 
-        tEdge?.input.Connect(tEdge);
-        tEdge?.output.Connect(tEdge);
-        graphView.Add(tEdge);
-    }
+                if (GetGraphNodeByGUID(connection.nodeAGUID) != null &&
+                    GetGraphNodeByGUID(connection.nodeAGUID).GetOutputPort(connection.nodeAPortName) == null)
+                    GetGraphNodeByGUID(connection.nodeAGUID).Ports.AddOutputPort(connection.nodeAPortName, Port.Capacity.Single);
 
-    private NodeView GetGraphNodeByGUID(string guid)
-    {
-        for (int i = 0; i < graphView.Nodes.Count; i++)
-        {
-            if (graphView.Nodes[i].guid == guid)
-                return graphView.Nodes[i];
+                if (GetGraphNodeByGUID(connection.nodeBGUID) != null &&
+                    GetGraphNodeByGUID(connection.nodeBGUID).GetInputPort(connection.nodeBPortName) == null)
+                    GetGraphNodeByGUID(connection.nodeBGUID).Ports.AddInputPort(connection.nodeBPortName, Port.Capacity.Single);
+
+
+                /*
+                                if (!DoesPortExist(connection.nodeAGUID, connection.nodeAPortName))
+                                {
+                                    GetGraphNodeByGUID(connection.nodeAGUID).Ports.AddOutputPort(connection.nodeAPortName, Port.Capacity.Single);
+                                }
+
+                                if (!DoesPortExist(connection.nodeBGUID, connection.nodeBPortName))
+                                {
+                                    GetGraphNodeByGUID(connection.nodeBGUID).Ports.AddInputPort(connection.nodeBPortName, Port.Capacity.Single);
+                                }
+                */
+                CreateEdge(
+                    GetOutputPort(connection.nodeAGUID, connection.nodeAPortName),
+                    GetInputPort(connection.nodeBGUID, connection.nodeBPortName));
+            }
         }
-        return null;
+
+        private bool DoesPortExist(string nodeGUID, string portName)
+        {
+            return
+                GetGraphNodeByGUID(nodeGUID) != null && 
+                GetGraphNodeByGUID(nodeGUID).GetInputPort(portName) != null ||
+                GetGraphNodeByGUID(nodeGUID).GetOutputPort(portName) != null;
+        }
+
+        private bool IsConnected(NodeData node, ConnectionData connection)
+        {
+            return node.GUID == connection.nodeAGUID;
+        }
+
+        private List<ConnectionData> GetConnections(NodeData node, List<ConnectionData> allConnections)
+        {
+            return allConnections.Where(x => IsConnected(node, x)).ToList();
+        }
+
+        private void CreateEdge(Port output, Port input)
+        {
+            var tEdge = new Edge
+            {
+                input = input,
+                output = output
+            };
+
+            tEdge?.input.Connect(tEdge);
+            tEdge?.output.Connect(tEdge);
+            graphView.Add(tEdge);
+        }
+
+        private Port GetInputPort(string nodeGUID, string portName)
+        {
+            return GetGraphNodeByGUID(nodeGUID).GetInputPort(portName);
+        }
+
+        private Port GetOutputPort(string nodeGUID, string portName)
+        {
+            return GetGraphNodeByGUID(nodeGUID).GetOutputPort(portName);
+        }
+
+        private NodeView GetGraphNodeByGUID(string guid)
+        {
+            foreach (NodeView node in graphView.Nodes)
+            {
+                if (node.guid == guid)
+                    return node;
+            }
+            return null;
+        }
     }
 }

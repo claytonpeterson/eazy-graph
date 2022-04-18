@@ -2,74 +2,59 @@
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-[System.Serializable]
-public abstract class NodeView : Node, IUpdate
+namespace skybirdgames.eazygraph.Editor
 {
-    public string guid;
-
-    public Vector2 Position;
-
-    public NodeView(Vector2 position, TestingOutData data)
+    [Serializable]
+    public abstract class NodeView : Node, IUpdate
     {
-        Position = new Vector2(position.x, position.y);
+        public string guid;
 
-        userData = data;
-        
-        guid = Guid.NewGuid().ToString();
+        public Vector2 Position;
 
-        SetPosition(new Rect(position.x, position.y, 100, 100));
-        SetupPorts();
+        private readonly DynamicPorts ports;
 
-        Refresh();
-    }
+        public DynamicPorts Ports => ports;
 
-    protected abstract void SetupPorts();
-
-    public TestingOutData Data()
-    {
-        return (TestingOutData)userData;
-    }
-
-    public Port CreatePort(Direction portDirection, Port.Capacity capacity = Port.Capacity.Single, string portName = "")
-    {
-        var newPort = InstantiatePort(
-            Orientation.Horizontal, 
-            portDirection, 
-            capacity, 
-            typeof(float));
-
-        newPort.portName = portName;
-        return newPort;
-    }
-
-    public virtual void Refresh()
-    {
-        RefreshExpandedState();
-        RefreshPorts();
-    }
-
-    public Port GetPort(string portName)
-    {
-        foreach (var child in inputContainer.Children())
+        public NodeView(Vector2 position, TestingOutData data)
         {
-            var port = (Port)child;
-            if (port == null)
-                continue;
+            Position = new Vector2(position.x, position.y);
 
-            if (port.portName == portName)
-                return port;
+            userData = data;
+
+            guid = Guid.NewGuid().ToString();
+
+            SetPosition(new Rect(position.x, position.y, 100, 100));
+
+            // Create and set up ports using the new structure 
+            ports = new DynamicPorts(this);
+            SetupPorts();
+
+            Refresh();
         }
-        foreach (var child in outputContainer.Children())
+
+        protected abstract void SetupPorts();
+
+        public TestingOutData Data()
         {
-            var port = (Port)child;
-            if (port == null)
-                continue;
-
-            if (port.portName == portName)
-                return port;
+            return (TestingOutData)userData;
         }
-        return null;
-    }
 
-    public abstract void Update();
+        public virtual void Refresh()
+        {
+            RefreshExpandedState();
+            RefreshPorts();
+        }
+
+        public Port GetInputPort(string portName)
+        {
+            return Ports.GetInputPort(portName);
+        }
+
+        public Port GetOutputPort(string portName)
+        {
+            return Ports.GetOutputPort(portName);
+        }
+
+        public abstract void Update();
+    }
 }

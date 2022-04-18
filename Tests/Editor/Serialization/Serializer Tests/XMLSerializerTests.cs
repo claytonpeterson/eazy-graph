@@ -1,7 +1,7 @@
 ﻿
 namespace EazyGraph.Editor.Tests.Serialization
 {
-    public class XMLSerializerTests : SerializerTestSuite
+    /*public class XMLSerializerTests : SerializerTestSuite
     {
         private const string fileExtension = ".xml";
 
@@ -13,5 +13,5 @@ namespace EazyGraph.Editor.Tests.Serialization
                 parentFolder,
                 fileExtension);
         }
-    }
+    }*/
 }

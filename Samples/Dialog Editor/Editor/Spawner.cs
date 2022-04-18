@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
+using skybirdgames.eazygraph.Editor;
+
 namespace skybirdgames.eazygraph.dialog.Editor
 {
     public class Spawner : INodeSpawner

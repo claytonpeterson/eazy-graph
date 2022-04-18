@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
@@ -17,6 +16,17 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return 0;
         }
 
+        public int RunNode(OperatorNode node)
+        {
+            int total = 0;
+            for (int i = 0; i < node.Ports.GetInputConnections().Count; i++)
+            {
+                var input = (IContainsValue)node.Ports.GetInputConnections()[i].output.node;
+                total = FigureOutMathAndStuff(input.Value(), total, node.Data().name);
+            }
+            return total;
+        }
+
         private int ProcessNode(NodeData node, GraphData graph)
         {
             if (IsOperator(node))
@@ -26,19 +36,19 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             return 0;
         }
 
+        // this is the important one!!
         private int ProcessOperaterNode(NodeData node, GraphData graph)
         {
-            var inputs = GetInputs(node, graph);
-            if (inputs != null)
+            int total = 0;
+            foreach(NodeData inputNode in GetInputs(node, graph))
             {
-                int inputA = inputs[0].Data.age;
-                int inputB = inputs[1].Data.age;
-                return FigureOutMathAndStuff(
-                    inputA, 
-                    inputB, 
-                    GetOperation(node));
+                total = FigureOutMathAndStuff(
+                    input: inputNode.Data.age,
+                    total: total,
+                    op: GetOperation(node));
             }
-            return 0;
+
+            return total;
         }
 
         private bool IsOperator(NodeData node)
@@ -58,29 +68,32 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         private List<NodeData> GetInputs(NodeData node, GraphData graph)
         {
-            return 
-                graph.Inputs(node.GUID).Count == 2 ? 
-                graph.Inputs(node.GUID) : 
+            var inputs = graph.Inputs(node.GUID);
+            return
+                inputs.Count > 1 ?
+                inputs : 
                 null;
         }
 
-        private int FigureOutMathAndStuff(int inputA, int inputB, string op)
+        private int FigureOutMathAndStuff(int input, int total, string op)
         {
             if (op == "Add")
             {
-                return inputA + inputB;
+                return total + input;
             }
             else if (op == "Subtract")
             {
-                return inputA - inputB;
+                return total - input;
             }
             else if (op == "Multiply")
             {
-                return inputA * inputB;
+                if (total == 0)
+                    total = 1;
+                return total * input;
             }
             else if (op == "Divide")
             {
-                return inputA / inputB;
+                return total / input;
             }
             return 0;
         }

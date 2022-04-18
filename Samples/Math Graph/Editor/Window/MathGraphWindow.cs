@@ -1,16 +1,14 @@
 ﻿using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 using skybirdgames.eazygraph.Editor;
+using UnityEditor.UIElements;
 
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
     public class MathGraphWindow : EazyWindow
     {
-        private RunableSerializationToolbar<GraphData> serializationToolbar;
-
         [MenuItem("Eazy Graph/Samples/Math Graph")]
         public static void ShowWindow()
         {
@@ -22,25 +20,20 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             window.Show();
         }
 
-        protected override Toolbar[] CreateToolbars()
+        protected override Toolbar[] GetToolbars()
         {
-            // Create the serializer
-            var scriptableObjectSerializer =
-                new Serializer(
-                    saving: new ScriptableObjectGraphSaving(),
-                    loading: new ScriptableObjectLoading(),
-                    parentFolder: "Assets/Resources/",
-                    fileExtension: ".asset");
-
-            serializationToolbar = new RunableSerializationToolbar<GraphData>(
-                view, 
-                scriptableObjectSerializer, 
-                new MathRunner());
-
             return new Toolbar[]
             {
-                serializationToolbar,
-                new NodeCreatorToolbar(new NodeCreator(view, GetNodeSpawner()), GetType().Namespace)
+                new RunableSerializationToolbar<GraphData>(
+                    view: view,
+                    serializer: GetSerializer(),
+                    runner: new MathRunner()),
+
+                new NodeCreatorToolbar(
+                    nodeCreator: new NodeCreator(
+                        graphView: view,
+                        nodeSpawner: GetNodeSpawner()),
+                    domainNamespace: GetType().Namespace)
             };
         }
 

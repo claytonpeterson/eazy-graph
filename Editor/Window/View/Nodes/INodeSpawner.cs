@@ -1,7 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-public interface INodeSpawner
+namespace skybirdgames.eazygraph.Editor
 {
-    NodeView CreateNodeView(Type type, Vector2 position, TestingOutData data);
+    public interface INodeSpawner
+    {
+        NodeView CreateNodeView(Type type, Vector2 position, TestingOutData data);
+    }
 }

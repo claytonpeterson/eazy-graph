@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 
-public interface ISaveGraph
+namespace skybirdgames.eazygraph.Editor
 {
-    void Save(string path, List<NodeView> nodes, List<Edge> edges);
+    public interface ISaveGraph
+    {
+        void Save(string path, List<NodeView> nodes, List<Edge> edges);
+    }
 }

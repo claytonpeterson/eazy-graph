@@ -4,9 +4,11 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+using skybirdgames.eazygraph.Editor;
+
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public class OperatorNode : NodeView, IContainsValue
+    public class OperatorNode : DynamicInputOutputNode, IContainsValue
     {
         private PopupField<string> popupField;
 
@@ -21,13 +23,12 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
         private Label calculationField;
 
         private readonly OutputUpdater output;
+        private readonly MathRunner mathRunner;
 
-        private Port inputA;
-        private Port inputB;
-
-        public OperatorNode(Vector2 position, TestingOutData data) : base(position, data)
+        public OperatorNode(Vector2 position, TestingOutData data, MathRunner mathRunner) : base(position, data)
         {
             output = new OutputUpdater(this);
+            this.mathRunner = mathRunner;
 
             mainContainer.style.backgroundColor = Color.blue;
 
@@ -40,25 +41,17 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         public int Value()
         {
-            return Calculate();
+            if (!CanCalculate())
+                return 0;
+
+            return mathRunner.RunNode(this);
         }
 
         protected override void SetupPorts()
         {
-            inputA = CreatePort(Direction.Input, Port.Capacity.Multi, "Input A");
-            inputA.AddManipulator(new EdgeConnector<Edge>(new NodeUpdateManipulator(this)));
-
-            inputB = CreatePort(Direction.Input, Port.Capacity.Multi, "Input B");
-            inputB.AddManipulator(new EdgeConnector<Edge>(new NodeUpdateManipulator(this)));
-
-            inputContainer.Add(
-                child: inputA);
-
-            inputContainer.Add(
-                child: inputB);
-
-            outputContainer.Add(
-                child: CreatePort(Direction.Output, Port.Capacity.Single, "Output"));
+            Ports.AddInputPort("port 1", Port.Capacity.Single);
+            Ports.AddInputPort("port 2", Port.Capacity.Single);
+            Ports.AddOutputPort("port 1", Port.Capacity.Single);
         }
 
         private void AddPopupField()
@@ -71,7 +64,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             popupField.RegisterValueChangedCallback((evt) =>
             {
                 Data().name = evt.newValue;
-                Data().age = Calculate();
+                Data().age = Value();
                 UpdateCalculationField();
             });
 
@@ -80,74 +73,21 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
         private void AddCalculationField()
         {
-            calculationField = new Label(Calculate().ToString());
+            calculationField = new Label(Value().ToString());
             Add(calculationField);
-        }
-
-        List<Edge> InputConnections()
-        {
-            /*Debug.Log(string.Format(
-                "{0}, {1}",
-                inputA.connections.Count(),
-                inputB.connections.Count()));
-*/
-            var output = new List<Edge>();
-            output.AddRange(inputA.connections);
-            output.AddRange(inputB.connections);
-
-            return output;
-            /*return inputContainer.Q<Port>().connections.ToList();*/
         }
 
         private bool CanCalculate()
         {
-            return InputConnections().Count == 2;
-        }
-
-        private int Calculate()
-        {
-            if (!CanCalculate())
-                return 0;
-
-            var conn = InputConnections();
-            var a = (IContainsValue)conn[0].output.node;
-            var b = (IContainsValue)conn[1].output.node;
-
-            var value = FigureOutMathAndStuff(
-                inputA: a.Value(),
-                inputB: b.Value(), 
-                op: Data().name);
-
-            return value;
+            return Ports.GetInputConnections().Count > 1;
         }
 
         public void UpdateCalculationField()
         {
-            calculationField.text = Calculate().ToString();
+            calculationField.text = Value().ToString();
 
             // send the message forth
             output.UpdateOutputConnections();
-        }
-
-        private int FigureOutMathAndStuff(int inputA, int inputB, string op)
-        {
-            if (op == "Add")
-            {
-                return inputA + inputB;
-            }
-            else if (op == "Subtract")
-            {
-                return inputA - inputB;
-            }
-            else if (op == "Multiply")
-            {
-                return inputA * inputB;
-            }
-            else if (op == "Divide")
-            {
-                return inputA / inputB;
-            }
-            return 0;
         }
 
         public override void Update()
@@ -155,7 +95,7 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             UpdateCalculationField();
 
             Data().name = Data().name ?? popupFieldValues[0];
-            Data().age = Calculate();
+            Data().age = Value();
         }
     }
 }
