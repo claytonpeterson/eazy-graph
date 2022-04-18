@@ -1,22 +1,17 @@
 ﻿using UnityEditor.Experimental.GraphView;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 using skybirdgames.eazygraph.Editor;
 
 namespace skybirdgames.eazygraph.Samples.Math.Editor
 {
-    public class PortalNode : DynamicOutputNode, IContainsValue
+    public class PortalNode : ObjectNode
     {
         // For running the graph
         private readonly IGraphRunner graphRunner;
         private readonly ILoadGraph loading;
 
         private readonly OutputUpdater output;
-
-        protected Object obj;
-        private ObjectField objectField;
 
         public PortalNode(Vector2 position, TestingOutData data, IGraphRunner runner) : base(position, data)
         {
@@ -28,42 +23,11 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
             obj = Resources.Load<GraphData>(Data().name);
 
             mainContainer.style.backgroundColor = Color.red;
-            
-            Add(InputField());
 
             Refresh();
         }
 
-        private ObjectField InputField()
-        {
-            objectField = new ObjectField()
-            {
-                objectType = typeof(GraphData)
-            };
-
-            objectField.SetValueWithoutNotify(obj);
-            objectField.MarkDirtyRepaint();
-            objectField.RegisterValueChangedCallback(evt => 
-            {
-                obj = evt.newValue;
-
-                if(obj != null)
-                {
-                    Data().name = evt.newValue.name;
-                }
-                else
-                {
-                    Data().name = "";
-                    Data().age = 0;
-                }
-
-                Update();
-            });
-
-            return objectField;
-        }
-
-        public int Value()
+        public override int Value()
         {
             if (obj == null)
                 return 0;
