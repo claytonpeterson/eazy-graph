@@ -20,8 +20,6 @@ namespace skybirdgames.eazygraph.Samples.Math.Editor
 
             output = new OutputUpdater(this);
 
-            obj = Resources.Load<GraphData>(Data().name);
-
             mainContainer.style.backgroundColor = Color.red;
 
             Refresh();

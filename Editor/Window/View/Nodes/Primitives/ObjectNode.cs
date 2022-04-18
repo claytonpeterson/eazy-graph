@@ -4,24 +4,22 @@ using UnityEngine.UIElements;
 
 namespace skybirdgames.eazygraph.Editor
 {
-    public abstract class ObjectNode : DynamicOutputNode, IContainsValue
+    public abstract class ObjectNode: DynamicOutputNode, IContainsValue
     {
         protected Object obj;
 
         protected ObjectField objectField;
 
-        private readonly ILoadGraph loading;
-
         public ObjectNode(Vector2 position, TestingOutData data) : base(position, data)
         {
-            loading = new ScriptableObjectLoading();
+            obj = Resources.Load<GraphData>(Data().name);
 
             Add(InputField());
 
             Refresh();
         }
 
-        public override void Update()
+        /*public override void Update()
         {
             if (obj == null)
                 return;
@@ -29,11 +27,11 @@ namespace skybirdgames.eazygraph.Editor
             var gd = (GraphData)obj;
             var graph = loading.Load(gd);
 
-            objectField.label = Value().ToString();
+            objectField.label = graph.ToString();
             Data().age = Value();
 
             //output.UpdateOutputConnections();
-        }
+        }*/
 
         public abstract int Value();
 
