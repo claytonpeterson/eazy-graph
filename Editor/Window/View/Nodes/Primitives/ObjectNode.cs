@@ -19,21 +19,9 @@ namespace skybirdgames.eazygraph.Editor
             Refresh();
         }
 
-        /*public override void Update()
-        {
-            if (obj == null)
-                return;
-
-            var gd = (GraphData)obj;
-            var graph = loading.Load(gd);
-
-            objectField.label = graph.ToString();
-            Data().age = Value();
-
-            //output.UpdateOutputConnections();
-        }*/
-
         public abstract int Value();
+
+        protected bool HasObject() => obj != null;
 
         private ObjectField InputField()
         {
