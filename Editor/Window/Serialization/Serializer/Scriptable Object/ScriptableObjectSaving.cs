@@ -14,7 +14,7 @@ namespace skybirdgames.eazygraph.Editor
             public string portName;
         }
 
-        public void Save(string path, List<NodeView> nodes, List<Edge> edges)
+        public virtual void Save(string path, List<NodeView> nodes, List<Edge> edges)
         {
             var graphData = GetGraphData(path);
 
