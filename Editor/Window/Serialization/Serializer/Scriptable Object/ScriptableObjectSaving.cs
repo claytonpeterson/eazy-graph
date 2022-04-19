@@ -36,7 +36,7 @@ namespace skybirdgames.eazygraph.Editor
             return Resources.Load<GraphData>(path) != null;
         }
 
-        private GraphData GetGraphData(string path)
+        protected GraphData GetGraphData(string path)
         {
             if (ContainsGraphData(path))
             {
