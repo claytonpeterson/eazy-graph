@@ -10,7 +10,7 @@ namespace skybirdgames.eazygraph.Editor
 {
     public class XMLSaving : ISaveGraph
     {
-        public void Save(string path, List<NodeView> graphNodes, List<Edge> graphEdges)
+        public GraphData Save(string path, List<NodeView> graphNodes, List<Edge> graphEdges)
         {
             // Create document
             var document = new XmlDocument();
@@ -26,6 +26,8 @@ namespace skybirdgames.eazygraph.Editor
             document.Save(path);
 
             AssetDatabase.Refresh();
+
+            return null;
         }
 
         private XmlNode SaveNodes(XmlDocument document, List<NodeView> nodes)
