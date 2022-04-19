@@ -43,9 +43,14 @@ namespace skybirdgames.eazygraph.Editor
         {
             return new Button(clickEvent: () =>
             {
-                nodeCreator.CreateNode(nodeType, new Vector2(0, 0), new TestingOutData());
+                nodeCreator.CreateNode(nodeType, new Vector2(0, 0), GetEmptyData());
             })
             { text = "Add " + nodeType.Name };
+        }
+
+        protected virtual TestingOutData GetEmptyData()
+        {
+            return new TestingOutData();
         }
 
         private List<Type> GetLocalTypes(string domainNamespace)
