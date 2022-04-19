@@ -5,6 +5,6 @@ namespace skybirdgames.eazygraph.Editor
 {
     public interface ISaveGraph
     {
-        void Save(string path, List<NodeView> nodes, List<Edge> edges);
+        GraphData Save(string path, List<NodeView> nodes, List<Edge> edges);
     }
 }

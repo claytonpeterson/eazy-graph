@@ -14,7 +14,7 @@ namespace skybirdgames.eazygraph.Editor
             public string portName;
         }
 
-        public virtual void Save(string path, List<NodeView> nodes, List<Edge> edges)
+        public virtual GraphData Save(string path, List<NodeView> nodes, List<Edge> edges)
         {
             var graphData = GetGraphData(path);
 
@@ -29,6 +29,8 @@ namespace skybirdgames.eazygraph.Editor
             AddConnectionsToGraph(
                 graphData: graphData,
                 connectedPorts: edges.Where(x => x.input.node != null).ToArray());
+
+            return graphData;
         }
 
         private bool ContainsGraphData(string path)
