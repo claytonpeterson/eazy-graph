@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScriptableObjectLoading : ILoadGraph
 {
-    public GraphData Load(string path)
+    public virtual GraphData Load(string path)
     {
         var graphData = AssetDatabase.LoadAssetAtPath<GraphData>(path);
         var graph = ScriptableObject.CreateInstance<GraphData>();
