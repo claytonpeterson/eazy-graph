@@ -1,6 +1,9 @@
 {
     "name": "com.skybirdgames.eazygraph",
-    "references": [],
+    "rootNamespace": "",
+    "references": [
+        "GUID:41fcbcf8033fb1f44b33a99ae63ab83f"
+    ],
     "includePlatforms": [
         "Editor"
     ],
