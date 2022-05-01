@@ -1,7 +1,9 @@
 {
     "name": "com.skybirdgames.eazygraph.dialog.Editor",
+    "rootNamespace": "",
     "references": [
-        "GUID:e02d55cfd0a97cd419c0a720a621d742"
+        "GUID:e02d55cfd0a97cd419c0a720a621d742",
+        "GUID:41fcbcf8033fb1f44b33a99ae63ab83f"
     ],
     "includePlatforms": [
         "Editor"
